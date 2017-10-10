@@ -2,7 +2,7 @@
 aws-lambda-api-gateway-request-repsonse-helper
 
 # Similar Projects
-https://github.com/doomhz/node-lambda-req
-https://github.com/balmbees/corgi
-https://github.com/silvermine/serverless-utils
-https://github.com/silvermine/apigateway-utils
+[node-lambda-req](https://github.com/doomhz/node-lambda-req)
+[corgi](https://github.com/balmbees/corgi)
+[serverless-utils](https://github.com/silvermine/serverless-utils)
+[apigateway-utils](https://github.com/silvermine/apigateway-utils)
