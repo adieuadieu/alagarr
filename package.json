@@ -1,6 +1,6 @@
 {
   "name": "alagarr",
-  "version": "1.0.0-0",
+  "version": "1.0.0-1",
   "description": "Alagarr is an AWS Lambda/API Gateway Request-Response helper utility.",
   "author": "Marco Lüthy",
   "license": "MIT",
@@ -14,7 +14,10 @@
   },
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.es.js",
-  "files": ["dist/bundle.cjs.js", "dist/bundle.es.js"],
+  "files": [
+    "dist/bundle.cjs.js",
+    "dist/bundle.es.js"
+  ],
   "scripts": {
     "clean": "rm -Rf dist",
     "test": "jest",
@@ -23,8 +26,7 @@
     "lint:eslint": "eslint --cache --ext .js .",
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "_prepublishOnly":
-      "echo 'convert to typescript' && exit 1 && npm run lint && npm test && npm run clean && npm run build",
+    "_prepublishOnly": "echo 'convert to typescript' && exit 1 && npm run lint && npm test && npm run clean && npm run build",
     "precommit": "lint-staged",
     "prettier": "prettier --write",
     "prettier:eslint": "prettier-eslint --write",
@@ -69,16 +71,26 @@
           "targets": {
             "node": "6.10"
           },
-          "include": ["es7.object.values", "es7.object.entries"]
+          "include": [
+            "es7.object.values",
+            "es7.object.entries"
+          ]
         }
       ]
     ],
-    "plugins": ["transform-object-rest-spread", "transform-object-entries"]
+    "plugins": [
+      "transform-object-rest-spread",
+      "transform-object-entries"
+    ]
   },
   "eslintConfig": {
     "parser": "babel-eslint",
-    "plugins": ["import"],
-    "extends": ["airbnb-base"],
+    "plugins": [
+      "import"
+    ],
+    "extends": [
+      "airbnb-base"
+    ],
     "globals": {
       "describe": true,
       "expect": true,
@@ -87,17 +99,33 @@
     "settings": {
       "import/parser": "babel-eslint",
       "import/resolve": {
-        "moduleDirectory": ["node_modules", "src", "./"]
+        "moduleDirectory": [
+          "node_modules",
+          "src",
+          "./"
+        ]
       }
     },
     "rules": {
       "no-console": 0,
-      "semi": ["error", "never"],
-      "comma-dangle": ["error", "always-multiline"],
-      "space-before-function-paren": ["error", "always"]
+      "semi": [
+        "error",
+        "never"
+      ],
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "space-before-function-paren": [
+        "error",
+        "always"
+      ]
     }
   },
-  "eslintIgnore": ["node_modules", "coverage"],
+  "eslintIgnore": [
+    "node_modules",
+    "coverage"
+  ],
   "prettier": {
     "eslintIntegration": true,
     "jsonEnable": true,
@@ -107,8 +135,15 @@
     "useTabs": false
   },
   "lint-staged": {
-    "*.{js,jsx}": ["yarn prettier:eslint", "yarn lint", "git add"],
-    "*.{json}": ["yarn prettier", "git add"]
+    "*.{js,jsx}": [
+      "yarn prettier:eslint",
+      "yarn lint",
+      "git add"
+    ],
+    "*.{json}": [
+      "yarn prettier",
+      "git add"
+    ]
   },
   "jest": {
     "bail": true,
