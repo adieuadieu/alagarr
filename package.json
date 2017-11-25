@@ -20,6 +20,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "test": "jest",
+    "test:integration": "scripts/integration-test.sh",
     "watch:test": "jest --watch",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "build": "npm run clean && tsc -d",
@@ -62,7 +63,7 @@
     "useTabs": false
   },
   "lint-staged": {
-    "*.{js,jsx}": ["yarn prettier:eslint", "yarn lint", "git add"],
+    "*.{ts,tsx}": ["yarn prettier", "yarn lint", "git add"],
     "*.{json}": ["yarn prettier", "git add"]
   },
   "jest": {

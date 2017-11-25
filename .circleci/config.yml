@@ -1,0 +1,74 @@
+version: 2
+
+#
+# Jobs
+#
+
+jobs:
+
+  # This job builds the base project directory (e.g. ~/package.json)
+  build:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+  # This job runs the lint tool on the whole repository
+  lint:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}              
+      - run: npm run lint
+
+  unit-test:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run: npm run test
+
+  # This job runs the @serverless-chrome/lambda package's integration tests
+  integration-test:
+    # use a machine because we run the integration tests with Docker (lambci/lambda)
+    machine: true
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}     
+      - run:
+          name: Integration test
+          command: npm run test:integration
+
+
+#
+# Workflows
+#
+
+workflows:
+  version: 2
+
+  build_lint_test:
+    jobs:
+      - build     
+
+      - lint:     
+          requires:
+            - build
+      - unit-test:     
+          requires:
+            - build
+      - integration-test:     
+          requires:
+            - build                        

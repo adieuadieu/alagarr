@@ -5,18 +5,6 @@ helper utility. It abstracts the Lambda-handler event-context-callback function
 signature so that you can spend less time writing boring Lambda/API
 Gateway-related boilerplate.
 
-@TODO
-
-* API documentation
-* TS conversion
-* pass config which enables logging, don't use process.env.
-* error catching/handling
-* integration test
-* circleci
-* refactor logger
-* better turn-this-into-this example (e.g. gzip)
-* tsconfig: declaration: true, lib: []
-
 Turns this:
 
 ```js
