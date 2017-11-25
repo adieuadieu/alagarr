@@ -1,17 +1,35 @@
-import parseRequest from './apiGatewayRequest'
-import makeResponse from './apiGatewayResponse'
+import parseRequest from './request'
+import makeResponse from './response'
+import {
+  Alagarr,
+  AlagarrHandler,
+  InterfaceAlagarrOptions,
+  InterfaceRequest,
+  InterfaceResponse,
+} from './types'
+import { ClientError, ServerError } from './utils/errors'
+
+const noopHandler = (request, response) =>
+  response.json({
+    error: 'Misconfiguration in Alagarr setup. Failed to provide a handler function.',
+  })
 
 const defaultOptions = {
+  cspPolicies: [],
   requestMiddleware: [],
   responseMiddleware: [],
-  cspPolicies: [],
 }
 
-export default function alagarr (handler = () => undefined, options = defaultOptions) {
-  return async function alagar (event, context, callback) {
-    const request = parseRequest(event, context)
-    const response = makeResponse(request, callback)
+export { InterfaceRequest, InterfaceResponse, ClientError, ServerError }
 
-    handler(request, response)
+export default function alagarr(
+  handler: AlagarrHandler = noopHandler,
+  options: InterfaceAlagarrOptions = defaultOptions
+): Alagarr {
+  return async function handlerWrapper(event, context, callback): void {
+    const request = parseRequest(event, context, options)
+    const response = makeResponse(request, callback, options)
+
+    return handler(request, response)
   }
 }

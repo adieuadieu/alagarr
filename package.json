@@ -1,8 +1,7 @@
 {
   "name": "alagarr",
   "version": "1.0.0-1",
-  "description":
-    "Alagarr is an AWS Lambda/API Gateway Request-Response helper utility.",
+  "description": "Alagarr is an AWS Lambda/API Gateway Request-Response helper utility.",
   "author": "Marco Lüthy",
   "license": "MIT",
   "repository": "git@github.com:adieuadieu/alagarr.git",
@@ -19,14 +18,14 @@
   "files": ["dist"],
   "scripts": {
     "clean": "rimraf dist",
+    "pretest": "npm run clean",
     "test": "jest",
     "test:integration": "scripts/integration-test.sh",
     "watch:test": "jest --watch",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "build": "npm run clean && tsc -d",
     "dev": "tsc -w",
-    "prepublishOnly":
-      "npm run lint && npm test && npm run security-check && npm run build",
+    "prepublishOnly": "npm run lint && npm test && npm run security-check && npm run build",
     "precommit": "lint-staged",
     "prettier": "prettier --write",
     "security-check": "nsp",
@@ -57,6 +56,7 @@
   },
   "prettier": {
     "eslintIntegration": true,
+    "printWidth": 100,
     "semi": false,
     "singleQuote": true,
     "trailingComma": "es5",

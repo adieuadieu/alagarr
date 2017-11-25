@@ -1,16 +1,19 @@
-// Parses JSON request body, if there is one
-export const parseJsonBody = (request) => {
-  const { headers } = request
-  let { body } = request
+import { InterfaceRequest } from '../types'
+// import { ClientError } from '../utils/errors'
 
-  if (headers['content-type'] === 'application/json' && typeof body === 'string' && body.length) {
+// Parses JSON request body, if there is one
+export default function parseJsonBody(request: InterfaceRequest): InterfaceRequest {
+  const { headers, body } = request
+
+  if (headers['content-type'] === 'application/json' && typeof body === 'string') {
     try {
-      body = JSON.parse(body)
+      const json = JSON.parse(body)
+      return { ...request, body: json }
     } catch (error) {
-      console.warn('Unable to parse request json-body.', body)
-      body = {}
+      // throw ClientError('Invalid JSON payload in request-body.')
+      return { ...request, body: {} }
     }
   }
 
-  return { ...request, body }
+  return request
 }

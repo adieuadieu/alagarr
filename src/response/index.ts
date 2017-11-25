@@ -9,14 +9,14 @@ export const makeResponseObject = (
   body = '',
   statusCode = 200,
   { headers = {}, ...options } = {},
-  contentType
+  contentType?
 ) => ({
-  statusCode,
   body,
   headers: {
     'content-type': contentType,
     ...headers,
   },
+  statusCode,
   ...options,
 })
 
@@ -36,7 +36,7 @@ const redirect = (location, statusCode = 302) =>
     },
   })
 
-export default (request, callback) =>
+export default (request, callback, options = {}) =>
   [text, html, json, redirect].reduce(
     (methods, method) => ({
       ...methods,

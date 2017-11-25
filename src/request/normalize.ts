@@ -1,11 +1,18 @@
+import { InterfaceRequest } from '../types'
+
 // Lowercases all header names
-export const normalizeHeaders = ({ headers = {}, ...request }) => ({
+export default function normalizeHeaders({
+  headers = {},
   ...request,
-  headers: Object.keys(headers).reduce(
-    (normalizedHeaders, key) => ({
-      ...normalizedHeaders,
-      [key.toLowerCase()]: headers[key],
-    }),
-    {}
-  ),
-})
+}: InterfaceRequest): InterfaceRequest {
+  return {
+    ...request,
+    headers: Object.keys(headers).reduce(
+      (normalizedHeaders, key) => ({
+        ...normalizedHeaders,
+        [key.toLowerCase()]: headers[key],
+      }),
+      {}
+    ),
+  }
+}

@@ -1,16 +1,23 @@
 {
   "compilerOptions": {
-    "module": "ES6",
-    "rootDir": ".",
-    "outDir": "dist",
-    "target": "ES6",
+    "allowJs": false,
     "declaration": true,
-    "lib": [],
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
-    "pretty": true
+    "lib": ["es6", "es2015", "esnext"],
+    "module": "ES6",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "outDir": "dist",
+    "pretty": true,
+    "removeComments": true,
+    "rootDir": ".",
+    "skipLibCheck": false,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "ES6"
   },
   "exclude": ["node_modules", "dist"]
 }

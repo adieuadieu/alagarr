@@ -1,17 +1,18 @@
+import { InterfaceRequest } from '../types'
 import applyMiddleware from '../utils/applyMiddleware'
-import timestamp from './timestamp'
-import normalize from './normalize'
-import decodeBase64 from './decode-base64'
 import cookies from './cookies'
-import json from './json'
+import decode from './decode'
 import hostname from './hostname'
+import json from './json'
+import normalize from './normalize'
+import timestamp from './timestamp'
 
 /*
 parse a Lambda APIG event into a request object by
 running the request event through list of middleware
 */
-export default (event, context) =>
-  applyMiddleware([timestamp, normalize, decodeBase64, cookies, json, hostname], {
+export default (event, context, options = {}): InterfaceRequest =>
+  applyMiddleware([timestamp, normalize, decode, cookies, json, hostname], {
     ...event,
     context,
   })

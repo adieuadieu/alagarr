@@ -1,5 +1,9 @@
+import { InterfaceRequest } from '../types'
+
 // Adds a timestamp for use in calculating ellapsed duration
-export const addTimestamp = request => ({
-  ...request,
-  timestamp: Date.now(),
-})
+export default function addTimestamp(request: InterfaceRequest): InterfaceRequest {
+  return {
+    ...request,
+    timestamp: Date.now(),
+  }
+}
