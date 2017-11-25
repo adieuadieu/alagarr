@@ -1,7 +1,8 @@
 {
   "name": "alagarr",
   "version": "1.0.0-1",
-  "description": "Alagarr is an AWS Lambda/API Gateway Request-Response helper utility.",
+  "description":
+    "Alagarr is an AWS Lambda/API Gateway Request-Response helper utility.",
   "author": "Marco Lüthy",
   "license": "MIT",
   "repository": "git@github.com:adieuadieu/alagarr.git",
@@ -12,42 +13,33 @@
   "engines": {
     "node": ">= 6.10"
   },
-  "main": "dist/bundle.cjs.js",
-  "module": "dist/bundle.es.js",
-  "files": [
-    "dist/bundle.cjs.js",
-    "dist/bundle.es.js"
-  ],
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "files": ["dist"],
   "scripts": {
-    "clean": "rm -Rf dist",
+    "clean": "rimraf dist",
     "test": "jest",
     "watch:test": "jest --watch",
-    "lint": "npm run lint:eslint -s",
-    "lint:eslint": "eslint --cache --ext .js .",
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "_prepublishOnly": "echo 'convert to typescript' && exit 1 && npm run lint && npm test && npm run clean && npm run build",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "build": "npm run clean && tsc -d",
+    "dev": "tsc -w",
+    "prepublishOnly":
+      "npm run lint && npm test && npm run security-check && npm run build",
     "precommit": "lint-staged",
     "prettier": "prettier --write",
-    "prettier:eslint": "prettier-eslint --write",
     "security-check": "nsp",
     "upgrade-dependencies": "yarn upgrade-interactive --latest --exact"
   },
   "dependencies": {
-    "accepts": "^1.3.4",
-    "compressible": "^2.0.12",
+    "accepts": "1.3.4",
+    "compressible": "2.0.12",
     "cookie": "0.3.1",
     "source-map-support": "0.5.0"
   },
   "devDependencies": {
-    "babel-core": "6.26.0",
-    "babel-eslint": "8.0.2",
-    "babel-plugin-transform-object-entries": "1.0.0",
-    "babel-plugin-transform-object-rest-spread": "6.26.0",
-    "babel-preset-env": "1.6.1",
-    "eslint": "4.11.0",
-    "eslint-config-airbnb-base": "12.1.0",
-    "eslint-plugin-import": "2.8.0",
+    "@types/aws-lambda": "0.0.21",
+    "@types/node": "8.0.53",
     "husky": "0.14.3",
     "jest": "21.2.1",
     "lint-staged": "5.0.0",
@@ -55,98 +47,31 @@
     "prettier": "1.8.2",
     "prettier-eslint": "8.2.2",
     "prettier-eslint-cli": "4.4.0",
-    "rollup": "^0.51.8",
-    "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-commonjs": "^8.2.6",
-    "rollup-plugin-json": "^2.3.0",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "rimraf": "2.6.2",
+    "ts-jest": "21.2.3",
+    "tslint": "5.8.0",
+    "tslint-config-prettier": "^1.6.0",
+    "tslint-immutable": "4.4.0",
+    "typescript": "2.6.1"
   },
-  "babel": {
-    "sourceMaps": true,
-    "presets": [
-      [
-        "env",
-        {
-          "modules": false,
-          "targets": {
-            "node": "6.10"
-          },
-          "include": [
-            "es7.object.values",
-            "es7.object.entries"
-          ]
-        }
-      ]
-    ],
-    "plugins": [
-      "transform-object-rest-spread",
-      "transform-object-entries"
-    ]
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "plugins": [
-      "import"
-    ],
-    "extends": [
-      "airbnb-base"
-    ],
-    "globals": {
-      "describe": true,
-      "expect": true,
-      "it": true
-    },
-    "settings": {
-      "import/parser": "babel-eslint",
-      "import/resolve": {
-        "moduleDirectory": [
-          "node_modules",
-          "src",
-          "./"
-        ]
-      }
-    },
-    "rules": {
-      "no-console": 0,
-      "semi": [
-        "error",
-        "never"
-      ],
-      "comma-dangle": [
-        "error",
-        "always-multiline"
-      ],
-      "space-before-function-paren": [
-        "error",
-        "always"
-      ]
-    }
-  },
-  "eslintIgnore": [
-    "node_modules",
-    "coverage"
-  ],
   "prettier": {
     "eslintIntegration": true,
-    "jsonEnable": true,
     "semi": false,
     "singleQuote": true,
     "trailingComma": "es5",
     "useTabs": false
   },
   "lint-staged": {
-    "*.{js,jsx}": [
-      "yarn prettier:eslint",
-      "yarn lint",
-      "git add"
-    ],
-    "*.{json}": [
-      "yarn prettier",
-      "git add"
-    ]
+    "*.{js,jsx}": ["yarn prettier:eslint", "yarn lint", "git add"],
+    "*.{json}": ["yarn prettier", "git add"]
   },
   "jest": {
     "bail": true,
-    "collectCoverage": true
+    "collectCoverage": true,
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"]
   }
 }

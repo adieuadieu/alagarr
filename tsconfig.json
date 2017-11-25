@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "ES6",
+    "rootDir": ".",
+    "outDir": "dist",
+    "target": "ES6",
+    "declaration": true,
+    "lib": [],
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "forceConsistentCasingInFileNames": true,
+    "pretty": true
+  },
+  "exclude": ["node_modules", "dist"]
+}

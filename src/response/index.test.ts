@@ -1,5 +1,5 @@
 import zlib from 'zlib'
-import makeResponse, { makeResponseObject } from './apiGatewayResponse'
+import makeResponse, { makeResponseObject } from './response'
 
 const testRequest = { headers: {} }
 const testTextBody = [...Array(1000).keys()].join('')
@@ -16,12 +16,14 @@ it('default statusCode is 200', () => {
 })
 
 it('can correctly set parameters', () => {
-  const {
-    body, statusCode, headers, ...options
-  } = makeResponseObject('foobar', 123, {
-    headers: { foofoo: 'barbar' },
-    foo: 'bar',
-  })
+  const { body, statusCode, headers, ...options } = makeResponseObject(
+    'foobar',
+    123,
+    {
+      headers: { foofoo: 'barbar' },
+      foo: 'bar',
+    }
+  )
 
   expect(body).toBe('foobar')
   expect(statusCode).toBe(123)
@@ -65,11 +67,14 @@ it('Content-Type is JSON', () => {
 it('Redirect status code correct with Location header', () => {
   const redirectLocation = 'test://foobar.com'
 
-  const response = makeResponse(testRequest, (error, { statusCode, headers }) => {
-    expect(error).toBeNull()
-    expect(statusCode).toBe(301)
-    expect(headers.location).toBe(redirectLocation)
-  })
+  const response = makeResponse(
+    testRequest,
+    (error, { statusCode, headers }) => {
+      expect(error).toBeNull()
+      expect(statusCode).toBe(301)
+      expect(headers.location).toBe(redirectLocation)
+    }
+  )
 
   response.redirect(redirectLocation, 301)
 })
@@ -127,7 +132,9 @@ it('Response body is gzipped when > 256 bytes', () => {
       },
     },
     (error, { body, headers, isBase64Encoded }) => {
-      const uncompressedBody = zlib.gunzipSync(Buffer.from(body, 'base64')).toString()
+      const uncompressedBody = zlib
+        .gunzipSync(Buffer.from(body, 'base64'))
+        .toString()
 
       expect(error).toBeNull()
       expect(isBase64Encoded).toBe(

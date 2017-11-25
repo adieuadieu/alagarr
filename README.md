@@ -5,7 +5,17 @@ helper utility. It abstracts the Lambda-handler event-context-callback function
 signature so that you can spend less time writing boring Lambda/API
 Gateway-related boilerplate.
 
-@TODO: add event/request json body parsing.
+@TODO
+
+* API documentation
+* TS conversion
+* pass config which enables logging, don't use process.env.
+* error catching/handling
+* integration test
+* circleci
+* refactor logger
+* better turn-this-into-this example (e.g. gzip)
+* tsconfig: declaration: true, lib: []
 
 Turns this:
 
@@ -27,7 +37,7 @@ Into this:
 import handler from 'alagarr'
 
 export default handler((request, response) => {
-  response.json({ foo: 'bar' })
+  response.json({ foo: 'bar' }) // automatically gzipped
 })
 ```
 
@@ -56,6 +66,10 @@ Features:
 * parse json request body
 * response csp headers
 * response gzipping
+* easily respond with images/binary data (some API Gateway setup required..)
+
+* @TODO: throwable errors like throw ClientError, ServerError which get caught
+  and pretty response.json()'d
 
 # API
 

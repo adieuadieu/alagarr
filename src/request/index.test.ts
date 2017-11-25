@@ -3,7 +3,7 @@ import parseRequest, {
   parseCookies,
   parseJsonBody,
   setHostname,
-} from './apiGatewayRequest'
+} from './request'
 
 const testEventFixture = {
   headers: {
@@ -14,7 +14,8 @@ const testEventFixture = {
     'Upgrade-Insecure-Requests': '1',
     'User-Agent':
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
-    Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+    Accept:
+      'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
     Dnt: '1',
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4,de;q=0.2',
@@ -36,7 +37,8 @@ const testEventFixture = {
       apiKey: 'offlineContext_apiKey',
       sourceIp: '172.18.0.8',
       cognitoAuthenticationType: 'offlineContext_cognitoAuthenticationType',
-      cognitoAuthenticationProvider: 'offlineContext_cognitoAuthenticationProvider',
+      cognitoAuthenticationProvider:
+        'offlineContext_cognitoAuthenticationProvider',
       userArn: 'offlineContext_userArn',
       userAgent:
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
@@ -68,7 +70,8 @@ it('cookies are parsed', () => {
   const testEvent = {
     foo: 'bar',
     headers: {
-      cookie: 'PHPSESSID=e61d68c319d12269c6af8cd939298857; REMEMBERME=yah; locale=de_DE',
+      cookie:
+        'PHPSESSID=e61d68c319d12269c6af8cd939298857; REMEMBERME=yah; locale=de_DE',
     },
   }
   const expected = {
@@ -144,9 +147,7 @@ it('correctly handle shitty JSON', () => {
 })
 
 it('request middleware is applied correctly', () => {
-  const {
-    headers, cookies, hostname, body,
-  } = parseRequest(testEventFixture)
+  const { headers, cookies, hostname, body } = parseRequest(testEventFixture)
 
   expect(headers['user-agent']).toBe(testEventFixture.headers['User-Agent'])
   expect(Object.keys(cookies).length).toBe(2)
