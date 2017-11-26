@@ -1,95 +1,64 @@
-import querystring from 'querystring'
-import { format, inspect } from 'util'
-// @TODO import { name, version } from '../package.json'
+import * as querystring from 'querystring'
+import { InterfaceRequest, InterfaceResponseData } from '../types'
 
-export default function loggerUtil (
-  {
-    headers: requestHeaders = {},
-    requestContext = { identity: {} },
-    context = { getRemainingTimeInMillis: () => undefined },
-    ...request
-  } = {},
-  response = { headers: {} }
-) {
-  return ['info', 'log', 'warn', 'error'].reduce(
-    (logger, level) => ({
-      ...logger,
-      [level]: (...args) => {
-        const logEntry = {
-          date_time: new Date().toISOString(),
-          // app_name: name,
-          // app_version: version,
-          log_level: level,
+export default function logger(
+  request: InterfaceRequest,
+  response: InterfaceResponseData
+): boolean {
+  const { headers: requestHeaders = {}, requestContext, context } = request
+  const error = response.statusCode >= 500 && response.statusCode < 600
 
-          // AWS stuff
-          aws_account_id: requestContext.accountId,
-          deployment_stage: requestContext.stage,
+  const logEntry = {
+    dateTime: new Date().toISOString(),
 
-          // Lambda stuff
-          request_time: Date.now() - request.timestamp,
+    // AWS stuff
+    awsAccountId: requestContext.accountId,
+    deploymentStage: requestContext.stage,
 
-          lambda: {
-            request_id: context.awsRequestId,
-            remaining_execution_time:
-              context.getRemainingTimeInMillis && context.getRemainingTimeInMillis(),
-            memory_limit: Number(context.memoryLimitInMB),
-            function_name: context.functionName,
-          },
+    // Lambda stuff
+    requestTime: request.timestamp ? Date.now() - request.timestamp : undefined,
 
-          // API Gateway stuff
-          apig: {
-            request_id: requestContext.requestId,
-            resource_path: requestContext.resourcePath,
-          },
+    lambda: {
+      functionName: context.functionName,
+      memoryLimit: Number(context.memoryLimitInMB),
+      remainingExecutionTime:
+        context.getRemainingTimeInMillis && context.getRemainingTimeInMillis(),
+      requestId: context.awsRequestId,
+    },
 
-          x_forwarded_host: requestHeaders['x-forwarded-host'],
+    // API Gateway stuff
+    apig: {
+      requestId: requestContext.requestId,
+      resourcePath: requestContext.resourcePath,
+    },
 
-          hostname: request.hostname,
-          source_ip: requestContext.identity.sourceIp,
-          http_protocol: requestHeaders.via && requestHeaders.via.split(' ')[0],
-          http_method: requestContext.httpMethod,
-          request_uri:
-            requestContext.path +
-            (request.queryStringParameters
-              ? `?${querystring.stringify(request.queryStringParameters)}`
-              : ''),
-          status_code: response.statusCode,
-          request_content_length: (request.body && request.body.length) || 0,
-          response_content_length: response.headers['content-length'],
-          http_referrer: requestHeaders.referer,
-          http_user_agent: requestHeaders['user-agent'],
+    xForwardedHost: requestHeaders['x-forwarded-host'],
 
-          // cloudfront
-          cf: {
-            desktop: requestHeaders['cloudfront-is-desktop-viewer'] === 'true',
-            mobile: requestHeaders['cloudfront-is-mobile-viewer'] === 'true',
-            smarttv: requestHeaders['cloudfront-is-smarttv-viewer'] === 'true',
-            tablet: requestHeaders['cloudfront-is-tablet-viewer'] === 'true',
-            country: requestHeaders['cloudfront-viewer-country'],
-          },
-        }
+    hostname: request.hostname,
+    httpMethod: requestContext.httpMethod,
+    httpProtocol: requestHeaders.via && requestHeaders.via.split(' ')[0],
+    httpReferrer: requestHeaders.referer,
+    httpUserAgent: requestHeaders['user-agent'],
 
-        let index = args.length
-        while (index--) {
-          const err = args[index]
-          if (err instanceof Error) {
-            logEntry.level = 'error'
-            logEntry.type = err.name
+    requestContentLength: (request.body && request.body.length) || 0,
+    requestUri:
+      request.path +
+      (request.queryStringParameters
+        ? `?${querystring.stringify(request.queryStringParameters)}`
+        : ''),
+    responseContentLength: response.headers['content-length'],
+    sourceIp: requestContext.identity.sourceIp,
+    statusCode: response.statusCode,
 
-            if (request && request.state) {
-              logEntry.state = inspect(request.state)
-            }
+    // cloudfront
+    cf: {
+      country: requestHeaders['cloudfront-viewer-country'],
+      desktop: requestHeaders['cloudfront-is-desktop-viewer'] === 'true',
+      mobile: requestHeaders['cloudfront-is-mobile-viewer'] === 'true',
+      smarttv: requestHeaders['cloudfront-is-smarttv-viewer'] === 'true',
+      tablet: requestHeaders['cloudfront-is-tablet-viewer'] === 'true',
+    },
+  }
 
-            break
-          }
-        }
-
-        logEntry.message = format(...args)
-
-        const output = process[['warn', 'error'].includes(level) ? 'stderr' : 'stdout']
-        output.write(`${JSON.stringify(logEntry)}\n`)
-      },
-    }),
-    {}
-  )
+  return (error ? process.stderr : process.stdout).write(JSON.stringify(logEntry))
 }

@@ -2,9 +2,17 @@
 # yarn lockfile v1
 
 
+"@types/accepts@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@types/accepts/-/accepts-1.3.3.tgz#6da8c6e3144566feec7ce2176828f1c47523f1ab"
+
 "@types/aws-lambda@0.0.21":
   version "0.0.21"
   resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-0.0.21.tgz#22cc1c92b144d39808c9cce10534d1c13bbcf4da"
+
+"@types/compressible@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/compressible/-/compressible-2.0.0.tgz#5a3f431179860a5d7f60c447fb9a69f846367ea6"
 
 "@types/node@8.0.53":
   version "8.0.53"

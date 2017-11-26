@@ -1,10 +1,16 @@
-import logger from './logger'
+import { InterfaceAlagarrOptions, InterfaceRequest, InterfaceResponseData } from '../types'
 
 // Logs request/response info for CloudWatch/Kibana
-export const logResponse = (response, request) => {
-  if (process.env.LOGGING) {
-    logger(request, response).info()
+export default function logResponse(
+  response: InterfaceResponseData,
+  request: InterfaceRequest,
+  options: InterfaceAlagarrOptions
+): InterfaceResponseData {
+  if (options.enableLogger) {
+    // We have no choice here but to disable the rule.
+    // tslint:disable-next-line:no-expression-statement
+    options.logger(request, response)
   }
 
-  return { ...response }
+  return response
 }

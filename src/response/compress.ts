@@ -1,26 +1,35 @@
-import zlib from 'zlib'
-import accepts from 'accepts'
+import * as accepts from 'accepts'
 import compressible from 'compressible'
+import * as zlib from 'zlib'
+import { InterfaceRequest, InterfaceResponseData } from '../types'
 
-// Gzip/deflate response body when appropriate
-export const compress = ({ body, headers, ...rest }, request) => {
-  const zlibOptions = {
-    level: 5,
-  }
-  const compressHeaders = {}
-  const compressBody = {}
+const ZLIB_DEFAULT_OPTIONS = {
+  level: 5,
+}
+
+function getEncoding(request: InterfaceRequest): string | boolean {
   const accept = accepts(request)
-  let encoding = accept.encoding(['gzip', 'deflate', 'identity'])
+  const encoding = accept.encoding(['gzip', 'deflate', 'identity'])
 
   // prefer gzip over deflate
   if (encoding === 'deflate' && accept.encoding(['gzip'])) {
-    encoding = accept.encoding(['gzip', 'identity'])
+    return accept.encoding(['gzip', 'identity'])
   }
+
+  return encoding
+}
+
+// Gzip/deflate response body when appropriate
+export default function compress(
+  response: InterfaceResponseData,
+  request: InterfaceRequest
+): InterfaceResponseData {
+  const { body, headers, ...rest } = response
+  const encoding = getEncoding(request)
 
   // Gzip compression is only required when running in lambda,
   // as in our development/CI setup, this is handled by nginx:
   const weShouldCompress =
-    !request.isOffline &&
     compressible(headers['content-type']) &&
     encoding &&
     encoding !== 'identity' &&
@@ -29,18 +38,21 @@ export const compress = ({ body, headers, ...rest }, request) => {
 
   if (weShouldCompress) {
     const compressed =
-      encoding === 'gzip' ? zlib.gzipSync(body, zlibOptions) : zlib.deflateSync(body, zlibOptions)
+      encoding === 'gzip'
+        ? zlib.gzipSync(body, ZLIB_DEFAULT_OPTIONS)
+        : zlib.deflateSync(body, ZLIB_DEFAULT_OPTIONS)
 
-    compressBody.body = compressed.toString('base64')
-    compressBody.isBase64Encoded = true
-    compressHeaders['content-encoding'] = encoding
-    compressHeaders['content-length'] = compressed.byteLength
+    return {
+      ...rest,
+      body: compressed.toString('base64'),
+      headers: {
+        ...headers,
+        'content-encoding': encoding,
+        'content-length': compressed.byteLength,
+      },
+      isBase64Encoded: true,
+    }
   }
 
-  return {
-    ...rest,
-    body,
-    headers: { ...headers, ...compressHeaders },
-    ...compressBody,
-  }
+  return response
 }

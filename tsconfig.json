@@ -3,7 +3,7 @@
     "allowJs": false,
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es6", "es2015", "esnext"],
+    "lib": ["esnext"],
     "module": "ES6",
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -17,7 +17,7 @@
     "skipLibCheck": false,
     "sourceMap": true,
     "strictNullChecks": true,
-    "target": "ES6"
+    "target": "es2015"
   },
   "exclude": ["node_modules", "dist"]
 }

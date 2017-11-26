@@ -1,9 +1,14 @@
 # Alagarr
 
-Alagarr is an **A**WS **L**ambda/**A**PI **Ga**teway **R**equest-**R**esponse
-helper utility. It abstracts the Lambda-handler event-context-callback function
-signature so that you can spend less time writing boring Lambda/API
-Gateway-related boilerplate.
+Alagarr is an **A**WS **L**ambda/**A**PI **Ga**teway **R**equest-**R**esponse helper utility. It
+abstracts the Lambda-handler event-context-callback function signature so that you can spend less
+time writing boring Lambda/API Gateway-related boilerplate.
+
+[![CircleCI](https://img.shields.io/circleci/project/github/adieuadieu/alagarr/master.svg?style=flat-square)](https://circleci.com/gh/adieuadieu/alagarr)
+[![Coveralls](https://img.shields.io/coveralls/adieuadieu/alagarr/master.svg?style=flat-square)](https://coveralls.io/github/adieuadieu/alagarr)
+[![Codacy grade](https://img.shields.io/codacy/grade/cd743cc370104d49a508cc4b7689c1aa.svg?style=flat-square)](https://www.codacy.com/app/adieuadieu/alagarr)
+[![David](https://img.shields.io/david/adieuadieu/alagarr.svg?style=flat-square)]()
+[![David](https://img.shields.io/david/dev/adieuadieu/alagarr.svg?style=flat-square)]()
 
 Turns this:
 
@@ -56,8 +61,8 @@ Features:
 * response gzipping
 * easily respond with images/binary data (some API Gateway setup required..)
 
-* @TODO: throwable errors like throw ClientError, ServerError which get caught
-  and pretty response.json()'d
+* @TODO: throwable errors like throw ClientError, ServerError which get caught and pretty
+  response.json()'d
 
 # API
 
@@ -80,8 +85,7 @@ Features:
 
 ### accordingly(formats: object): Promise\<T>
 
-Respond according to Accepts request header with formats provided in `formats`
-map.
+Respond according to Accepts request header with formats provided in `formats` map.
 
 ```js
 response.accordingly({

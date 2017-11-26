@@ -1,49 +1,54 @@
-const policies = {
-  'default-src': "'self'",
-  'font-src': "'self' https://fonts.gstatic.com https://netdna.bootstrapcdn.com/font-awesome/",
-  'script-src':
-    "'self' 'unsafe-inline' 'unsafe-eval' https://*.google-analytics.com https://*.google.com https://*.gstatic.com https://*.mxpnl.com/ https://mixpanel.com",
-  'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",
-  'img-src': '* data: blob:',
-  'connect-src': '*',
+import { InterfaceAlagarrOptions, InterfaceRequest, InterfaceResponseData } from '../types'
+
+const DEFAULT_POLICIES = {
   'child-src': '*',
-  'frame-src': '*',
+  'connect-src': '*',
+  'default-src': "'self'",
+  'font-src': "'self'",
   'frame-ancestors': "'self'",
+  'frame-src': '*',
+  'img-src': '* data: blob:',
   'report-uri': '/csp-reports',
+  'script-src': "'self' 'unsafe-inline'",
+  'style-src': "'self' 'unsafe-inline'",
 }
 
 // Apply CSP headers
-const cachedCspString = Object.keys(policies)
-  .map(policy =>
-    `${policy} ${policies[policy]} ${
-      policy.substr(-4) === '-src' && process.env.CDN_HOST_URL
-        ? process.env.CDN_HOST_URL // add the CDN as a permitted origin
-        : ''
-    }`)
-  .join(';')
+export default function cspHeaders(
+  response: InterfaceResponseData,
+  request: InterfaceRequest,
+  options: InterfaceAlagarrOptions
+): InterfaceResponseData {
+  const { headers = {}, ...rest } = response
 
-export const cspHeaders = ({ headers, ...rest } = {}, request) => ({
-  ...rest,
-  headers: {
-    ...headers,
+  const cspPolicies = Object.keys({ ...DEFAULT_POLICIES, ...options.cspPolicies }) as any
+  const cspPolicy = Object.keys(cspPolicies)
+    .map((policy: string): string => `${policy} ${cspPolicies[policy]}`)
+    .join(';') as any
 
-    // Only transmit the origin cross-domain and no referer without HTTPS:
-    'referrer-policy': 'strict-origin-when-cross-origin',
+  return {
+    ...rest,
+    headers: {
+      ...headers,
 
-    // Instruct browsers to strictly follow the Content-Type header:
-    'x-content-type-options': 'nosniff',
+      // Only transmit the origin cross-domain and no referer without HTTPS:
+      'referrer-policy': 'strict-origin-when-cross-origin',
 
-    // Always enable the browser XSS protection:
-    'x-xss-protection': '1; mode=block',
+      // Instruct browsers to strictly follow the Content-Type header:
+      'x-content-type-options': 'nosniff',
 
-    // Convert the csp options in package.json to a policies list:
-    'content-security-policy': cachedCspString,
+      // Always enable the browser XSS protection:
+      'x-xss-protection': '1; mode=block',
 
-    // Map "frame-ancestors" to the equivalent "X-Frame-Options":
-    'x-frame-options':
-      {
-        "'self'": 'SAMEORIGIN',
-        "'none'": 'DENY',
-      }[cspPolicies['frame-ancestors']] || undefined,
-  },
-})
+      // Convert the csp options in package.json to a policies list:
+      'content-security-policy': cspPolicy,
+
+      // Map "frame-ancestors" to the equivalent "X-Frame-Options":
+      'x-frame-options':
+        ({
+          "'none'": 'DENY',
+          "'self'": 'SAMEORIGIN',
+        } as any)[cspPolicies['frame-ancestors']] || undefined,
+    },
+  }
+}
