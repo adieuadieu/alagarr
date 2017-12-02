@@ -1,4 +1,5 @@
 import { InterfaceAlagarrOptions, InterfaceRequest, InterfaceResponseData } from '../types'
+import logger from '../utils/logger'
 
 // Logs request/response info for CloudWatch/Kibana
 export default function logResponse(
@@ -8,8 +9,12 @@ export default function logResponse(
 ): InterfaceResponseData {
   if (options.enableLogger) {
     // We have no choice here but to disable the rule.
-    // tslint:disable-next-line:no-expression-statement
-    options.logger(request, response)
+    // tslint:disable:no-expression-statement
+    if (typeof options.logger === 'function') {
+      options.logger(request, response)
+    } else {
+      logger(request, response)
+    }
   }
 
   return response

@@ -61,7 +61,7 @@ export default (
         callback(
           null,
           applyMiddleware(
-            [...Object.keys(middlewareMap), log].reduce(
+            [...Object.keys(middlewareMap), ...options.responseMiddleware, log].reduce(
               (middlewareList, middleware) =>
                 options[middleware]
                   ? [...middlewareList, middlewareMap[middleware]]

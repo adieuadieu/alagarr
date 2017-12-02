@@ -1,16 +1,9 @@
 import { InterfaceAlagarrOptions, InterfaceRequest, InterfaceResponseData } from '../types'
 
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/default-src
 const DEFAULT_POLICIES = {
-  'child-src': '*',
-  'connect-src': '*',
   'default-src': "'self'",
-  'font-src': "'self'",
-  'frame-ancestors': "'self'",
-  'frame-src': '*',
   'img-src': '* data: blob:',
-  'report-uri': '/csp-reports',
-  'script-src': "'self' 'unsafe-inline'",
-  'style-src': "'self' 'unsafe-inline'",
 }
 
 // Apply CSP headers

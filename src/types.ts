@@ -15,7 +15,7 @@ export interface InterfaceAlagarrOptions {
   readonly enableCspHeaders?: boolean
   readonly enableLogger?: boolean
   readonly enableEnforcedHeaders?: boolean
-  readonly logger: Logger
+  readonly logger?: Logger
   readonly headers?: object
   readonly requestMiddleware?: any // lazy
   readonly responseMiddleware?: any // lazy
@@ -32,6 +32,9 @@ export interface InterfaceRequest extends AWSLambda.APIGatewayEvent {
 }
 
 export type RequestMiddleware = (request: InterfaceRequest) => InterfaceRequest
+/*export interface RequestMiddleware {
+  (request: InterfaceRequest): InterfaceRequest
+}*/
 
 export interface InterfaceResponseData {
   readonly body: string
@@ -47,4 +50,6 @@ export interface InterfaceResponse {
   readonly json: (json: any, statusCode?: number) => void
 }
 
-export type ResponseMiddleware = (request: InterfaceResponse) => InterfaceResponse
+export interface ResponseMiddleware {
+  (response: InterfaceResponse, request: InterfaceRequest): InterfaceResponse
+}

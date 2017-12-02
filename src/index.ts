@@ -8,7 +8,6 @@ import {
   InterfaceResponse,
 } from './types'
 import { ClientError, ServerError } from './utils/errors'
-import logger from './utils/logger'
 
 const DEFAULT_OPTIONS = {
   cspPolicies: [],
@@ -17,7 +16,6 @@ const DEFAULT_OPTIONS = {
   enableCspHeaders: true,
   enableLogger: true,
   enableStrictTransportSecurity: true,
-  logger,
   requestMiddleware: [],
   responseMiddleware: [],
 }
