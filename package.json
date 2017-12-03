@@ -15,9 +15,7 @@
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "clean": "rimraf dist",
     "pretest": "npm run clean",
@@ -68,15 +66,8 @@
     "useTabs": false
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "yarn prettier",
-      "yarn lint",
-      "git add"
-    ],
-    "*.{json}": [
-      "yarn prettier",
-      "git add"
-    ]
+    "*.{ts,tsx}": ["yarn prettier", "yarn lint", "git add"],
+    "*.{json}": ["yarn prettier", "git add"]
   },
   "jest": {
     "bail": true,
@@ -86,11 +77,6 @@
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"]
   }
 }

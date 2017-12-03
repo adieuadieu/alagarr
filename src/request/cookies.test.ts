@@ -4,7 +4,6 @@ import cookie from './cookies'
 
 const testRequest = {
   ...getRequestFixture,
-  foo: 'bar',
   headers: {
     cookie: 'PHPSESSID=e61d68c319d12269c6af8cd939298857; REMEMBERME=yah; locale=de_DE',
   },
@@ -22,6 +21,18 @@ describe('Request cookies', () => {
     }
 
     const request = cookie(testRequest)
+
+    expect(request).toEqual(expected)
+  })
+
+  test('header might not exist', () => {
+    const expected = {
+      ...testRequest,
+      cookies: {},
+      headers: {},
+    }
+
+    const request = cookie({ ...testRequest, headers: {} })
 
     expect(request).toEqual(expected)
   })

@@ -4,14 +4,21 @@ import normalize from './normalize'
 
 const testRequest = {
   ...getRequestFixture,
-  foo: 'bar',
+  body: 'foobar',
   headers: { 'X-Foo-Bar': 'foobar' },
 }
 
 describe('Normalize request', () => {
   test('headers to lower-case', () => {
-    const expected = { foo: 'bar', headers: { 'x-foo-bar': 'foobar' } }
+    const expected = { ...testRequest, headers: { 'x-foo-bar': 'foobar' } }
     const normalized = normalize(testRequest)
+
+    expect(normalized).toEqual(expected)
+  })
+
+  test('headers can be empty', () => {
+    const expected = { ...testRequest, headers: {} }
+    const normalized = normalize({ ...testRequest, headers: undefined })
 
     expect(normalized).toEqual(expected)
   })

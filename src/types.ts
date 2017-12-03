@@ -26,7 +26,7 @@ export interface InterfaceRequest extends AWSLambda.APIGatewayEvent {
   readonly body: any
   readonly cookies?: object
   readonly headers: any // lazy
-  readonly hostname?: string
+  readonly hostname?: string | undefined
   readonly isBase64Encoded: boolean
   readonly timestamp?: number
   readonly context: AWSLambda.Context
