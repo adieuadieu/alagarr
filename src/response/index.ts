@@ -9,6 +9,7 @@ import compress from './compress'
 import contentLength from './content-length'
 import csp from './csp'
 import enforcedHeaders from './enforced-headers'
+import etag from './etag'
 import log from './log'
 
 export const makeResponseObject = (
@@ -46,6 +47,7 @@ const middlewareMap = {
   enableCompression: compress,
   enableContentLength: contentLength,
   enableCspHeaders: csp,
+  enableETagHeader: etag,
   enableEnforcedHeaders: enforcedHeaders,
 }
 

@@ -15,6 +15,7 @@ export interface InterfaceAlagarrOptions {
   readonly enableCspHeaders?: boolean
   readonly enableLogger?: boolean
   readonly enableEnforcedHeaders?: boolean
+  readonly enableETagHeader?: boolean
   readonly logger?: Logger
   readonly headers?: object
   readonly requestMiddleware?: any // lazy

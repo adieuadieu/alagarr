@@ -14,6 +14,8 @@ const DEFAULT_OPTIONS = {
   enableCompression: true,
   enableContentLength: true,
   enableCspHeaders: true,
+  enableETagHeader: true,
+  enableEnforcedHeaders: true,
   enableLogger: true,
   enableStrictTransportSecurity: true,
   requestMiddleware: [],

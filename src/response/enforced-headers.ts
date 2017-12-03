@@ -10,7 +10,7 @@ export default function enforcedHeaders(
     ...response,
     headers: {
       ...response.headers,
-      ...options.headers,
+      ...options.headers ? options.headers : {},
     },
   }
 }
