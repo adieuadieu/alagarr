@@ -22,7 +22,7 @@ export interface InterfaceAlagarrOptions {
 }
 
 export interface InterfaceRequest extends AWSLambda.APIGatewayEvent {
-  // readonly body: string | object
+  readonly body: any
   readonly cookies?: object
   readonly headers: any // lazy
   readonly hostname?: string

@@ -1,7 +1,9 @@
 // tslint:disable:no-expression-statement
+import { get as getRequestFixture } from '../test/fixtures/requests'
 import cookie from './cookies'
 
 const testRequest = {
+  ...getRequestFixture,
   foo: 'bar',
   headers: {
     cookie: 'PHPSESSID=e61d68c319d12269c6af8cd939298857; REMEMBERME=yah; locale=de_DE',

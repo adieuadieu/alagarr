@@ -17,7 +17,7 @@
     "skipLibCheck": false,
     "sourceMap": true,
     "strictNullChecks": true,
-    "target": "es2015"
+    "target": "es2017"
   },
   "exclude": ["node_modules", "dist"]
 }

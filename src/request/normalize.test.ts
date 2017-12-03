@@ -1,7 +1,9 @@
 // tslint:disable:no-expression-statement
+import { get as getRequestFixture } from '../test/fixtures/requests'
 import normalize from './normalize'
 
 const testRequest = {
+  ...getRequestFixture,
   foo: 'bar',
   headers: { 'X-Foo-Bar': 'foobar' },
 }

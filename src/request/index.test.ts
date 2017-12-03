@@ -1,7 +1,9 @@
 // tslint:disable:no-expression-statement
+import { get as getRequestFixture, mockContext } from '../test/fixtures/requests'
 import parseRequest from './'
 
 const testRequest = {
+  ...getRequestFixture,
   body: null,
   headers: {
     Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
@@ -18,15 +20,16 @@ const testRequest = {
     'X-Request-Id': '2b679dc2f44f7ab21a8c473033d52211',
   },
   httpMethod: 'GET',
-  isOffline: true,
   path: '/foobar',
   pathParameters: null,
   queryStringParameters: null,
   requestContext: {
+    ...getRequestFixture.requestContext,
     accountId: 'offlineContext_accountId',
     apiId: 'offlineContext_apiId',
     httpMethod: 'GET',
     identity: {
+      ...getRequestFixture.requestContext.identity,
       accountId: 'offlineContext_accountId',
       apiKey: 'offlineContext_apiKey',
       caller: 'offlineContext_caller',
@@ -53,10 +56,10 @@ const testRequest = {
 
 describe('Request', () => {
   test('request middleware is applied correctly', () => {
-    const { headers, cookies, hostname, body } = parseRequest(testRequest, {})
+    const { headers, cookies, hostname, body } = parseRequest(testRequest, mockContext)
 
     expect(headers['user-agent']).toBe(testRequest.headers['User-Agent'])
-    expect(Object.keys(cookies).length).toBe(2)
+    expect(Object.keys(cookies || {}).length).toBe(2)
     expect(hostname).toBe(testRequest.headers.Host)
     expect(body).toBeNull()
   })

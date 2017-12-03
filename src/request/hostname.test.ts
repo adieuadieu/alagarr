@@ -1,7 +1,9 @@
 // tslint:disable:no-expression-statement
+import { get as getRequestFixture } from '../test/fixtures/requests'
 import hostname from './hostname'
 
 const testEvent = {
+  ...getRequestFixture,
   foo: 'bar',
   headers: {
     host: 'foobar.foo.bar',

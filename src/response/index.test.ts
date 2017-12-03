@@ -1,8 +1,7 @@
-import zlib from 'zlib'
-import makeResponse, { makeResponseObject } from './response'
+// tslint:disable:no-expression-statement
+import makeResponse, { makeResponseObject } from './'
 
 const testRequest = { headers: {} }
-const testTextBody = [...Array(1000).keys()].join('')
 const testHtmlBody = '<html></html>'
 const testJsonBody = { foo: 'bar' }
 const testOptions = {
