@@ -70,13 +70,21 @@
     "*.{json}": ["yarn prettier", "git add"]
   },
   "jest": {
-    "bail": true,
+    "bail": false,
     "collectCoverage": true,
     "mapCoverage": true,
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "json"]
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
   }
 }
