@@ -58,6 +58,7 @@
 
     "no-submodule-imports": false,
     "no-consecutive-blank-lines": true,
-    "no-implicit-dependencies": [true, "dev"]
+    "no-implicit-dependencies": [true, "dev"],
+    "no-unused-variable": true
   }
 }
