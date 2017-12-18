@@ -34,7 +34,7 @@
     "upgrade-dependencies": "yarn upgrade-interactive --latest --exact"
   },
   "dependencies": {
-    "@types/aws-lambda": "0.0.22",
+    "@types/aws-lambda": "0.0.24",
     "accepts": "1.3.4",
     "compressible": "2.0.12",
     "cookie": "0.3.1",
@@ -42,16 +42,16 @@
     "source-map-support": "0.5.0"
   },
   "devDependencies": {
-    "@types/accepts": "1.3.3",
+    "@types/accepts": "1.3.4",
     "@types/compressible": "2.0.0",
     "@types/etag": "^1.8.0",
     "@types/jest": "21.1.8",
-    "@types/node": "8.0.57",
+    "@types/node": "8.5.1",
     "husky": "0.14.3",
     "jest": "21.2.1",
     "lint-staged": "6.0.0",
     "nsp": "3.1.0",
-    "prettier": "1.9.1",
+    "prettier": "1.9.2",
     "rimraf": "2.6.2",
     "ts-jest": "21.2.4",
     "tslint": "5.8.0",
@@ -61,7 +61,7 @@
   },
   "prettier": {
     "eslintIntegration": false,
-    "printWidth": 100,
+    "printWidth": 80,
     "semi": false,
     "singleQuote": true,
     "trailingComma": "es5",

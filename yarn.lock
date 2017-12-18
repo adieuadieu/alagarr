@@ -2,13 +2,15 @@
 # yarn lockfile v1
 
 
-"@types/accepts@1.3.3":
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/@types/accepts/-/accepts-1.3.3.tgz#6da8c6e3144566feec7ce2176828f1c47523f1ab"
+"@types/accepts@1.3.4":
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/@types/accepts/-/accepts-1.3.4.tgz#467a88fb1d5ba594998eead31c093d77d1cbe99e"
+  dependencies:
+    "@types/node" "*"
 
-"@types/aws-lambda@0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-0.0.22.tgz#48ab7d4f816d1c1c72ed7286c4b73f21f0497219"
+"@types/aws-lambda@0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-0.0.24.tgz#79e4ef418f299d7430aca414178864806968415e"
 
 "@types/compressible@2.0.0":
   version "2.0.0"
@@ -34,9 +36,9 @@
   dependencies:
     "@types/events" "*"
 
-"@types/node@8.0.57":
-  version "8.0.57"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.57.tgz#e5d8b4dc112763e35cfc51988f4f38da3c486d99"
+"@types/node@8.5.1":
+  version "8.5.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.5.1.tgz#4ec3020bcdfe2abffeef9ba3fbf26fca097514b5"
 
 abab@^1.0.3:
   version "1.0.4"
@@ -2439,9 +2441,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@1.9.1:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.9.1.tgz#41638a0d47c1efbd1b7d5a742aaa5548eab86d70"
+prettier@1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.9.2.tgz#96bc2132f7a32338e6078aeb29727178c6335827"
 
 pretty-format@^21.2.1:
   version "21.2.1"

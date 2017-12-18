@@ -24,7 +24,8 @@ const DEFAULT_OPTIONS = {
 
 const noopHandler = (request: InterfaceRequest, response: InterfaceResponse) =>
   response.json({
-    error: 'Misconfiguration in Alagarr setup. Failed to provide a handler function.',
+    error:
+      'Misconfiguration in Alagarr setup. Failed to provide a handler function.',
   })
 
 export { InterfaceRequest, InterfaceResponse, ClientError, ServerError }
@@ -33,7 +34,11 @@ export default function alagarr(
   handler: AlagarrHandler = noopHandler,
   options: InterfaceAlagarrOptions = DEFAULT_OPTIONS
 ): Alagarr {
-  return async function handlerWrapper(event, context, callback): Promise<void> {
+  return async function handlerWrapper(
+    event,
+    context,
+    callback
+  ): Promise<void> {
     const mergedOptions = { ...DEFAULT_OPTIONS, ...options }
 
     const request = parseRequest(event, context, mergedOptions)
@@ -42,7 +47,7 @@ export default function alagarr(
     const { requestId } = request.requestContext
 
     try {
-      return handler(request, response)
+      return await handler(request, response)
     } catch (error) {
       // @todo use response.accordingly() instead?
 
@@ -50,7 +55,10 @@ export default function alagarr(
         return response.json({ error, requestId }, 400)
       }
 
-      return response.json({ error: 'Internal server error occurred', requestId }, 500)
+      return response.json(
+        { error: 'Internal server error occurred', requestId },
+        500
+      )
     }
   }
 }
