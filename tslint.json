@@ -54,6 +54,10 @@
     "no-this": true,
     "no-class": true,
     "no-mixed-interface": true,
-    "no-expression-statement": true
+    "no-expression-statement": true,
+
+    "no-submodule-imports": false,
+    "no-consecutive-blank-lines": true,
+    "no-implicit-dependencies": [true, "dev"]
   }
 }
