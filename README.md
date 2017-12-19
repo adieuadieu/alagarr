@@ -96,6 +96,7 @@ response.accordingly({
 
 # Similar Projects
 
+* [Middy](https://github.com/middyjs/middy)
 * [corgi](https://github.com/balmbees/corgi)
 * [node-lambda-req](https://github.com/doomhz/node-lambda-req)
 * [apigateway-utils](https://github.com/silvermine/apigateway-utils)
