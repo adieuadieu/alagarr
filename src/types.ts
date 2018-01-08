@@ -4,7 +4,11 @@ export type Alagarr = (
   callback: AWSLambda.Callback
 ) => void
 
-export type AlagarrHandler = (request: any, response: any) => void
+export type AlagarrHandler = (
+  request: any,
+  response: any,
+  context?: AWSLambda.Context
+) => void
 
 export type Logger = (request: any, response: any) => boolean
 

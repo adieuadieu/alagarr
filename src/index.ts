@@ -47,7 +47,7 @@ export default function alagarr(
     const { requestId } = request.requestContext
 
     try {
-      return await handler(request, response)
+      return await handler(request, response, context)
     } catch (error) {
       // @todo use response.accordingly() instead?
 
