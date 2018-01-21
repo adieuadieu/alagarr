@@ -10,7 +10,7 @@ export default function normalizeProgrammingModel({
     ...request,
     httpMethod,
     method: httpMethod,
-    query: queryStringParameters,
+    query: queryStringParameters || {},
     queryStringParameters,
   }
 }

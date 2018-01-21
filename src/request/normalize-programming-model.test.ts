@@ -28,7 +28,7 @@ describe('Normalize programming model', () => {
   test('handle crap request', () => {
     const normalized = normalize({} as any)
 
-    expect(normalized.query).toEqual(null)
+    expect(normalized.query).toEqual({})
     expect(normalized.method).toEqual('')
   })
 })

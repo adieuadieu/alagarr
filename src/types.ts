@@ -38,7 +38,7 @@ export interface InterfaceRequest extends AWSLambda.APIGatewayEvent {
   readonly timestamp?: number
   readonly context: AWSLambda.Context
   readonly method?: string
-  readonly query?: { readonly [name: string]: string } | null
+  readonly query?: { readonly [name: string]: string }
 }
 
 export type RequestMiddleware = (request: InterfaceRequest) => InterfaceRequest
