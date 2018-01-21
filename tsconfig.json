@@ -3,7 +3,7 @@
     "allowJs": false,
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["esnext"],
+    "lib": [],
     "module": "es2015",
     "moduleResolution": "node",
     "noImplicitAny": true,
