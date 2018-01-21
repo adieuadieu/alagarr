@@ -11,6 +11,7 @@ export type AlagarrHandler = (
 ) => void
 
 export type Logger = (request: any, response: any) => boolean
+export type ErrorHandler = (request: any, response: any, error: any) => void
 
 export interface InterfaceAlagarrOptions {
   readonly cspPolicies?: any // lazy
@@ -20,6 +21,8 @@ export interface InterfaceAlagarrOptions {
   readonly enableLogger?: boolean
   readonly enableEnforcedHeaders?: boolean
   readonly enableETagHeader?: boolean
+  readonly enableStrictTransportSecurity?: boolean
+  readonly errorHandler?: ErrorHandler
   readonly logger?: Logger
   readonly headers?: object
   readonly requestMiddleware?: any // lazy
@@ -53,8 +56,9 @@ export interface InterfaceResponse {
   readonly text: (text: string, statusCode?: number) => void
   readonly html: (html: string, statusCode?: number) => void
   readonly json: (json: any, statusCode?: number) => void
+  readonly basedOnAccepts: (json: any, statusCode?: number) => void
 }
 
-export interface ResponseMiddleware {
+export interface InterfaceResponseMiddleware {
   (response: InterfaceResponse, request: InterfaceRequest): InterfaceResponse
 }

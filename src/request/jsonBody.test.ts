@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import { get as getRequestFixture } from '../test/fixtures/requests'
-import parseJson from './json'
+import parseJsonBody from './jsonBody'
 
 const testRequest = {
   ...getRequestFixture,
@@ -19,15 +19,18 @@ describe('Request JSON', () => {
       },
     }
 
-    const result = parseJson(testRequest)
+    const result = parseJsonBody(testRequest)
     expect(typeof result.body).not.toBe('string')
     expect(result).toEqual(expected)
   })
 
   test('body is not parsed if content-type is not application/json', () => {
-    const nonJsonTestRequest = { ...testRequest, headers: { 'content-type': 'foo/bar' } }
+    const nonJsonTestRequest = {
+      ...testRequest,
+      headers: { 'content-type': 'foo/bar' },
+    }
 
-    const result = parseJson(nonJsonTestRequest)
+    const result = parseJsonBody(nonJsonTestRequest)
     expect(typeof result.body).toBe('string')
     expect(result).toEqual(nonJsonTestRequest)
   })
@@ -38,7 +41,7 @@ describe('Request JSON', () => {
       body: {},
     }
 
-    const result = parseJson({
+    const result = parseJsonBody({
       ...testRequest,
       body: '{"huurr hurr:" derp. can\'t parse this on purpose}',
     })

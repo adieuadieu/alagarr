@@ -4,9 +4,10 @@ import applyMiddleware from '../utils/applyMiddleware'
 import cookies from './cookies'
 import decode from './decode'
 import hostname from './hostname'
-import json from './json'
+import jsonBody from './jsonBody'
 import normalize from './normalize'
 import timestamp from './timestamp'
+import urlEncodedBody from './urlEncodedBody'
 
 /*
 parse a Lambda APIG event into a request object by
@@ -18,7 +19,7 @@ export default (
   options = {}
 ): InterfaceRequest =>
   applyMiddleware(
-    [timestamp, normalize, decode, cookies, json, hostname],
+    [timestamp, normalize, decode, cookies, jsonBody, urlEncodedBody, hostname],
     {
       ...event,
       context,

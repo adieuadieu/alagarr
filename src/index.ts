@@ -9,6 +9,30 @@ import {
 } from './types'
 import { ClientError, ServerError } from './utils/errors'
 
+const defaultErrorHandler = (
+  request: InterfaceRequest,
+  response: InterfaceResponse,
+  error: any
+) => {
+  const { requestId } = request.requestContext
+
+  // @todo use response.basedOnAccepts() instead?
+
+  // throw any https://github.com/jshttp/http-errors
+
+  if (
+    error.name === 'ClientError' ||
+    (error.statusCode >= 400 && error.statusCode < 500)
+  ) {
+    return response.json({ error, requestId }, error.statusCode || 400)
+  }
+
+  return response.json(
+    { error: 'Internal server error occurred', requestId },
+    500
+  )
+}
+
 const DEFAULT_OPTIONS = {
   cspPolicies: [],
   enableCompression: true,
@@ -18,11 +42,12 @@ const DEFAULT_OPTIONS = {
   enableEnforcedHeaders: true,
   enableLogger: true,
   enableStrictTransportSecurity: true,
+  errorHandler: defaultErrorHandler,
   requestMiddleware: [],
   responseMiddleware: [],
 }
 
-const noopHandler = (request: InterfaceRequest, response: InterfaceResponse) =>
+const noopHandler = (_: void, response: InterfaceResponse) =>
   response.json({
     error:
       'Misconfiguration in Alagarr setup. Failed to provide a handler function.',
@@ -39,26 +64,23 @@ export default function alagarr(
     context,
     callback
   ): Promise<void> {
-    const mergedOptions = { ...DEFAULT_OPTIONS, ...options }
-
+    const mergedOptions: InterfaceAlagarrOptions = {
+      ...DEFAULT_OPTIONS,
+      ...options,
+    }
     const request = parseRequest(event, context, mergedOptions)
     const response = makeResponse(request, callback, mergedOptions)
-
-    const { requestId } = request.requestContext
 
     try {
       return await handler(request, response, context)
     } catch (error) {
-      // @todo use response.accordingly() instead?
+      const errorHandler =
+        typeof mergedOptions.errorHandler === 'function'
+          ? mergedOptions.errorHandler
+          : defaultErrorHandler
 
-      if (error.name === 'ClientError') {
-        return response.json({ error, requestId }, 400)
-      }
-
-      return response.json(
-        { error: 'Internal server error occurred', requestId },
-        500
-      )
+      // If there's an error in the error handler, you're on your own.
+      return errorHandler(request, response, error)
     }
   }
 }

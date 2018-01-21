@@ -27,21 +27,43 @@ export const makeResponseObject = (
   ...options,
 })
 
-const text = (body: string, statusCode: number, options: object): InterfaceResponseData =>
+const text = (
+  body: string,
+  statusCode: number,
+  options: object
+): InterfaceResponseData =>
   makeResponseObject(body, statusCode, options, 'text/plain')
 
-const html = (body: string, statusCode: number, options: object): InterfaceResponseData =>
+const html = (
+  body: string,
+  statusCode: number,
+  options: object
+): InterfaceResponseData =>
   makeResponseObject(body, statusCode, options, 'text/html')
 
-const json = (body: any, statusCode: number, options: object): InterfaceResponseData =>
-  makeResponseObject(JSON.stringify(body), statusCode, options, 'application/json')
+const json = (
+  body: any,
+  statusCode: number,
+  options: object
+): InterfaceResponseData =>
+  makeResponseObject(
+    JSON.stringify(body),
+    statusCode,
+    options,
+    'application/json'
+  )
 
-const redirect = (location: string, statusCode: number = 302): InterfaceResponseData =>
+const redirect = (
+  location: string,
+  statusCode: number = 302
+): InterfaceResponseData =>
   makeResponseObject('', statusCode, {
     headers: {
       location,
     },
   })
+
+const basedOnAccepts = () => {}
 
 const middlewareMap = {
   enableCompression: compress,
@@ -56,14 +78,18 @@ export default (
   callback: AWSLambda.Callback,
   options: InterfaceAlagarrOptions
 ): InterfaceResponse =>
-  [text, html, json, redirect].reduce(
+  [text, html, json, redirect, basedOnAccepts].reduce(
     (methods, method) => ({
       ...methods,
       [method.name]: (...args) =>
         callback(
           null,
           applyMiddleware(
-            [...Object.keys(middlewareMap), ...options.responseMiddleware, log].reduce(
+            [
+              ...Object.keys(middlewareMap),
+              ...options.responseMiddleware,
+              log,
+            ].reduce(
               (middlewareList, middleware) =>
                 options[middleware]
                   ? [...middlewareList, middlewareMap[middleware]]
