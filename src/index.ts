@@ -12,7 +12,7 @@ import { ClientError, ServerError } from './utils/errors'
 const defaultErrorHandler = (
   request: InterfaceRequest,
   response: InterfaceResponse,
-  error: any
+  error: any,
 ) => {
   const { requestId } = request.requestContext
 
@@ -29,7 +29,7 @@ const defaultErrorHandler = (
 
   return response.json(
     { error: 'Internal server error occurred', requestId },
-    500
+    500,
   )
 }
 
@@ -57,12 +57,12 @@ export { InterfaceRequest, InterfaceResponse, ClientError, ServerError }
 
 export default function alagarr(
   handler: AlagarrHandler = noopHandler,
-  options: InterfaceAlagarrOptions = DEFAULT_OPTIONS
+  options: InterfaceAlagarrOptions = DEFAULT_OPTIONS,
 ): Alagarr {
   return async function handlerWrapper(
     event,
     context,
-    callback
+    callback,
   ): Promise<void> {
     const mergedOptions: InterfaceAlagarrOptions = {
       ...DEFAULT_OPTIONS,

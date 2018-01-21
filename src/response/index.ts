@@ -16,7 +16,7 @@ export const makeResponseObject = (
   body: string,
   statusCode: number = 200,
   { headers = {}, ...options } = {},
-  contentType?: string
+  contentType?: string,
 ) => ({
   body,
   headers: {
@@ -30,32 +30,32 @@ export const makeResponseObject = (
 const text = (
   body: string,
   statusCode: number,
-  options: object
+  options: object,
 ): InterfaceResponseData =>
   makeResponseObject(body, statusCode, options, 'text/plain')
 
 const html = (
   body: string,
   statusCode: number,
-  options: object
+  options: object,
 ): InterfaceResponseData =>
   makeResponseObject(body, statusCode, options, 'text/html')
 
 const json = (
   body: any,
   statusCode: number,
-  options: object
+  options: object,
 ): InterfaceResponseData =>
   makeResponseObject(
     JSON.stringify(body),
     statusCode,
     options,
-    'application/json'
+    'application/json',
   )
 
 const redirect = (
   location: string,
-  statusCode: number = 302
+  statusCode: number = 302,
 ): InterfaceResponseData =>
   makeResponseObject('', statusCode, {
     headers: {
@@ -76,7 +76,7 @@ const middlewareMap = {
 export default (
   request: InterfaceRequest,
   callback: AWSLambda.Callback,
-  options: InterfaceAlagarrOptions
+  options: InterfaceAlagarrOptions,
 ): InterfaceResponse =>
   [text, html, json, redirect, basedOnAccepts].reduce(
     (methods, method) => ({
@@ -85,20 +85,18 @@ export default (
         callback(
           null,
           applyMiddleware(
-            [
-              ...Object.keys(middlewareMap),
-              ...options.responseMiddleware,
-              log,
-            ].reduce(
+            [...Object.keys(middlewareMap)].reduce(
               (middlewareList, middleware) =>
                 options[middleware]
                   ? [...middlewareList, middlewareMap[middleware]]
-                  : middlewareList
+                  : middlewareList,
+              [...(options.responseMiddleware || []), log],
             ),
             method(...args),
-            request
-          )
+            request,
+            options,
+          ),
         ),
     }),
-    {}
+    {},
   )

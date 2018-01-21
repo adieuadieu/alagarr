@@ -16,7 +16,7 @@
   "module": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
   "files": [
-    "dist"
+    "dist/"
   ],
   "scripts": {
     "clean": "rimraf dist",
@@ -25,7 +25,8 @@
     "test:integration": "scripts/integration-test.sh",
     "watch:test": "jest --watch",
     "lint": "tslint -p tsconfig.json",
-    "build": "npm run clean && tsc -d",
+    "prebuild": "npm run clean",
+    "build": "tsc -d",
     "dev": "tsc -w",
     "prepublishOnly": "npm run lint && npm test && npm run security-check && npm run build",
     "precommit": "lint-staged",
@@ -34,15 +35,14 @@
     "upgrade-dependencies": "yarn upgrade-interactive --latest --exact"
   },
   "dependencies": {
-    "@types/aws-lambda": "0.0.27",
     "accepts": "1.3.4",
     "compressible": "2.0.12",
     "cookie": "0.3.1",
-    "etag": "1.8.1",
-    "source-map-support": "0.5.2"
+    "etag": "1.8.1"
   },
   "devDependencies": {
     "@types/accepts": "1.3.4",
+    "@types/aws-lambda": "0.0.27",
     "@types/compressible": "2.0.0",
     "@types/etag": "1.8.0",
     "@types/jest": "22.0.1",
@@ -81,6 +81,9 @@
     "bail": false,
     "collectCoverage": true,
     "mapCoverage": true,
+    "roots": [
+      "src/"
+    ],
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },

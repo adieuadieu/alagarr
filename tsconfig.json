@@ -3,7 +3,7 @@
     "allowJs": false,
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": [],
+    "lib": ["esnext"],
     "module": "es2015",
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -16,7 +16,7 @@
     "removeComments": true,
     "rootDir": ".",
     "skipLibCheck": false,
-    "sourceMap": true,
+    "sourceMap": false,
     "strictNullChecks": true,
     "target": "es2017"
   },

@@ -9,6 +9,7 @@ const mockRequest = {
 const mockOptions = {
   cspPolicies: {
     foo: 'bar',
+    'frame-ancestors': `'none'`,
   },
 }
 
@@ -23,7 +24,7 @@ describe('Response CSP headers', () => {
         statusCode: 200,
       },
       mockRequest,
-      mockOptions
+      mockOptions,
     )
 
     expect(headers['referrer-policy']).toBeTruthy()

@@ -1,4 +1,8 @@
-import { InterfaceAlagarrOptions, InterfaceRequest, InterfaceResponseData } from '../types'
+import {
+  InterfaceAlagarrOptions,
+  InterfaceRequest,
+  InterfaceResponseData,
+} from '../types'
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/default-src
 const DEFAULT_POLICIES = {
@@ -10,11 +14,14 @@ const DEFAULT_POLICIES = {
 export default function cspHeaders(
   response: InterfaceResponseData,
   request: InterfaceRequest,
-  options: InterfaceAlagarrOptions
+  options: InterfaceAlagarrOptions,
 ): InterfaceResponseData {
   const { headers = {}, ...rest } = response
 
-  const cspPolicies = Object.keys({ ...DEFAULT_POLICIES, ...options.cspPolicies }) as any
+  const cspPolicies = {
+    ...DEFAULT_POLICIES,
+    ...options.cspPolicies,
+  } as any
   const cspPolicy = Object.keys(cspPolicies)
     .map((policy: string): string => `${policy} ${cspPolicies[policy]}`)
     .join(';') as any

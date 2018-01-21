@@ -1,5 +1,5 @@
 import * as accepts from 'accepts'
-import compressible from 'compressible'
+import * as compressible from 'compressible'
 import * as zlib from 'zlib'
 import { InterfaceRequest, InterfaceResponseData } from '../types'
 
@@ -8,7 +8,7 @@ const ZLIB_DEFAULT_OPTIONS = {
 }
 
 function getEncoding(request: InterfaceRequest): string | boolean {
-  const accept = accepts(request)
+  const accept = accepts(request as any)
   const encoding = accept.encoding(['gzip', 'deflate', 'identity'])
 
   // prefer gzip over deflate
@@ -22,7 +22,7 @@ function getEncoding(request: InterfaceRequest): string | boolean {
 // Gzip/deflate response body when appropriate
 export default function compress(
   response: InterfaceResponseData,
-  request: InterfaceRequest
+  request: InterfaceRequest,
 ): InterfaceResponseData {
   const { body, headers, ...rest } = response
   const encoding = getEncoding(request)
