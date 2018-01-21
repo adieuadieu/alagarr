@@ -24,7 +24,9 @@
     "test": "jest",
     "test:integration": "scripts/integration-test.sh",
     "watch:test": "jest --watch",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "yarn lint:tslint && yarn lint:tsc",
+    "lint:tslint": "tslint -p tsconfig.json -t stylish",
+    "lint:tsc": "tsc -p tsconfig.json --noEmit --pretty",
     "prebuild": "npm run clean",
     "build": "tsc -d",
     "dev": "tsc -w",
@@ -69,7 +71,8 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "yarn prettier",
-      "yarn lint",
+      "yarn lint:tslint",
+      "yarn lint:tsc",
       "git add"
     ],
     "*.{json}": [
