@@ -1,6 +1,6 @@
 {
   "name": "alagarr",
-  "version": "1.0.0-1",
+  "version": "1.0.0-2",
   "description": "Alagarr is an AWS Lambda/API Gateway Request-Response helper utility.",
   "author": "Marco Lüthy",
   "license": "MIT",
