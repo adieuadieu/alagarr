@@ -3,7 +3,7 @@ import { InterfaceRequest } from '../types'
 // Lowercases all header names
 export default function normalizeHeaders({
   headers = {},
-  ...request,
+  ...request
 }: InterfaceRequest): InterfaceRequest {
   return {
     ...request,
@@ -12,7 +12,7 @@ export default function normalizeHeaders({
         ...normalizedHeaders,
         [key.toLowerCase()]: headers[key],
       }),
-      {}
+      {},
     ),
   }
 }

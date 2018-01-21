@@ -39,7 +39,7 @@ describe('Request urlEncoded body', () => {
   test('correctly handle shitty body', () => {
     const expected = {
       ...testRequest,
-      body: {},
+      body: -1,
     }
 
     const result = parseUrlEncodedBody({

@@ -5,7 +5,8 @@ import cookies from './cookies'
 import decode from './decode'
 import hostname from './hostname'
 import jsonBody from './jsonBody'
-import normalize from './normalize'
+import normalizeHeaders from './normalize-headers'
+import normalizeProgrammingModel from './normalize-programming-model'
 import timestamp from './timestamp'
 import urlEncodedBody from './urlEncodedBody'
 
@@ -16,13 +17,22 @@ running the request event through list of middleware
 export default (
   event: AWSLambda.APIGatewayEvent,
   context: AWSLambda.Context,
-  options = {}
+  options = {},
 ): InterfaceRequest =>
   applyMiddleware(
-    [timestamp, normalize, decode, cookies, jsonBody, urlEncodedBody, hostname],
+    [
+      timestamp,
+      normalizeProgrammingModel,
+      normalizeHeaders,
+      decode,
+      cookies,
+      jsonBody,
+      urlEncodedBody,
+      hostname,
+    ],
     {
       ...event,
       context,
     },
-    options
+    options,
   )

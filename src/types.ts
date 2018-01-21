@@ -1,13 +1,13 @@
 export type Alagarr = (
   event: AWSLambda.APIGatewayEvent,
   context: AWSLambda.Context,
-  callback: AWSLambda.Callback
+  callback: AWSLambda.Callback,
 ) => void
 
 export type AlagarrHandler = (
   request: any,
   response: any,
-  context?: AWSLambda.Context
+  context?: AWSLambda.Context,
 ) => void
 
 export type Logger = (request: any, response: any) => boolean
@@ -32,11 +32,13 @@ export interface InterfaceAlagarrOptions {
 export interface InterfaceRequest extends AWSLambda.APIGatewayEvent {
   readonly body: any
   readonly cookies?: object
-  readonly headers: any // lazy
+  readonly headers: { readonly [name: string]: string }
   readonly hostname?: string | undefined
   readonly isBase64Encoded: boolean
   readonly timestamp?: number
   readonly context: AWSLambda.Context
+  readonly method?: string
+  readonly query?: { readonly [name: string]: string } | null
 }
 
 export type RequestMiddleware = (request: InterfaceRequest) => InterfaceRequest

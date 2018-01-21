@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import { get as getRequestFixture } from '../test/fixtures/requests'
-import normalize from './normalize'
+import normalize from './normalize-headers'
 
 const testRequest = {
   ...getRequestFixture,
@@ -8,7 +8,7 @@ const testRequest = {
   headers: { 'X-Foo-Bar': 'foobar' },
 }
 
-describe('Normalize request', () => {
+describe('Normalize request headers', () => {
   test('headers to lower-case', () => {
     const expected = { ...testRequest, headers: { 'x-foo-bar': 'foobar' } }
     const normalized = normalize(testRequest)
