@@ -11,7 +11,12 @@ export type AlagarrHandler = (
 ) => void
 
 export type Logger = (request: any, response: any) => boolean
-export type ErrorHandler = (request: any, response: any, error: any) => void
+
+export type ErrorHandler = (
+  request: InterfaceRequest,
+  response: InterfaceResponse,
+  error: any,
+) => void
 
 export interface InterfaceAlagarrOptions {
   readonly cspPolicies?: any // lazy

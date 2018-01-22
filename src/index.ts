@@ -53,7 +53,15 @@ const noopHandler = (_: void, response: InterfaceResponse) =>
       'Misconfiguration in Alagarr setup. Failed to provide a handler function.',
   })
 
-export { InterfaceRequest, InterfaceResponse, ClientError, ServerError }
+export {
+  Alagarr,
+  AlagarrHandler,
+  InterfaceAlagarrOptions,
+  InterfaceRequest,
+  InterfaceResponse,
+  ClientError,
+  ServerError,
+}
 
 export default function alagarr(
   handler: AlagarrHandler = noopHandler,

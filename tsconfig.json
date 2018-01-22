@@ -3,8 +3,8 @@
     "allowJs": false,
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["esnext"],
-    "module": "es2015",
+    "lib": ["es2015", "esnext"],
+    "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -18,7 +18,7 @@
     "skipLibCheck": false,
     "sourceMap": false,
     "strictNullChecks": true,
-    "target": "es2017"
+    "target": "es2015"
   },
   "exclude": ["node_modules", "dist"]
 }
