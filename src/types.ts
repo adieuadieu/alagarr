@@ -46,12 +46,21 @@ export interface InterfaceRequest extends AWSLambda.APIGatewayEvent {
   readonly context: AWSLambda.Context
   readonly method?: string
   readonly query?: { readonly [name: string]: string }
+  readonly source?: string
 }
 
 export type RequestMiddleware = (request: InterfaceRequest) => InterfaceRequest
 /*export interface RequestMiddleware {
   (request: InterfaceRequest): InterfaceRequest
 }*/
+
+export interface InterfaceRespondToFormat {
+  readonly default?: string
+  readonly html?: string
+  readonly json?: any
+
+  readonly [key: string]: any
+}
 
 export interface InterfaceResponseData {
   readonly body: string
@@ -65,7 +74,7 @@ export interface InterfaceResponse {
   readonly text: (text: string, statusCode?: number) => void
   readonly html: (html: string, statusCode?: number) => void
   readonly json: (json: any, statusCode?: number) => void
-  readonly basedOnAccepts: (json: any, statusCode?: number) => void
+  readonly respondTo: (format: any, statusCode?: number) => void
 }
 
 export interface InterfaceResponseMiddleware {

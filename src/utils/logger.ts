@@ -8,6 +8,7 @@ export default function logger(
   response: InterfaceResponseData,
 ): boolean {
   const {
+    source,
     headers: requestHeaders = {},
     requestContext = { identity: {} },
     context,
@@ -17,15 +18,16 @@ export default function logger(
   const logEntry = {
     dateTime: new Date().toISOString(),
 
+    eventSource: source,
     // AWS stuff
     awsAccountId: requestContext.accountId,
     deploymentStage: requestContext.stage,
 
     // Lambda stuff
-    coldStart: meta.coldStart,
     requestTime: request.timestamp ? Date.now() - request.timestamp : undefined,
 
     lambda: {
+      coldStart: meta.coldStart,
       functionName: context.functionName,
       memoryLimit: Number(context.memoryLimitInMB),
       remainingExecutionTime:

@@ -25,6 +25,12 @@ describe('Normalize programming model', () => {
     expect(normalized.query).toEqual(testRequest.queryStringParameters)
   })
 
+  test('normalized request should have a "source" property', () => {
+    const normalized = normalize(testRequest)
+
+    expect(normalized.source).toEqual('api-gateway')
+  })
+
   test('handle crap request', () => {
     const normalized = normalize({} as any)
 

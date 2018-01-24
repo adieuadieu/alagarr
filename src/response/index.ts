@@ -1,6 +1,7 @@
 import {
   InterfaceAlagarrOptions,
   InterfaceRequest,
+  InterfaceRespondToFormat,
   InterfaceResponse,
   InterfaceResponseData,
 } from '../types'
@@ -30,21 +31,21 @@ export const makeResponseObject = (
 const text = (
   body: string,
   statusCode: number,
-  options: object,
+  options?: object,
 ): InterfaceResponseData =>
   makeResponseObject(body, statusCode, options, 'text/plain')
 
 const html = (
   body: string,
   statusCode: number,
-  options: object,
+  options?: object,
 ): InterfaceResponseData =>
   makeResponseObject(body, statusCode, options, 'text/html')
 
 const json = (
   body: any,
   statusCode: number,
-  options: object,
+  options?: object,
 ): InterfaceResponseData =>
   makeResponseObject(
     JSON.stringify(body),
@@ -52,6 +53,35 @@ const json = (
     options,
     'application/json',
   )
+
+const responseHelpers: { readonly [key: string]: any } = {
+  html,
+  json,
+  text,
+}
+
+const respondTo = (
+  format: InterfaceRespondToFormat,
+  statusCode: number,
+  { headers: { accept } }: InterfaceRequest,
+): InterfaceResponseData => {
+  const fallback = format.default || 'html'
+  // applicatin/json,text/html,
+
+  if (accept && typeof accept === 'string') {
+    const acceptFormats = accept.split(',')
+
+    if (accept.search('html') >= 0 && format.html) {
+      return html(format.html, statusCode)
+    }
+
+    if (accept.search('json') >= 0 && format.json) {
+      return json(format.json, statusCode)
+    }
+  }
+
+  return responseHelpers[fallback](format[fallback], statusCode)
+}
 
 const redirect = (
   location: string,
@@ -62,8 +92,6 @@ const redirect = (
       location,
     },
   })
-
-const basedOnAccepts = () => {}
 
 const middlewareMap = {
   enableCompression: compress,
@@ -78,7 +106,7 @@ export default (
   callback: AWSLambda.Callback,
   options: InterfaceAlagarrOptions,
 ): InterfaceResponse =>
-  [text, html, json, redirect, basedOnAccepts].reduce(
+  [text, html, json, respondTo, redirect].reduce(
     (methods, method) => ({
       ...methods,
       [method.name]: (...args) =>
@@ -92,7 +120,7 @@ export default (
                   : middlewareList,
               [...(options.responseMiddleware || []), log],
             ),
-            method(...args),
+            method(...args, request),
             request,
             options,
           ),

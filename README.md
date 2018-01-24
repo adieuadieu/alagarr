@@ -74,7 +74,7 @@ Features:
 
 **Response methods**
 
-* [`accordingly(formats: map)`](#api-response-accordingly)
+* [`respondTo(formats: map)`](#api-response-respondTo)
 * [`json(json: object)`](#api-response-json)
 * [`html(html: string)`](#api-response-html)
 * [`svg(image: buffer | stream | string)`](#api-response-svg)
@@ -83,15 +83,15 @@ Features:
 
 ---
 
-<a name="api-response-accordingly" />
+<a name="api-response-respondTo" />
 
-### accordingly(formats: object): Promise\<T>
+### respondTo(formats: object): Promise\<T>
 
-Respond according to Accepts request header with formats provided in `formats` map.
+Respond according to request's Accept header with formats provided in `formats` map. Kind of like Ruby on Rails' `respond_to do |format|`
 
 ```js
-response.accordingly({
-  json: '{}',
+response.respondTo({
+  json: {},
   html: '<html />',
 })
 ```

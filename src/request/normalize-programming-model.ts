@@ -12,5 +12,6 @@ export default function normalizeProgrammingModel({
     method: httpMethod,
     query: queryStringParameters || {},
     queryStringParameters,
+    source: request.requestContext ? 'api-gateway' : request.source,
   }
 }
