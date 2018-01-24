@@ -1,3 +1,5 @@
+import * as AWSLambda from 'aws-lambda'
+
 export type Alagarr = (
   event: AWSLambda.APIGatewayEvent,
   context: AWSLambda.Context,

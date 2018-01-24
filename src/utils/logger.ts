@@ -1,11 +1,17 @@
 import * as querystring from 'querystring'
 import { InterfaceRequest, InterfaceResponseData } from '../types'
 
+const meta = { coldStart: true }
+
 export default function logger(
   request: InterfaceRequest,
-  response: InterfaceResponseData
+  response: InterfaceResponseData,
 ): boolean {
-  const { headers: requestHeaders = {}, requestContext, context } = request
+  const {
+    headers: requestHeaders = {},
+    requestContext = { identity: {} },
+    context,
+  } = request
   const error = response.statusCode >= 500 && response.statusCode < 600
 
   const logEntry = {
@@ -16,6 +22,7 @@ export default function logger(
     deploymentStage: requestContext.stage,
 
     // Lambda stuff
+    coldStart: meta.coldStart,
     requestTime: request.timestamp ? Date.now() - request.timestamp : undefined,
 
     lambda: {
@@ -60,5 +67,12 @@ export default function logger(
     },
   }
 
-  return (error ? process.stderr : process.stdout).write(JSON.stringify(logEntry))
+  if (meta.coldStart) {
+    // tslint:disable-next-line: no-expression-statement no-object-mutation
+    meta.coldStart = false
+  }
+
+  return (error ? process.stderr : process.stdout).write(
+    JSON.stringify(logEntry),
+  )
 }
