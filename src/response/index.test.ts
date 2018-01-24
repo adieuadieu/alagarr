@@ -10,7 +10,7 @@ const testOptions = {
 
 const testRespondToFormats = {
   default: 'json',
-  html: 'foobar',
+  html: '<html />',
   json: { foo: 'bar' },
 }
 const testStatusCode = 123
@@ -139,4 +139,24 @@ it('respondTo picks correct format based on request Accept header', () => {
   )
 
   jsonResponse.respondTo(testRespondToFormats, testStatusCode)
+})
+
+it('respondTo correctly falls back on a default format', () => {
+  const response = makeResponse(
+    {
+      headers: {
+        accept: 'foo/bar,bar/foo',
+      },
+    } as any,
+    (error, { body, statusCode, headers }) => {
+      expect(error).toBeNull()
+      expect(statusCode).toBe(testStatusCode)
+      expect(headers['content-type']).toBe('application/json')
+      expect(typeof body).toBe('string')
+      expect(body).toBe(JSON.stringify(testRespondToFormats.json))
+    },
+    {},
+  )
+
+  response.respondTo(testRespondToFormats, testStatusCode)
 })

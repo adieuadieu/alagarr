@@ -66,17 +66,20 @@ const respondTo = (
   { headers: { accept } }: InterfaceRequest,
 ): InterfaceResponseData => {
   const fallback = format.default || 'html'
-  // applicatin/json,text/html,
 
   if (accept && typeof accept === 'string') {
-    const acceptFormats = accept.split(',')
+    const acceptFormats = accept
+      .split(';')[0]
+      .split(',')
+      .map(type => {
+        const mimeParts = type.split('/')
+        return mimeParts[mimeParts.length - 1]
+      })
 
-    if (accept.search('html') >= 0 && format.html) {
-      return html(format.html, statusCode)
-    }
+    const bestMatch = acceptFormats.find(type => !!format[type])
 
-    if (accept.search('json') >= 0 && format.json) {
-      return json(format.json, statusCode)
+    if (bestMatch && bestMatch.length) {
+      return responseHelpers[bestMatch](format[bestMatch], statusCode)
     }
   }
 
