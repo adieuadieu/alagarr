@@ -87,7 +87,7 @@ Features:
 
 ### respondTo(formats: object): Promise\<T>
 
-Respond according to request's Accept header with formats provided in `formats` map. Kind of like Ruby on Rails' `respond_to do |format|`
+Respond according to request's Accept header with formats provided in `formats` map. Kind of like a Ruby on Rails `respond_to do |format|` block.
 
 ```js
 response.respondTo({

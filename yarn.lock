@@ -16,9 +16,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/aws-lambda@0.0.27":
-  version "0.0.27"
-  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-0.0.27.tgz#11bba7b856a6ba3f0c7b679956371e6315cd029c"
+"@types/aws-lambda@0.0.30":
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-0.0.30.tgz#3944949f39453fd690bebf0b41a81ad031bb4af2"
 
 "@types/compressible@2.0.0":
   version "2.0.0"
@@ -34,9 +34,9 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-1.1.0.tgz#93b1be91f63c184450385272c47b6496fd028e02"
 
-"@types/jest@22.0.1":
-  version "22.0.1"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.0.1.tgz#6370a6d60cce3845e4cd5d00bf65f654264685bc"
+"@types/jest@22.1.0":
+  version "22.1.0"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.1.0.tgz#c1de03bbac66fac4cc741f7a69cb73bc01a1707c"
 
 "@types/node@*":
   version "8.0.54"
