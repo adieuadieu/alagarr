@@ -36,7 +36,7 @@ export interface InterfaceAlagarrOptions {
 
 export interface InterfaceRequest extends AWSLambda.APIGatewayEvent {
   readonly body: any
-  readonly cookies?: object
+  readonly cookies?: { readonly [name: string]: string }
   readonly headers: { readonly [name: string]: string }
   readonly hostname?: string | undefined
   readonly isBase64Encoded: boolean
