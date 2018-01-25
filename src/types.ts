@@ -34,30 +34,41 @@ export interface InterfaceAlagarrOptions {
   readonly responseMiddleware?: any // lazy
 }
 
+export interface IndexSignature {
+  readonly [key: string]: any
+}
+
+export interface InterfaceCookie {
+  readonly [name: string]: string
+}
+
+export interface InterfaceHeaders {
+  readonly [name: string]: string
+}
+
+export interface InterfaceQueryParameters {
+  readonly [name: string]: string
+}
+
 export interface InterfaceRequest extends AWSLambda.APIGatewayEvent {
   readonly body: any
-  readonly cookies?: { readonly [name: string]: string }
-  readonly headers: { readonly [name: string]: string }
-  readonly hostname?: string | undefined
+  readonly cookies: InterfaceCookie
+  readonly headers: InterfaceHeaders
+  readonly hostname?: string
   readonly isBase64Encoded: boolean
   readonly timestamp?: number
   readonly context: AWSLambda.Context
   readonly method?: string
-  readonly query?: { readonly [name: string]: string }
+  readonly query?: InterfaceQueryParameters
   readonly source?: string
 }
 
 export type RequestMiddleware = (request: InterfaceRequest) => InterfaceRequest
-/*export interface RequestMiddleware {
-  (request: InterfaceRequest): InterfaceRequest
-}*/
 
 export interface InterfaceRespondToFormat {
   readonly default?: string
   readonly html?: string
   readonly json?: any
-
-  readonly [key: string]: any
 }
 
 export interface InterfaceResponseData {
@@ -67,14 +78,25 @@ export interface InterfaceResponseData {
   readonly statusCode: number
 }
 
+export type ResponseHelper = (
+  request: InterfaceRequest,
+  body: any,
+  statusCode?: number,
+  options?: object,
+) => InterfaceResponseData
+
 export interface InterfaceResponse {
   readonly redirect: (location: string, statusCode?: number) => void
   readonly text: (text: string, statusCode?: number) => void
   readonly html: (html: string, statusCode?: number) => void
   readonly json: (json: any, statusCode?: number) => void
-  readonly respondTo: (format: any, statusCode?: number) => void
+  readonly respondTo: (
+    format: InterfaceRespondToFormat,
+    statusCode?: number,
+  ) => void
 }
 
-export interface InterfaceResponseMiddleware {
-  (response: InterfaceResponse, request: InterfaceRequest): InterfaceResponse
-}
+export type InterfaceResponseMiddleware = (
+  response: InterfaceResponse,
+  request: InterfaceRequest,
+) => InterfaceResponse

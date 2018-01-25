@@ -4,6 +4,7 @@ import {
   InterfaceRespondToFormat,
   InterfaceResponse,
   InterfaceResponseData,
+  ResponseHelper,
 } from '../types'
 import applyMiddleware from '../utils/applyMiddleware'
 import compress from './compress'
@@ -27,13 +28,6 @@ export const makeResponseObject = (
   statusCode,
   ...options,
 })
-
-type ResponseHelper = (
-  request: InterfaceRequest,
-  body: any,
-  statusCode?: number,
-  options?: object,
-) => InterfaceResponseData
 
 const text: ResponseHelper = (
   _,
