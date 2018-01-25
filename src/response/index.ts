@@ -28,24 +28,34 @@ export const makeResponseObject = (
   ...options,
 })
 
-const text = (
-  body: string,
-  statusCode: number,
+type ResponseHelper = (
+  request: InterfaceRequest,
+  body: any,
+  statusCode?: number,
   options?: object,
+) => InterfaceResponseData
+
+const text: ResponseHelper = (
+  _,
+  body,
+  statusCode,
+  options,
 ): InterfaceResponseData =>
   makeResponseObject(body, statusCode, options, 'text/plain')
 
-const html = (
-  body: string,
-  statusCode: number,
-  options?: object,
+const html: ResponseHelper = (
+  _,
+  body,
+  statusCode,
+  options,
 ): InterfaceResponseData =>
   makeResponseObject(body, statusCode, options, 'text/html')
 
-const json = (
-  body: any,
-  statusCode: number,
-  options?: object,
+const json: ResponseHelper = (
+  _,
+  body,
+  statusCode,
+  options,
 ): InterfaceResponseData =>
   makeResponseObject(
     JSON.stringify(body),
@@ -60,11 +70,12 @@ const responseHelpers: { readonly [key: string]: any } = {
   text,
 }
 
-const respondTo = (
+const respondTo: ResponseHelper = (
+  request,
   format: InterfaceRespondToFormat,
   statusCode: number,
-  { headers: { accept } }: InterfaceRequest,
 ): InterfaceResponseData => {
+  const { headers: { accept } } = request
   const fallback = format.default || 'html'
 
   if (accept && typeof accept === 'string') {
@@ -79,16 +90,17 @@ const respondTo = (
     const bestMatch = acceptFormats.find(type => !!format[type])
 
     if (bestMatch && bestMatch.length) {
-      return responseHelpers[bestMatch](format[bestMatch], statusCode)
+      return responseHelpers[bestMatch](request, format[bestMatch], statusCode)
     }
   }
 
-  return responseHelpers[fallback](format[fallback], statusCode)
+  return responseHelpers[fallback](request, format[fallback], statusCode)
 }
 
-const redirect = (
-  location: string,
-  statusCode: number = 302,
+const redirect: ResponseHelper = (
+  _,
+  location,
+  statusCode = 302,
 ): InterfaceResponseData =>
   makeResponseObject('', statusCode, {
     headers: {
@@ -123,7 +135,7 @@ export default (
                   : middlewareList,
               [...(options.responseMiddleware || []), log],
             ),
-            method(...args, request),
+            method(request, ...args),
             request,
             options,
           ),

@@ -111,6 +111,8 @@ it('respondTo picks correct format based on request Accept header', () => {
       },
     } as any,
     (error, { body, statusCode, headers }) => {
+      console.log(body, statusCode, headers)
+
       expect(error).toBeNull()
       expect(statusCode).toBe(testStatusCode)
       expect(headers['content-type']).toBe('text/html')

@@ -16,19 +16,32 @@ const defaultErrorHandler = (
 ) => {
   const { requestId } = request.requestContext
 
-  // @todo use response.basedOnAccepts() instead?
-
   // throw any https://github.com/jshttp/http-errors
 
   if (
     error.name === 'ClientError' ||
     (error.statusCode >= 400 && error.statusCode < 500)
   ) {
-    return response.json({ error, requestId }, error.statusCode || 400)
+    return response.respondTo(
+      {
+        html: `<html><body>${
+          error.message
+        }<br/>Request ID: ${requestId}</body></html>`,
+        json: { error: error.name, message: error.message, requestId },
+      },
+      error.statusCode || 400,
+    )
   }
 
-  return response.json(
-    { error: 'Internal server error occurred', requestId },
+  return response.respondTo(
+    {
+      html: `<html><body>An internal server error occurred.<br/>Request ID: ${requestId}</body></html>`,
+      json: {
+        error: 'Internal server error',
+        message: 'An internal server error occurred',
+        requestId,
+      },
+    },
     500,
   )
 }
@@ -87,8 +100,19 @@ export default function alagarr(
           ? mergedOptions.errorHandler
           : defaultErrorHandler
 
-      // If there's an error in the error handler, you're on your own.
-      return errorHandler(request, response, error)
+      try {
+        return errorHandler(request, response, error)
+      } catch (error) {
+        // There was an error.. in the error handler. ErrorInception.
+        // tslint:disable-next-line:no-console no-expression-statement
+        console.error(
+          'There was an error in the error handler provided to Alagaar',
+          error,
+          errorHandler.toString(),
+        )
+
+        return defaultErrorHandler(request, response, new ServerError())
+      }
     }
   }
 }
