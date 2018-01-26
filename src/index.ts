@@ -89,6 +89,7 @@ export default function alagarr(
       ...DEFAULT_OPTIONS,
       ...options,
     }
+
     const request = parseRequest(event, context, mergedOptions)
     const response = makeResponse(request, callback, mergedOptions)
 

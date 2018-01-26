@@ -59,7 +59,7 @@ export interface InterfaceRequest extends AWSLambda.APIGatewayEvent {
   readonly timestamp?: number
   readonly context: AWSLambda.Context
   readonly method?: string
-  readonly query?: InterfaceQueryParameters
+  readonly query: InterfaceQueryParameters
   readonly source?: string
 }
 

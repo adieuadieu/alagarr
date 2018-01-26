@@ -13,7 +13,7 @@ const DEFAULT_POLICIES = {
 // Apply CSP headers
 export default function cspHeaders(
   response: InterfaceResponseData,
-  request: InterfaceRequest,
+  _: InterfaceRequest,
   options: InterfaceAlagarrOptions,
 ): InterfaceResponseData {
   const { headers = {}, ...rest } = response
