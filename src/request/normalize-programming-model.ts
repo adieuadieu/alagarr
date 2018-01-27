@@ -10,6 +10,7 @@ export default function normalizeProgrammingModel({
     ...request,
     httpMethod,
     method: httpMethod,
+    provider: 'aws',
     query: queryStringParameters || {},
     queryStringParameters,
     source: request.requestContext ? 'api-gateway' : request.source,
