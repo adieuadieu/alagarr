@@ -135,5 +135,12 @@ export default (
           ),
         ),
     }),
-    {},
+    {
+      raw(
+        error?: Error | null,
+        result?: object | boolean | number | string,
+      ): void {
+        return callback(error, result)
+      },
+    },
   )

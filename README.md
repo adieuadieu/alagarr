@@ -80,6 +80,7 @@ Features:
 * [`svg(image: buffer | stream | string)`](#api-response-svg)
 * [`png(image: buffer | stream | base64-encoded-string)`](#api-response-png)
 * [`jpeg(image: buffer | stream | base64-encoded-string)`](#api-response-jpeg)
+* [`raw(error, result)`](#api-response-raw)
 
 ---
 

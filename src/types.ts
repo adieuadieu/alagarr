@@ -95,6 +95,10 @@ export interface InterfaceResponse {
     format: InterfaceRespondToFormat,
     statusCode?: number,
   ) => void
+  readonly raw: (
+    error?: Error | null,
+    result?: object | boolean | number | string,
+  ) => void
 }
 
 export type InterfaceResponseMiddleware = (
