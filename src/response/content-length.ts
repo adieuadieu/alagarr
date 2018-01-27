@@ -1,7 +1,7 @@
 import { InterfaceResponseData } from '../types'
 
 export default function contentLengthHeader(
-  response: InterfaceResponseData
+  response: InterfaceResponseData,
 ): InterfaceResponseData {
   const { body, headers, ...rest } = response
 
@@ -10,7 +10,9 @@ export default function contentLengthHeader(
     body,
     headers: {
       ...headers,
-      'content-length': headers['content-length'] ? headers['content-length'] : body.length,
+      'content-length': headers['content-length']
+        ? headers['content-length']
+        : Buffer.byteLength(body),
     },
   }
 }

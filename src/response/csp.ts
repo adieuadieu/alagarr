@@ -6,7 +6,7 @@ import {
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/default-src
 const DEFAULT_POLICIES = {
-  'default-src': "'self'",
+  'default-src': "'self' https: 'unsafe-inline'",
   'img-src': '* data: blob:',
 }
 

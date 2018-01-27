@@ -13,6 +13,6 @@ describe('Response content-length header', () => {
       statusCode: 200,
     })
 
-    expect(headers['content-length']).toBe(testTextBody.length)
+    expect(headers['content-length']).toBe(Buffer.byteLength(testTextBody))
   })
 })

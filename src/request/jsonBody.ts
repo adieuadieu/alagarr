@@ -3,7 +3,7 @@ import { InterfaceRequest } from '../types'
 
 // Parses JSON request body, if there is one
 export default function parseJsonBody(
-  request: InterfaceRequest
+  request: InterfaceRequest,
 ): InterfaceRequest {
   const { headers, body } = request
 
