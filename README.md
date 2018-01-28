@@ -38,7 +38,7 @@ export default handler((request, response) => {
 
 Typescript:
 
-```ts
+```typescript
 APIGatewayEvent
 APIGatewayEventRequestContext
 //github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/aws-lambda/index.d.ts
@@ -60,10 +60,9 @@ Features:
 * normalize request headers
 * parse json request body
 * response csp headers
-* response gzipping
+* response gzipping (deprecate)
 * easily respond with images/binary data (some API Gateway setup required..)
-
-* @TODO: throwable errors like throw ClientError, ServerError which get caught and pretty
+* throwable errors like throw ClientError, ServerError which get caught and pretty
   response.json()'d
 
 # API
@@ -86,15 +85,27 @@ Features:
 
 <a name="api-response-respondTo" />
 
-### respondTo(formats: object): Promise\<T>
+### respondTo(formats: object): void
 
-Respond according to request's Accept header with formats provided in `formats` map. Kind of like a Ruby on Rails `respond_to do |format|` block.
+Respond according to request's Accept header with formats provided in `formats` map. Kind of like a Ruby on Rails `respond_to do |format|` [block](http://api.rubyonrails.org/classes/ActionController/MimeResponds.html#method-i-respond_to).
 
 ```js
 response.respondTo({
   json: {},
   html: '<html />',
 })
+```
+
+---
+
+<a name="api-response-raw" />
+
+### raw(error?: Error | null, result?: object | boolean | number | string): void
+
+Exposes the underlying `callback` method.
+
+```js
+response.raw(null, { something: 'custom' })
 ```
 
 # Similar Projects

@@ -140,6 +140,7 @@ export default (
         error?: Error | null,
         result?: object | boolean | number | string,
       ): void {
+        // @TODO apply middleware? logger?
         return callback(error, result)
       },
     },
