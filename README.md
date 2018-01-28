@@ -39,6 +39,7 @@ export default handler((request, response) => {
 Typescript:
 
 ```typescript
+FIXTHIS
 APIGatewayEvent
 APIGatewayEventRequestContext
 //github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/aws-lambda/index.d.ts
@@ -51,10 +52,21 @@ export default handler(async (request: Request, response: Response) => {
 })
 ```
 
-Features:
+## Contents
 
-* TODO catches thrown errors and handles callback(error, {}) correctly
-* TODO catches errors and responds with a pretty error.
+1. [Features](#features)
+1. [API](#api)
+1. [Configuration](#configuration)
+1. [Custom Middleware](#custom-middleware)
+   1. [Request Middleware](#request-middleware)
+   1. [Response Middleware](#response-middleware)
+1. [Error Handling](#error-handling)
+1. [Logging](#logging)
+
+## Features
+
+* catches thrown errors and handles callback(error, {}) correctly
+* catches errors and responds with a pretty error.
 * request logging
 * request cookie parsing
 * normalize request headers
@@ -64,8 +76,9 @@ Features:
 * easily respond with images/binary data (some API Gateway setup required..)
 * throwable errors like throw ClientError, ServerError which get caught and pretty
   response.json()'d
+* support for custom request and response middleware
 
-# API
+## API
 
 **Request methods**
 
