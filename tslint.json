@@ -49,12 +49,15 @@
     "readonly-array": true,
     "no-let": true,
     "no-object-mutation": true,
+    "no-delete": true,
+    "no-method-signature": true,
 
     // Functional style immutability rules
     "no-this": true,
     "no-class": true,
     "no-mixed-interface": true,
     "no-expression-statement": true,
+    "no-loop-statement": true,
 
     "no-submodule-imports": false,
     "no-consecutive-blank-lines": true,
