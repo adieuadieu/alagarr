@@ -4,7 +4,7 @@ Alagarr is an **A**WS **L**ambda/**A**PI **Ga**teway **R**equest-**R**esponse he
 abstracts the Lambda-handler event-context-callback function signature so that you can spend less
 time writing boring Lambda/API Gateway-related boilerplate.
 
-Alagarr has zero-dependencies and is entirely functional and middleware is immutable.
+Alagarr has zero-dependencies and is functional and middleware is immutable.
 
 [![CircleCI](https://img.shields.io/circleci/project/github/adieuadieu/alagarr/master.svg?style=flat-square)](https://circleci.com/gh/adieuadieu/alagarr)
 [![Coveralls](https://img.shields.io/coveralls/adieuadieu/alagarr/master.svg?style=flat-square)](https://coveralls.io/github/adieuadieu/alagarr)

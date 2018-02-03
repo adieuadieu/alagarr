@@ -58,6 +58,7 @@
     "no-mixed-interface": true,
     "no-expression-statement": true,
     "no-loop-statement": true,
+    "no-if-statement": true,
 
     "no-submodule-imports": false,
     "no-consecutive-blank-lines": true,
