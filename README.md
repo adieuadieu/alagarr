@@ -4,7 +4,9 @@ Alagarr is an **A**WS **L**ambda/**A**PI **Ga**teway **R**equest-**R**esponse he
 abstracts the Lambda-handler event-context-callback function signature so that you can spend less
 time writing boring Lambda/API Gateway-related boilerplate.
 
-Alagarr has zero-dependencies and is functional and middleware is immutable.
+Alagarr is a higher-order function which abstracts the the programming models of various serverless-cloud providers and adds a standardized request-response model extensible through composable middleware functions.
+
+Alagarr has zero non-development dependencies. The codebase and middleware follow declarative, functional programming paradigms. Fun fact: you won't find any `if` statements in the codebase.
 
 [![CircleCI](https://img.shields.io/circleci/project/github/adieuadieu/alagarr/master.svg?style=flat-square)](https://circleci.com/gh/adieuadieu/alagarr)
 [![Coveralls](https://img.shields.io/coveralls/adieuadieu/alagarr/master.svg?style=flat-square)](https://coveralls.io/github/adieuadieu/alagarr)
@@ -15,7 +17,7 @@ Alagarr has zero-dependencies and is functional and middleware is immutable.
 Turns this:
 
 ```js
-export default handler(event, context, callback) {
+module.exports.myHandler = function(event, context, callback) {
   callback(null, {
     statusCode: 200,
     body: JSON.stringify({ foo: 'bar' }),
@@ -29,11 +31,7 @@ export default handler(event, context, callback) {
 Into this:
 
 ```js
-import handler from 'alagarr'
-
-export default handler((request, response) => {
-  response.json({ foo: 'bar' }) // automatically gzipped
-})
+module.exports.myHandler = require('alagarr')(() => ({ foo: 'bar' }))
 ```
 
 Typescript:
@@ -44,12 +42,12 @@ APIGatewayEvent
 APIGatewayEventRequestContext
 //github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/aws-lambda/index.d.ts
 
-import handler from 'alagarr'
-import { Request, Response } from 'alagarr/types'
+import handler, { InterfaceRequest, InterfaceResponse } from 'alagarr'
 
-export default handler(async (request: Request, response: Response) => {
-  response.html('<html/>')
-})
+export default handler(
+  async (request: InterfaceRequest, response: InterfaceResponse) =>
+    response.html('<html/>'),
+)
 ```
 
 ## Contents
@@ -121,7 +119,11 @@ Exposes the underlying `callback` method.
 response.raw(null, { something: 'custom' })
 ```
 
-# Similar Projects
+## Development
+
+The codebase follows declarative, functional programming paradigms. Many functional styles are enforced through TSLint linter utilised by the project. These include immutablity rules (`no-let`, `no-class`) and rules which prohibit imperative code (`no-expression-statement`, `no-loop-statement`). Disabling the linter for code should be avoided at all cost. Don't cheat. Exceptions are made where satisfying a linting rule is impractical or otherwise untenable. In practice, this tends to be areas where the code touches 3rd party modules and in tests due to Jests imperative style.
+
+## Similar Projects
 
 * [Middy](https://github.com/middyjs/middy)
 * [corgi](https://github.com/balmbees/corgi)
