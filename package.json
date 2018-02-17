@@ -2,7 +2,7 @@
   "name": "alagarr",
   "version": "1.0.0-23",
   "description": "Alagarr is an AWS Lambda/API Gateway Request-Response helper utility.",
-  "author": "Marco Lüthy <marco.luethy@gmail.com (https://github.com/adieuadieu)",
+  "author": "Marco Lüthy <marco.luethy@gmail.com> (https://github.com/adieuadieu)",
   "maintainers": [],
   "contributors": [],
   "license": "MIT",
