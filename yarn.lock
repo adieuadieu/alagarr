@@ -3426,6 +3426,13 @@ tslint-config-prettier@1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/tslint-config-prettier/-/tslint-config-prettier-1.7.0.tgz#1588f794c6863ba31420e8b1d14ae91326063815"
 
+tslint-functional-preset@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/tslint-functional-preset/-/tslint-functional-preset-1.0.0.tgz#36dcf14a52a39a6470027c36d8804183736960c8"
+  dependencies:
+    tslint-config-prettier "1.7.0"
+    tslint-immutable "4.5.1"
+
 tslint-immutable@4.5.1:
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/tslint-immutable/-/tslint-immutable-4.5.1.tgz#85cf4366ae60acb341ebdd3e1ea8b670d6cf2a11"
@@ -3469,9 +3476,9 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-typescript@2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.7.1.tgz#bb3682c2c791ac90e7c6210b26478a8da085c359"
+typescript@2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.7.2.tgz#2d615a1ef4aee4f574425cdff7026edf81919836"
 
 uglify-js@^2.6:
   version "2.8.29"
