@@ -32,6 +32,7 @@ jobs:
           name: Lint
           command: npm run lint
 
+  # runs the unit tests
   unit-test:
     docker:
       - image: circleci/node:8
@@ -42,18 +43,6 @@ jobs:
       - run: 
           name: Unit tests
           command: npm run test
-
-  # This job runs the @serverless-chrome/lambda package's integration tests
-  integration-test:
-    # use a machine because we run the integration tests with Docker (lambci/lambda)
-    machine: true
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}     
-      - run:
-          name: Integration test
-          command: npm run test:integration
 
 #
 # Workflows
@@ -72,6 +61,3 @@ workflows:
       - unit-test:     
           requires:
             - build
-      - integration-test:     
-          requires:
-            - build                        
