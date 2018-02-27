@@ -66,17 +66,54 @@ export interface InterfaceRequest extends AWSLambda.APIGatewayEvent {
 
 export type RequestMiddleware = (request: InterfaceRequest) => InterfaceRequest
 
+export interface InterfaceResponseData {
+  readonly body: string
+  readonly headers: any // lazy
+  readonly isBase64Encoded?: boolean
+  readonly statusCode: number
+}
+
 export interface InterfaceRespondToFormat {
   readonly default?: string
   readonly html?: string
   readonly json?: any
 }
 
-export interface InterfaceResponseData {
-  readonly body: string
-  readonly headers: any // lazy
-  readonly isBase64Encoded?: boolean
-  readonly statusCode: number
+export interface InterfaceResponseOptions {
+  readonly headers?: { readonly [header: string]: boolean | number | string }
+  readonly isBase64Encoded?: boolean // For binary support via APIGatewayProxyResult
+}
+
+export interface InterfaceResponse {
+  readonly redirect: (
+    location: string,
+    statusCode?: number,
+    options?: InterfaceResponseOptions,
+  ) => void
+  readonly text: (
+    text: string,
+    statusCode?: number,
+    options?: InterfaceResponseOptions,
+  ) => void
+  readonly html: (
+    html: string,
+    statusCode?: number,
+    options?: InterfaceResponseOptions,
+  ) => void
+  readonly json: (
+    json: any,
+    statusCode?: number,
+    options?: InterfaceResponseOptions,
+  ) => void
+  readonly respondTo: (
+    format: InterfaceRespondToFormat,
+    statusCode?: number,
+    options?: InterfaceResponseOptions,
+  ) => void
+  readonly raw: (
+    error?: Error | null,
+    result?: object | boolean | number | string,
+  ) => void
 }
 
 export type ResponseHelper = (
@@ -85,21 +122,6 @@ export type ResponseHelper = (
   statusCode?: number,
   options?: object,
 ) => InterfaceResponseData
-
-export interface InterfaceResponse {
-  readonly redirect: (location: string, statusCode?: number) => void
-  readonly text: (text: string, statusCode?: number) => void
-  readonly html: (html: string, statusCode?: number) => void
-  readonly json: (json: any, statusCode?: number) => void
-  readonly respondTo: (
-    format: InterfaceRespondToFormat,
-    statusCode?: number,
-  ) => void
-  readonly raw: (
-    error?: Error | null,
-    result?: object | boolean | number | string,
-  ) => void
-}
 
 export type InterfaceResponseMiddleware = (
   response: InterfaceResponse,

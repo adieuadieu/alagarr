@@ -19,15 +19,16 @@ export const makeResponseObject = (
   statusCode: number = 200,
   { headers = {}, ...options } = {},
   contentType?: string,
-) => ({
-  body,
-  headers: {
-    'content-type': contentType,
-    ...headers,
-  },
-  statusCode,
-  ...options,
-})
+) =>
+  Object.freeze({
+    body,
+    headers: {
+      'content-type': contentType,
+      ...headers,
+    },
+    statusCode,
+    ...options,
+  })
 
 const text: ResponseHelper = (
   _,

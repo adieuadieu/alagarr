@@ -19,7 +19,7 @@ export default (
   context: AWSLambda.Context,
   options: InterfaceAlagarrOptions = {},
 ): InterfaceRequest =>
-  //aka pipe()...
+  // aka pipe()...
   applyMiddleware(
     [
       timestamp,
@@ -32,9 +32,9 @@ export default (
       hostname,
       ...(options.requestMiddleware || []),
     ],
-    {
+    Object.freeze({
       ...event,
       context,
-    },
+    }),
     options,
   )
