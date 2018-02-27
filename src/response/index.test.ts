@@ -39,8 +39,8 @@ it('can correctly set parameters', () => {
   expect(options.foo).toBe('bar')
 })
 
-it('can override headers', () => {
-  const response = makeResponse(
+it('can override headers', async () => {
+  const response = await makeResponse(
     testRequest,
     (error, { body, statusCode, headers }) => {
       expect(error).toBeNull()
@@ -55,8 +55,8 @@ it('can override headers', () => {
   response.html(testHtmlBody, testStatusCode, testOptions)
 })
 
-it('Content-Type is HTML', () => {
-  const response = makeResponse(
+it('Content-Type is HTML', async () => {
+  const response = await makeResponse(
     testRequest,
     (error, { body, statusCode, headers }) => {
       expect(error).toBeNull()
@@ -71,8 +71,8 @@ it('Content-Type is HTML', () => {
   response.html(testHtmlBody, testStatusCode)
 })
 
-it('Content-Type is JSON', () => {
-  const response = makeResponse(
+it('Content-Type is JSON', async () => {
+  const response = await makeResponse(
     testRequest,
     (error, { body, statusCode, headers }) => {
       expect(error).toBeNull()
@@ -87,10 +87,10 @@ it('Content-Type is JSON', () => {
   response.json(testJsonBody, testStatusCode)
 })
 
-it('Redirect status code correct with Location header', () => {
+it('Redirect status code correct with Location header', async () => {
   const redirectLocation = 'test://foobar.com'
 
-  const response = makeResponse(
+  const response = await makeResponse(
     testRequest,
     (error, { statusCode, headers }) => {
       expect(error).toBeNull()
@@ -103,16 +103,14 @@ it('Redirect status code correct with Location header', () => {
   response.redirect(redirectLocation, 301)
 })
 
-it('respondTo picks correct format based on request Accept header', () => {
-  const htmlResponse = makeResponse(
+it('respondTo picks correct format based on request Accept header', async () => {
+  const htmlResponse = await makeResponse(
     {
       headers: {
         accept: 'text/html,application/json',
       },
     } as any,
     (error, { body, statusCode, headers }) => {
-      console.log(body, statusCode, headers)
-
       expect(error).toBeNull()
       expect(statusCode).toBe(testStatusCode)
       expect(headers['content-type']).toBe('text/html')
@@ -124,7 +122,7 @@ it('respondTo picks correct format based on request Accept header', () => {
 
   htmlResponse.respondTo(testRespondToFormats, testStatusCode)
 
-  const jsonResponse = makeResponse(
+  const jsonResponse = await makeResponse(
     {
       headers: {
         accept: 'application/json,text/html',
@@ -143,8 +141,8 @@ it('respondTo picks correct format based on request Accept header', () => {
   jsonResponse.respondTo(testRespondToFormats, testStatusCode)
 })
 
-it('respondTo correctly falls back on a default format', () => {
-  const response = makeResponse(
+it('respondTo correctly falls back on a default format', async () => {
+  const response = await makeResponse(
     {
       headers: {
         accept: 'foo/bar,bar/foo',

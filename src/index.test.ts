@@ -30,14 +30,12 @@ describe('Alagarr NPM Package', () => {
 })
 
 describe('Alagarr', () => {
-  test('can response with JSON', async () => {
+  test('can respond with JSON', async () => {
     const handler = alagarr((_, response) => {
       response.json({ foo: 'bar' }, 201)
     }, {})
 
     const result = await handlerPromise(handler)
-
-    console.log('what did we get', result)
 
     expect(typeof result.body).toBe('string')
     expect(result.body).toBe('{"foo":"bar"}')
@@ -45,5 +43,6 @@ describe('Alagarr', () => {
     expect(result.headers['content-type']).toBe('application/json')
   })
 
-  test('try-catch error response, errorhandle works', async () => {})
+  // @TODO
+  test('@TODO try-catch error response, errorhandle works', async () => {})
 })

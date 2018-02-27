@@ -1,12 +1,16 @@
 // tslint:disable:no-expression-statement
-import { get as getRequestFixture, mockContext } from '../test/fixtures/requests'
+import {
+  get as getRequestFixture,
+  mockContext,
+} from '../test/fixtures/requests'
 import parseRequest from './'
 
 const testRequest = {
   ...getRequestFixture,
   body: null,
   headers: {
-    Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+    Accept:
+      'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4,de;q=0.2',
     'Cache-Control': 'max-age=0',
@@ -33,7 +37,8 @@ const testRequest = {
       accountId: 'offlineContext_accountId',
       apiKey: 'offlineContext_apiKey',
       caller: 'offlineContext_caller',
-      cognitoAuthenticationProvider: 'offlineContext_cognitoAuthenticationProvider',
+      cognitoAuthenticationProvider:
+        'offlineContext_cognitoAuthenticationProvider',
       cognitoAuthenticationType: 'offlineContext_cognitoAuthenticationType',
       cognitoIdentityId: 'offlineContext_cognitoIdentityId',
       cognitoIdentityPoolId: 'offlineContext_cognitoIdentityPoolId',
@@ -55,8 +60,11 @@ const testRequest = {
 }
 
 describe('Request', () => {
-  test('request middleware is applied correctly', () => {
-    const { headers, cookies, hostname, body } = parseRequest(testRequest, mockContext)
+  test('request middleware is applied correctly', async () => {
+    const { headers, cookies, hostname, body } = await parseRequest(
+      testRequest,
+      mockContext,
+    )
 
     expect(headers['user-agent']).toBe(testRequest.headers['User-Agent'])
     expect(Object.keys(cookies || {}).length).toBe(2)

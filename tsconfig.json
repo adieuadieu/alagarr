@@ -2,7 +2,7 @@
   "compilerOptions": {
     "allowJs": false,
     "declaration": true,
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
     "lib": ["es2015", "esnext"],
     "module": "commonjs",

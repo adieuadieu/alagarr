@@ -14,11 +14,11 @@ import urlEncodedBody from './urlEncodedBody'
 parse a Lambda APIG event into a request object by
 running the request event through list of middleware
 */
-export default (
+export default async (
   event: AWSLambda.APIGatewayEvent,
   context: AWSLambda.Context,
   options: InterfaceAlagarrOptions = {},
-): InterfaceRequest =>
+): Promise<InterfaceRequest> =>
   // aka pipe()...
   applyMiddleware(
     [

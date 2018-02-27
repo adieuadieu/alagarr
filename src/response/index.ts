@@ -111,18 +111,18 @@ const middlewareMap = {
   enableEnforcedHeaders: enforcedHeaders,
 }
 
-export default (
+export default async (
   request: InterfaceRequest,
   callback: AWSLambda.Callback,
   options: InterfaceAlagarrOptions,
-): InterfaceResponse =>
+): Promise<InterfaceResponse> =>
   [text, html, json, respondTo, redirect].reduce(
     (methods, method) => ({
       ...methods,
-      [method.name]: (...args) =>
+      [method.name]: async (...args) =>
         callback(
           null,
-          applyMiddleware(
+          await applyMiddleware(
             [...Object.keys(middlewareMap)].reduce(
               (middlewareList, middleware) =>
                 options[middleware]

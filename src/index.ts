@@ -94,8 +94,8 @@ export default function alagarr(
       ...options,
     }
 
-    const request = parseRequest(event, context, mergedOptions)
-    const response = makeResponse(request, callback, mergedOptions)
+    const request = await parseRequest(event, context, mergedOptions)
+    const response = await makeResponse(request, callback, mergedOptions)
 
     try {
       return await handler(request, response, context)
