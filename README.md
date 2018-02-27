@@ -8,6 +8,9 @@ Alagarr is a higher-order function which abstracts the the programming models of
 
 Alagarr has zero non-development dependencies. The codebase and middleware follow declarative, functional programming paradigms. Fun fact: you won't find any `if` statements in the codebase.
 
+^ rewrite this w/o using fancy pancy words/phrases so it's easier to understand
+@TODO
+
 [![CircleCI](https://img.shields.io/circleci/project/github/adieuadieu/alagarr/master.svg?style=flat-square)](https://circleci.com/gh/adieuadieu/alagarr)
 [![Coveralls](https://img.shields.io/coveralls/adieuadieu/alagarr/master.svg?style=flat-square)](https://coveralls.io/github/adieuadieu/alagarr)
 [![Codacy grade](https://img.shields.io/codacy/grade/cd743cc370104d49a508cc4b7689c1aa.svg?style=flat-square)](https://www.codacy.com/app/adieuadieu/alagarr)
@@ -45,7 +48,7 @@ APIGatewayEventRequestContext
 import handler, { InterfaceRequest, InterfaceResponse } from 'alagarr'
 
 export default handler(
-  async (request: InterfaceRequest, response: InterfaceResponse) =>
+  (request: InterfaceRequest, response: InterfaceResponse) =>
     response.html('<html/>'),
 )
 ```
@@ -121,7 +124,7 @@ response.raw(null, { something: 'custom' })
 
 ## Development
 
-The codebase follows declarative, functional programming paradigms. Many functional styles are enforced through TSLint linter utilised by the project. These include immutablity rules (`no-let`, `no-class`) and rules which prohibit imperative code (`no-expression-statement`, `no-loop-statement`). Disabling the linter for code should be avoided at all cost. Don't cheat. Exceptions are made where satisfying a linting rule is impractical or otherwise untenable. In practice, this tends to be areas where the code touches 3rd party modules and in tests due to Jests imperative style.
+The codebase follows declarative, functional programming paradigms. Many functional styles are enforced through TSLint linter utilised by the project. These include immutablity rules (`no-let`, `no-object-mutation`) and rules which prohibit imperative code (`no-expression-statement`, `no-loop-statement`). Disabling the linter for code should be avoided at all cost. Don't cheat. Exceptions are made where satisfying a linting rule is impractical or otherwise untenable. In practice, this tends to be areas where the code touches 3rd party modules and in tests due to Jest's imperative style.
 
 ## Similar Projects
 
