@@ -6,40 +6,52 @@ const mockRequest = {
   ...getRequestFixture,
 }
 
-const mockOptions = {
+const mockResponse = {
+  body: 'foobar',
   headers: {
-    'strict-transport-security': 'max-age=31536000; includeSubDomains; preload',
+    foo: 'bar',
   },
+  statusCode: 200,
 }
+
+const mockOptions = {}
 
 describe('Request/Response logging ', () => {
   test('is logged by default logger when none is provided in options', () => {
-    const response = log(
-      {
-        body: 'foobar',
-        headers: {
-          foo: 'bar',
-        },
-        statusCode: 200,
-      },
+    const mockLogger = jest.fn()
+
+    jest.doMock('../utils/logger', () => ({ default: mockLogger }))
+    jest.resetModules()
+
+    const response = require('./log').default(
+      mockResponse,
       mockRequest,
-      mockOptions
+      mockOptions,
     )
 
+    expect(mockLogger).toHaveBeenCalledTimes(1)
+    expect(response.statusCode).toBe(200)
   })
 
-  test('is logged by options.logger if one is provided', () => {
-    const response = log(
-      {
-        body: 'foobar',
-        headers: {
-          foo: 'bar',
-        },
-        statusCode: 200,
-      },
-      mockRequest,
-      mockOptions
-    )
+  test('is logged by custom options.logger if one is provided', () => {
+    const mockCustomLogger = jest.fn(() => true)
 
+    const response = log(mockResponse, mockRequest, {
+      logger: mockCustomLogger,
+    })
+
+    expect(mockCustomLogger).toHaveBeenCalledTimes(1)
+    expect(response.statusCode).toBe(200)
+  })
+
+  test('will always return response regardles of the logger result', () => {
+    const mockCustomLogger = jest.fn(() => false)
+
+    const response = log(mockResponse, mockRequest, {
+      logger: mockCustomLogger,
+    })
+
+    expect(mockCustomLogger).toHaveBeenCalledTimes(1)
+    expect(response).toBe(response)
   })
 })

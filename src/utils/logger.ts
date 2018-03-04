@@ -6,7 +6,7 @@ const meta = { coldStart: true }
 export default function logger(
   request: InterfaceRequest,
   response: InterfaceResponseData,
-): boolean {
+): any {
   const {
     source,
     headers: requestHeaders = {},
@@ -69,12 +69,11 @@ export default function logger(
     },
   }
 
-  if (meta.coldStart) {
-    // tslint:disable-next-line: no-expression-statement no-object-mutation
-    meta.coldStart = false
-  }
+  // tslint:disable-next-line: no-expression-statement no-object-mutation
+  meta.coldStart = meta.coldStart && false
 
-  return (error ? process.stderr : process.stdout).write(
-    JSON.stringify(logEntry),
+  return (
+    (error ? process.stderr : process.stdout).write(JSON.stringify(logEntry)) &&
+    logEntry
   )
 }

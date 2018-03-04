@@ -128,7 +128,10 @@ export default async (
                 options[middleware]
                   ? [...middlewareList, middlewareMap[middleware]]
                   : middlewareList,
-              [...(options.responseMiddleware || []), log],
+              [
+                ...(options.responseMiddleware || []),
+                ...(options.enableLogger ? [log] : []), // needs to come last
+              ],
             ),
             method(request, ...args),
             request,
