@@ -18,7 +18,10 @@ describe('Normalize request headers', () => {
 
   test('headers can be empty', () => {
     const expected = { ...testRequest, headers: {} }
-    const normalized = normalize({ ...testRequest, headers: undefined })
+    const normalized = (normalize as any)({
+      ...testRequest,
+      headers: undefined,
+    })
 
     expect(normalized).toEqual(expected)
   })
