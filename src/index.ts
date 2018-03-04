@@ -1,3 +1,5 @@
+import ClientError from './errors/client-error'
+import ServerError from './errors/server-error'
 import parseRequest from './request'
 import makeResponse from './response'
 import {
@@ -7,7 +9,6 @@ import {
   InterfaceRequest,
   InterfaceResponse,
 } from './types'
-import { ClientError, ServerError } from './utils/errors'
 
 const defaultErrorHandler = (
   request: InterfaceRequest,
@@ -64,11 +65,11 @@ const DEFAULT_OPTIONS = {
   responseMiddleware: [],
 }
 
-const noopHandler = (_: void, response: InterfaceResponse) =>
-  response.json({
-    error:
-      'Misconfiguration in Alagarr setup. Failed to provide a handler function.',
-  })
+const noopHandler = (_: void, _1: InterfaceResponse) => {
+  throw new ServerError(
+    'Misconfiguration in Alagarr setup. Failed to provide a handler function.',
+  )
+}
 
 export {
   Alagarr,
