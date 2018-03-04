@@ -9,13 +9,8 @@ export default function parseUrlEncodedBody(
 ): InterfaceRequest {
   const { headers, body } = request
 
-  if (
-    headers['content-type'] === 'application/x-www-form-urlencoded' &&
+  return headers['content-type'] === 'application/x-www-form-urlencoded' &&
     typeof body === 'string'
-  ) {
-    const decoded = querystring.parse(body)
-    return { ...request, body: decoded }
-  }
-
-  return request
+    ? { ...request, body: querystring.parse(body) }
+    : request
 }
