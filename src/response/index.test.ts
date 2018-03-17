@@ -141,6 +141,33 @@ it('respondTo picks correct format based on request Accept header', async () => 
   jsonResponse.respondTo(testRespondToFormats, testStatusCode)
 })
 
+it('respondTo allows setting custom headers via options', async () => {
+  const testCustomOptions = {
+    headers: {
+      foo: 'bar-1234',
+    },
+  }
+
+  const response = await makeResponse(
+    {
+      headers: {
+        accept: 'foo/bar,bar/foo',
+      },
+    } as any,
+    (error, { body, statusCode, headers }) => {
+      expect(error).toBeNull()
+      expect(statusCode).toBe(testStatusCode)
+      expect(headers['content-type']).toBe('application/json')
+      expect(headers.foo).toBe(testCustomOptions.headers.foo)
+      expect(typeof body).toBe('string')
+      expect(body).toBe(JSON.stringify(testRespondToFormats.json))
+    },
+    {},
+  )
+
+  response.respondTo(testRespondToFormats, testStatusCode, testCustomOptions)
+})
+
 it('respondTo correctly falls back on a default format', async () => {
   const response = await makeResponse(
     {
