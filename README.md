@@ -55,14 +55,18 @@ export default handler(
 
 ## Contents
 
-1. [Features](#features)
-1. [API](#api)
-1. [Configuration](#configuration)
-1. [Custom Middleware](#custom-middleware)
-   1. [Request Middleware](#request-middleware)
-   1. [Response Middleware](#response-middleware)
-1. [Error Handling](#error-handling)
-1. [Logging](#logging)
+1.  [Features](#features)
+1.  [Configuration](#configuration)
+1.  [Custom Middleware](#custom-middleware)
+1.  [Request Middleware](#request-middleware)
+1.  [Response Middleware](#response-middleware)
+1.  [Error Handling](#error-handling)
+1.  [Logging](#logging)
+1.  [API](#api)
+1.  [Contributing](#contributing)
+1.  [Similar Projects](#similar-projects)
+1.  [Related Thingies](#related-thingies)
+1.  [License](#license)
 
 ## Features
 
@@ -79,6 +83,59 @@ export default handler(
   response.json()'d
 * support for custom request and response middleware
 
+## Configuration
+
+Alagarr ships with default configuration that should work for most use-cases. But, it's possible to pass a configuration object as the second parameter to the alagar() function:
+
+```js
+const alagarr = require('alagarr')
+
+module.exports.handler = alagarr(() => 'Hello world!', {
+  headers: {},
+  logger: console.log,
+})
+```
+
+| Option          | Default | Description                                                                       |
+| --------------- | ------- | --------------------------------------------------------------------------------- |
+| **cspPolicies** | []      | List of CSP policies to include in the response headers                           |
+| **headers**     | {}      | Headers to include in every response                                              |
+| **logger**      |         | Logger to use to log requests. If undefined, Alagarr will use an internal logger. |
+
+@TODO these:
+
+```typescript
+interface InterfaceAlagarrOptions {
+  readonly cspPolicies?: any // lazy
+  readonly enableCompression?: boolean
+  readonly enableContentLength?: boolean
+  readonly enableCspHeaders?: boolean
+  readonly enableLogger?: boolean
+  readonly enableEnforcedHeaders?: boolean
+  readonly enableETagHeader?: boolean
+  readonly enableStrictTransportSecurity?: boolean
+  readonly errorHandler?: ErrorHandler
+  readonly logger?: Logger
+  readonly headers?: object
+  readonly requestMiddleware?: any // lazy
+  readonly responseMiddleware?: any // lazy
+}
+```
+
+## Request Middleware
+
+## Response Middleware
+
+## Custom Middleware
+
+Sure thing. Go for it.
+
+## Error Handling
+
+Throw em. Alagarr will catch them.
+
+## Logging
+
 ## API
 
 **Request methods**
@@ -87,19 +144,19 @@ export default handler(
 
 **Response methods**
 
-* [`respondTo(formats: map)`](#api-response-respondTo)
-* [`json(json: object)`](#api-response-json)
-* [`html(html: string)`](#api-response-html)
-* [`svg(image: buffer | stream | string)`](#api-response-svg)
-* [`png(image: buffer | stream | base64-encoded-string)`](#api-response-png)
-* [`jpeg(image: buffer | stream | base64-encoded-string)`](#api-response-jpeg)
-* [`raw(error, result)`](#api-response-raw)
+* [`respondTo()`](#api-response-respondTo)
+* [`json()`](#api-response-json)
+* [`html()`](#api-response-html)
+* [`svg()`](#api-response-svg)
+* [`png()`](#api-response-png)
+* [`jpeg()`](#api-response-jpeg)
+* [`raw()`](#api-response-raw)
 
 ---
 
 <a name="api-response-respondTo" />
 
-### respondTo(formats: object): void
+### respondTo(formats, statusCode = 200, options = {}): void
 
 Respond according to request's Accept header with formats provided in `formats` map. Kind of like a Ruby on Rails `respond_to do |format|` [block](http://api.rubyonrails.org/classes/ActionController/MimeResponds.html#method-i-respond_to).
 
@@ -114,7 +171,7 @@ response.respondTo({
 
 <a name="api-response-raw" />
 
-### raw(error?: Error | null, result?: object | boolean | number | string): void
+### raw(error: Error | null, result?: object | boolean | number | string): void
 
 Exposes the underlying `callback` method.
 
@@ -122,9 +179,11 @@ Exposes the underlying `callback` method.
 response.raw(null, { something: 'custom' })
 ```
 
-## Development
+## Contributing
 
-The codebase follows declarative, functional programming paradigms. Many functional styles are enforced through TSLint linter utilised by the project. These include immutablity rules (`no-let`, `no-object-mutation`) and rules which prohibit imperative code (`no-expression-statement`, `no-loop-statement`). Disabling the linter for code should be avoided at all cost. Don't cheat. Exceptions are made where satisfying a linting rule is impractical or otherwise untenable. In practice, this tends to be areas where the code touches 3rd party modules and in tests due to Jest's imperative style.
+The codebase _tries_ to follow declarative, functional(ish) programming paradigms. Many functional styles are enforced through TSLint linter utilised by the project. These include immutablity rules (`no-let`, `no-object-mutation`) and rules which prohibit imperative code (`no-expression-statement`, `no-loop-statement`). Disabling the linter for code should be avoided at all cost. Don't cheat. Exceptions are made where satisfying a linting rule is impractical or otherwise untenable. In practice, this tends to be areas where the code touches 3rd party modules and in tests due to Jest's imperative-style.
+
+The benefit to following a declarative, functional coding style is that it becomes much easier to write readable, maintainable, and testable code. As a consequence of immutability (read: having no side-effects), a function will always return the the same value given the same inputs (it is pure in when there is no I/O.). This quality of referential transparency is what makes writing tests simpler. In practice, it results in fewer bugs (and happier devs.)
 
 ## Similar Projects
 
@@ -134,3 +193,15 @@ The codebase follows declarative, functional programming paradigms. Many functio
 * [apigateway-utils](https://github.com/silvermine/apigateway-utils)
 * [serverless-utils](https://github.com/silvermine/serverless-utils)
 * [@graphcool/lambda-helpers](https://www.npmjs.com/package/lambda-helpers)
+
+## Related Thingies
+
+* [aws-kms-thingy](https://github.com/adieuadieu/aws-kms-thingy)
+* [aws-s3-thingy](https://github.com/adieuadieu/aws-s3-thingy)
+
+## License
+
+**Alagarr** © [Marco Lüthy](https://github.com/adieuadieu). Released under the [MIT](./LICENSE) license.<br>
+Authored and maintained by Marco Lüthy with help from [contributors](https://github.com/adieuadieu/alagarr/contributors).
+
+> [github.com/adieuadieu](https://github.com/adieuadieu) · GitHub [@adieuadieu](https://github.com/adieuadieu) · Twitter [@adieuadieu](https://twitter.com/adieuadieu) · Medium [@marco.luethy](https://medium.com/@marco.luethy)
