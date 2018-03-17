@@ -14,7 +14,9 @@ const mockResponse = {
   statusCode: 200,
 }
 
-const mockOptions = {}
+const mockOptions = {
+  enableLogger: true,
+}
 
 describe('Request/Response logging ', () => {
   test('is logged by default logger when none is provided in options', () => {
@@ -37,6 +39,7 @@ describe('Request/Response logging ', () => {
     const mockCustomLogger = jest.fn(() => true)
 
     const response = log(mockResponse, mockRequest, {
+      ...mockOptions,
       logger: mockCustomLogger,
     })
 
@@ -48,10 +51,23 @@ describe('Request/Response logging ', () => {
     const mockCustomLogger = jest.fn(() => false)
 
     const response = log(mockResponse, mockRequest, {
+      ...mockOptions,
       logger: mockCustomLogger,
     })
 
     expect(mockCustomLogger).toHaveBeenCalledTimes(1)
+    expect(response).toBe(response)
+  })
+
+  test('should not log when enableLogger is falsy', () => {
+    const mockCustomLogger = jest.fn(() => false)
+
+    const response = log(mockResponse, mockRequest, {
+      enableLogger: false,
+      logger: mockCustomLogger,
+    })
+
+    expect(mockCustomLogger).toHaveBeenCalledTimes(0)
     expect(response).toBe(response)
   })
 })

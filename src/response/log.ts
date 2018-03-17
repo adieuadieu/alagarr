@@ -12,10 +12,11 @@ export default function logResponse(
   options: InterfaceAlagarrOptions,
 ): InterfaceResponseData {
   return (
-    ((typeof options.logger === 'function'
-      ? options.logger(request, response)
-      : logger(request, response)) &&
-      response) ||
+    (options.enableLogger &&
+      ((typeof options.logger === 'function'
+        ? options.logger(request, response)
+        : logger(request, response)) &&
+        response)) ||
     response
   )
 }
