@@ -69,6 +69,7 @@ const respondTo: ResponseHelper = (
   request,
   format: InterfaceRespondToFormat,
   statusCode: number,
+  options,
 ): InterfaceResponseData => {
   const { headers: { accept } } = request
   const fallback = format.default || 'html'
@@ -85,11 +86,21 @@ const respondTo: ResponseHelper = (
     const bestMatch = acceptFormats.find(type => !!format[type])
 
     if (bestMatch && bestMatch.length) {
-      return responseHelpers[bestMatch](request, format[bestMatch], statusCode)
+      return responseHelpers[bestMatch](
+        request,
+        format[bestMatch],
+        statusCode,
+        options,
+      )
     }
   }
 
-  return responseHelpers[fallback](request, format[fallback], statusCode)
+  return responseHelpers[fallback](
+    request,
+    format[fallback],
+    statusCode,
+    options,
+  )
 }
 
 const redirect: ResponseHelper = (

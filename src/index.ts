@@ -33,7 +33,7 @@ const defaultErrorHandler = (
     (error.statusCode >= 400 && error.statusCode < 500)
     ? response.respondTo(
         {
-          html: `<html><body><strong>${errorName}${statusCode}</strong>:${errorMessage}<br/>Request ID: ${requestId}</body></html>`,
+          html: `<html><body><strong>${errorName}${statusCode}</strong>: ${errorMessage}<br/>Request ID: ${requestId}</body></html>`,
           json: { error: error.name, message: errorMessage, requestId },
         },
         error.statusCode || 400,
@@ -51,7 +51,7 @@ const defaultErrorHandler = (
       )
 }
 
-const DEFAULT_OPTIONS = {
+const DEFAULT_OPTIONS: InterfaceAlagarrOptions = {
   cspPolicies: [],
   enableCompression: true,
   enableContentLength: true,

@@ -6,6 +6,14 @@ const decodeBase64 = (encoded: string): string => {
   return bodyBuffer.toString('utf8')
 }
 
+/*
+
+@TODO: Maybe? calculate/add in the content-length header once it's been
+decoded as APIG seems to strip this header... perhaps check if content-type
+header is there, if not, set it
+
+*/
+
 // Decodes the request body if it's been base64 encoded by API Gateway
 export default function decodeBase64Body(
   request: InterfaceRequest,
