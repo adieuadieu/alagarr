@@ -1,9 +1,8 @@
-import * as accepts from 'accepts'
 import * as zlib from 'zlib'
 import { InterfaceRequest, InterfaceResponseData } from '../../types'
 
 /*
-Compressible list generated with:
+The following COMPRESSIBLE list generated with:
 curl -s https://raw.githubusercontent.com/jshttp/mime-db/master/db.json | jq '. | to_entries | map(select(.value.compressible == true)) | map(.key)'
 */
 
@@ -169,19 +168,34 @@ const ZLIB_DEFAULT_OPTIONS = {
   level: 5,
 }
 
-function getEncoding(request: InterfaceRequest): string | boolean {
-  const accept = accepts(request as any)
-  const encoding = accept.encoding(['gzip', 'deflate', 'identity'])
+function acceptEncoding(
+  accepts: ReadonlyArray<string>,
+  encodings: ReadonlyArray<string>,
+): string | undefined {
+  return accepts.find(
+    accept => !!encodings.find(encoding => accept === encoding),
+  )
+}
+
+function getBestAcceptEncoding(request: InterfaceRequest): string | undefined {
+  const { headers } = request
+  const acceptEncodings = (headers['accept-encoding'] || '').split(/, */)
+
+  const encoding = acceptEncoding(acceptEncodings, [
+    'gzip',
+    'deflate',
+    'identity',
+  ])
 
   // prefer gzip over deflate
-  return encoding === 'deflate' && accept.encoding(['gzip'])
-    ? accept.encoding(['gzip', 'identity'])
+  return encoding === 'deflate' && acceptEncoding(acceptEncodings, ['gzip'])
+    ? acceptEncoding(acceptEncodings, ['gzip', 'identity'])
     : encoding
 }
 
 function compressResponse(
   response: InterfaceResponseData,
-  encoding: string | boolean,
+  encoding: string,
 ): InterfaceResponseData {
   const { body, headers, ...rest } = response
 
@@ -208,14 +222,16 @@ export default function compress(
   request: InterfaceRequest,
 ): InterfaceResponseData {
   const { body, headers } = response
-  const encoding = getEncoding(request)
+  const encoding = getBestAcceptEncoding(request)
 
   const weShouldCompress =
     COMPRESSIBLE.includes(headers['content-type']) &&
-    encoding &&
+    typeof encoding !== 'undefined' &&
     encoding !== 'identity' &&
     body &&
     body.length > 256
 
-  return weShouldCompress ? compressResponse(response, encoding) : response
+  return weShouldCompress && encoding
+    ? compressResponse(response, encoding)
+    : response
 }
