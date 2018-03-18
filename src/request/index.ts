@@ -1,14 +1,14 @@
 import * as AWSLambda from 'aws-lambda' // tslint:disable-line:no-implicit-dependencies
 import { InterfaceAlagarrOptions, InterfaceRequest } from '../types'
-import applyMiddleware from '../utils/applyMiddleware'
+import applyMiddleware from '../utils/apply-middleware'
 import cookies from './cookies'
 import decode from './decode'
 import hostname from './hostname'
-import jsonBody from './jsonBody'
+import jsonBody from './json-body'
 import normalizeHeaders from './normalize-headers'
 import normalizeProgrammingModel from './normalize-programming-model'
 import timestamp from './timestamp'
-import urlEncodedBody from './urlEncodedBody'
+import urlEncodedBody from './url-encoded-body'
 
 /*
 parse a Lambda APIG event into a request object by

@@ -210,8 +210,6 @@ export default function compress(
   const { body, headers } = response
   const encoding = getEncoding(request)
 
-  // Gzip compression is only required when running in lambda,
-  // as in our development/CI setup, this is handled by nginx:
   const weShouldCompress =
     COMPRESSIBLE.includes(headers['content-type']) &&
     encoding &&

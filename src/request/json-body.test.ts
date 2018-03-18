@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import { get as getRequestFixture } from '../test/fixtures/requests'
-import parseJsonBody from './jsonBody'
+import parseJsonBody from './json-body'
 
 const testRequest = {
   ...getRequestFixture,

@@ -10,9 +10,7 @@ export default function contentLengthHeader(
     body,
     headers: {
       ...headers,
-      'content-length': headers['content-length']
-        ? headers['content-length']
-        : Buffer.byteLength(body),
+      'content-length': headers['content-length'] || Buffer.byteLength(body),
     },
   }
 }

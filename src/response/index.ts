@@ -6,7 +6,7 @@ import {
   InterfaceResponseData,
   ResponseHelper,
 } from '../types'
-import applyMiddleware from '../utils/applyMiddleware'
+import applyMiddleware from '../utils/apply-middleware'
 import compress from './compress'
 import contentLength from './content-length'
 import csp from './csp'
@@ -151,12 +151,12 @@ export default async (
         ),
     }),
     {
-      raw(
+      raw: (
         error?: Error | null,
         result?: object | boolean | number | string,
-      ): void {
+      ): void => {
         // @TODO apply middleware? logger?
         return callback(error, result)
       },
-    },
+    } as InterfaceResponse,
   )

@@ -1,5 +1,5 @@
 // tslint:disable:no-expression-statement
-import applyMiddleware from './applyMiddleware'
+import applyMiddleware from './apply-middleware'
 
 it('middleware is applied correctly', async () => {
   const initialData = { foo: 'bar', sum: 0 }
