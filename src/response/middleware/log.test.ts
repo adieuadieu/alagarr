@@ -1,5 +1,5 @@
 // tslint:disable:no-expression-statement
-import { get as getRequestFixture } from '../test/fixtures/requests'
+import { get as getRequestFixture } from '../../test/fixtures/requests'
 import log from './log'
 
 const mockRequest = {
@@ -22,7 +22,7 @@ describe('Request/Response logging ', () => {
   test('is logged by default logger when none is provided in options', () => {
     const mockLogger = jest.fn()
 
-    jest.doMock('../utils/logger', () => ({ default: mockLogger }))
+    jest.doMock('../../utils/logger', () => ({ default: mockLogger }))
     jest.resetModules()
 
     const response = require('./log').default(

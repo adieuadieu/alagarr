@@ -7,12 +7,12 @@ import {
   ResponseHelper,
 } from '../types'
 import applyMiddleware from '../utils/apply-middleware'
-import compress from './compress'
-import contentLength from './content-length'
-import csp from './csp'
-import enforcedHeaders from './enforced-headers'
-import etag from './etag'
-import log from './log'
+import compress from './middleware/compress'
+import contentLength from './middleware/content-length'
+import csp from './middleware/csp'
+import enforcedHeaders from './middleware/enforced-headers'
+import etag from './middleware/etag'
+import log from './middleware/log'
 
 export const makeResponseObject = (
   body: string,

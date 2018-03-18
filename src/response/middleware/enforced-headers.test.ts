@@ -1,5 +1,5 @@
 // tslint:disable:no-expression-statement
-import { get as getRequestFixture } from '../test/fixtures/requests'
+import { get as getRequestFixture } from '../../test/fixtures/requests'
 import enforcedHeaders from './enforced-headers'
 
 const mockRequest = {
@@ -23,11 +23,11 @@ describe('Response enforced headers', () => {
         statusCode: 200,
       },
       mockRequest,
-      mockOptions
+      mockOptions,
     )
 
     expect(headers['strict-transport-security']).toBe(
-      mockOptions.headers['strict-transport-security']
+      mockOptions.headers['strict-transport-security'],
     )
     expect(headers.foo).toBe('bar')
   })

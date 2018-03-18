@@ -1,5 +1,5 @@
 import * as querystring from 'querystring'
-import { InterfaceRequest } from '../types'
+import { InterfaceRequest } from '../../types'
 
 // Parses urlEncoded request body, if there is one
 // this is a more naive version of:

@@ -1,5 +1,5 @@
 // tslint:disable:no-expression-statement
-import { get as getRequestFixture } from '../test/fixtures/requests'
+import { get as getRequestFixture } from '../../test/fixtures/requests'
 import parseUrlEncodedBody from './url-encoded-body'
 
 const testRequest = {

@@ -2,7 +2,7 @@ import {
   InterfaceAlagarrOptions,
   InterfaceRequest,
   InterfaceResponseData,
-} from '../types'
+} from '../../types'
 
 // Apply headers we want to always set
 export default function enforcedHeaders(

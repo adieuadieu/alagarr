@@ -1,4 +1,4 @@
-import { InterfaceRequest } from '../types'
+import { InterfaceRequest } from '../../types'
 
 export interface InterfaceCookie {
   readonly [key: string]: string

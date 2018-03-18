@@ -1,4 +1,4 @@
-import { InterfaceRequest } from '../types'
+import { InterfaceRequest } from '../../types'
 
 // Normalize differenecs in service programming models
 export default function normalizeProgrammingModel({

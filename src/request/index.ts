@@ -1,14 +1,14 @@
 import * as AWSLambda from 'aws-lambda' // tslint:disable-line:no-implicit-dependencies
 import { InterfaceAlagarrOptions, InterfaceRequest } from '../types'
 import applyMiddleware from '../utils/apply-middleware'
-import cookies from './cookies'
-import decode from './decode'
-import hostname from './hostname'
-import jsonBody from './json-body'
-import normalizeHeaders from './normalize-headers'
-import normalizeProgrammingModel from './normalize-programming-model'
-import timestamp from './timestamp'
-import urlEncodedBody from './url-encoded-body'
+import cookies from './middleware/cookies'
+import decode from './middleware/decode'
+import hostname from './middleware/hostname'
+import jsonBody from './middleware/json-body'
+import normalizeHeaders from './middleware/normalize-headers'
+import normalizeProgrammingModel from './middleware/normalize-programming-model'
+import timestamp from './middleware/timestamp'
+import urlEncodedBody from './middleware/url-encoded-body'
 
 /*
 parse a Serverless Invocation (Lambda) event into a request object by

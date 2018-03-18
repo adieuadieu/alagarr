@@ -1,4 +1,4 @@
-import { InterfaceRequest } from '../types'
+import { InterfaceRequest } from '../../types'
 
 const decodeBase64 = (encoded: string): string => {
   const bodyBuffer = Buffer.from(encoded, 'base64')

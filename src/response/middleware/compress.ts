@@ -1,6 +1,6 @@
 import * as accepts from 'accepts'
 import * as zlib from 'zlib'
-import { InterfaceRequest, InterfaceResponseData } from '../types'
+import { InterfaceRequest, InterfaceResponseData } from '../../types'
 
 /*
 Compressible list generated with:

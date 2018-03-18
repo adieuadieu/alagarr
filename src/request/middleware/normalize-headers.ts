@@ -1,4 +1,4 @@
-import { InterfaceRequest } from '../types'
+import { InterfaceRequest } from '../../types'
 
 // Lowercases all header names
 export default function normalizeHeaders({

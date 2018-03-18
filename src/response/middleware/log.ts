@@ -2,8 +2,8 @@ import {
   InterfaceAlagarrOptions,
   InterfaceRequest,
   InterfaceResponseData,
-} from '../types'
-import logger from '../utils/logger'
+} from '../../types'
+import logger from '../../utils/logger'
 
 // Logs request/response info
 export default function logResponse(

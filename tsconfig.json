@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
     "allowJs": false,
+    "allowSyntheticDefaultImports": false,
     "declaration": true,
     "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
     "lib": ["es2015", "esnext"],
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitReturns": true,

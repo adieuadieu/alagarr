@@ -2,7 +2,7 @@ import {
   InterfaceAlagarrOptions,
   InterfaceRequest,
   InterfaceResponseData,
-} from '../types'
+} from '../../types'
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/default-src
 const DEFAULT_POLICIES = {

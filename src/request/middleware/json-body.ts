@@ -1,4 +1,4 @@
-import { InterfaceRequest } from '../types'
+import { InterfaceRequest } from '../../types'
 // import { ClientError } from '../utils/errors'
 
 const parseJson = (stringified: string): any => {
