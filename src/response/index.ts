@@ -1,10 +1,8 @@
 import {
   InterfaceAlagarrOptions,
   InterfaceRequest,
-  InterfaceRespondToFormat,
   InterfaceResponse,
   InterfaceResponseData,
-  ResponseHelper,
 } from '../types'
 import applyMiddleware from '../utils/apply-middleware'
 import compress from './middleware/compress'
@@ -14,105 +12,11 @@ import enforcedHeaders from './middleware/enforced-headers'
 import etag from './middleware/etag'
 import log from './middleware/log'
 
-export const makeResponseObject = (
-  body: string,
-  statusCode: number = 200,
-  { headers = {}, ...options } = {},
-  contentType?: string,
-) =>
-  Object.freeze({
-    body,
-    headers: {
-      'content-type': contentType,
-      ...headers,
-    },
-    statusCode,
-    ...options,
-  })
-
-const text: ResponseHelper = (
-  _,
-  body,
-  statusCode,
-  options,
-): InterfaceResponseData =>
-  makeResponseObject(body, statusCode, options, 'text/plain')
-
-const html: ResponseHelper = (
-  _,
-  body,
-  statusCode,
-  options,
-): InterfaceResponseData =>
-  makeResponseObject(body, statusCode, options, 'text/html')
-
-const json: ResponseHelper = (
-  _,
-  body,
-  statusCode,
-  options,
-): InterfaceResponseData =>
-  makeResponseObject(
-    JSON.stringify(body),
-    statusCode,
-    options,
-    'application/json',
-  )
-
-const responseHelpers: { readonly [key: string]: any } = {
-  html,
-  json,
-  text,
-}
-
-const respondTo: ResponseHelper = (
-  request,
-  format: InterfaceRespondToFormat,
-  statusCode: number,
-  options,
-): InterfaceResponseData => {
-  const { headers: { accept } } = request
-  const fallback = format.default || 'html'
-
-  if (accept && typeof accept === 'string') {
-    const acceptFormats = accept
-      .split(';')[0]
-      .split(',')
-      .map(type => {
-        const mimeParts = type.split('/')
-        return mimeParts[mimeParts.length - 1]
-      })
-
-    const bestMatch = acceptFormats.find(type => !!format[type])
-
-    if (bestMatch && bestMatch.length) {
-      return responseHelpers[bestMatch](
-        request,
-        format[bestMatch],
-        statusCode,
-        options,
-      )
-    }
-  }
-
-  return responseHelpers[fallback](
-    request,
-    format[fallback],
-    statusCode,
-    options,
-  )
-}
-
-const redirect: ResponseHelper = (
-  _,
-  location,
-  statusCode = 302,
-): InterfaceResponseData =>
-  makeResponseObject('', statusCode, {
-    headers: {
-      location,
-    },
-  })
+import html from './html'
+import json from './json'
+import redirect from './redirect'
+import respondTo from './respondTo'
+import text from './text'
 
 const middlewareMap = {
   enableCompression: compress,
@@ -127,10 +31,16 @@ export default async (
   callback: AWSLambda.Callback,
   options: InterfaceAlagarrOptions,
 ): Promise<InterfaceResponse> =>
-  [text, html, json, respondTo, redirect].reduce(
-    (methods, method) => ({
+  [text, html, json, redirect, respondTo].reduce(
+    (
+      methods: InterfaceResponse,
+      // tslint:disable-next-line readonly-array
+      method: (...args: any[]) => InterfaceResponseData,
+    ) => ({
       ...methods,
-      [method.name]: async (...args) =>
+      [method.name]: async (
+        ...args: any[] // tslint:disable-line readonly-array
+      ) =>
         callback(
           null,
           await applyMiddleware(
@@ -150,13 +60,5 @@ export default async (
           ),
         ),
     }),
-    {
-      raw: (
-        error?: Error | null,
-        result?: object | boolean | number | string,
-      ): void => {
-        // @TODO apply middleware? logger?
-        return callback(error, result)
-      },
-    } as InterfaceResponse,
+    { raw: callback } as any,
   )
