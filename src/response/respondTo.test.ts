@@ -1,8 +1,9 @@
 // tslint:disable:no-expression-statement
+import { EnumDefaultRespondToFormat } from '../types'
 import makeResponse from './'
 
 const testRespondToFormats = {
-  default: 'json',
+  default: EnumDefaultRespondToFormat.json,
   html: '<html />',
   json: { foo: 'bar' },
 }

@@ -39,13 +39,11 @@
     "upgrade-dependencies": "yarn upgrade-interactive --latest --exact"
   },
   "dependencies": {
-    "accepts": "1.3.5",
-    "etag": "1.8.1"
+    "accepts": "1.3.5"
   },
   "devDependencies": {
     "@types/accepts": "1.3.5",
     "@types/aws-lambda": "0.0.33",
-    "@types/etag": "1.8.0",
     "@types/jest": "22.2.0",
     "@types/node": "9.4.7",
     "husky": "0.14.3",

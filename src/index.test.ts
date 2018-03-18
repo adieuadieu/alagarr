@@ -44,5 +44,7 @@ describe('Alagarr', () => {
   })
 
   // @TODO
-  test('@TODO try-catch error response, errorhandle works', async () => {})
+  test('@TODO try-catch error response, errorhandle works', async () => {
+    expect('@TODO').toBe('done')
+  })
 })
