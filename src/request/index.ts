@@ -11,8 +11,8 @@ import timestamp from './timestamp'
 import urlEncodedBody from './url-encoded-body'
 
 /*
-parse a Lambda APIG event into a request object by
-running the request event through list of middleware
+parse a Serverless Invocation (Lambda) event into a request object by
+running the request event object through list of middleware
 */
 export default async (
   event: AWSLambda.APIGatewayEvent,
@@ -35,6 +35,6 @@ export default async (
     Object.freeze({
       ...event,
       context,
-    }),
+    }) as InterfaceRequest,
     options,
   )

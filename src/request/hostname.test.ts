@@ -30,7 +30,7 @@ describe('Request hostname', () => {
       hostname: undefined,
     }
 
-    const request = hostname({ ...testEvent, headers: undefined })
+    const request = hostname({ ...testEvent, headers: undefined } as any)
 
     expect(request).toEqual(expected)
   })
