@@ -123,7 +123,7 @@ export type ResponseHelper = (
   options?: object,
 ) => InterfaceResponseData
 
-export type InterfaceResponseMiddleware = (
+export type ResponseMiddleware = (
   response: InterfaceResponse,
   request: InterfaceRequest,
 ) => InterfaceResponse

@@ -57,6 +57,7 @@ export default handler(
 
 1.  [Features](#features)
 1.  [Configuration](#configuration)
+    1.  [Options](#configuration-options)
 1.  [Custom Middleware](#custom-middleware)
 1.  [Request Middleware](#request-middleware)
 1.  [Response Middleware](#response-middleware)
@@ -96,11 +97,14 @@ module.exports.handler = alagarr(() => 'Hello world!', {
 })
 ```
 
-| Option          | Default | Description                                                                       |
-| --------------- | ------- | --------------------------------------------------------------------------------- |
-| **cspPolicies** | []      | List of CSP policies to include in the response headers                           |
-| **headers**     | {}      | Headers to include in every response                                              |
-| **logger**      |         | Logger to use to log requests. If undefined, Alagarr will use an internal logger. |
+### Configuration Options
+
+| Option           | Default | Description                                                                                           |
+| ---------------- | ------- | ----------------------------------------------------------------------------------------------------- |
+| **cspPolicies**  | []      | List of CSP policies to include in the response headers                                               |
+| **errorHandler** |         | Provide a custom error handler. See the section on [Error Handling](#error-handling) for more details |
+| **headers**      | {}      | Headers to include in every response                                                                  |
+| **logger**       |         | Logger to use to log requests. If undefined, Alagarr will use an internal logger.                     |
 
 @TODO these:
 

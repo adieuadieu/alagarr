@@ -28,7 +28,7 @@
     "watch:test": "jest --watch",
     "lint": "yarn lint:tslint && yarn lint:tsc",
     "lint:tslint": "tslint -p tsconfig.json -t stylish",
-    "lint:tsc": "tsc -p tsconfig.json --noEmit --pretty",
+    "lint:tsc": "tsc --noEmit --pretty",
     "prebuild": "npm run clean",
     "build": "tsc -d",
     "dev": "tsc -w",
