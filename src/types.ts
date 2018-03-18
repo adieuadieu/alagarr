@@ -73,8 +73,13 @@ export interface InterfaceResponseData {
   readonly statusCode: number
 }
 
+export enum EnumDefaultRespondToFormat {
+  html = 'html',
+  json = 'json',
+}
+
 export interface InterfaceRespondToFormat {
-  readonly default?: string
+  readonly default?: EnumDefaultRespondToFormat
   readonly html?: string
   readonly json?: any
 }
@@ -106,7 +111,7 @@ export interface InterfaceResponse {
     options?: InterfaceResponseOptions,
   ) => void
   readonly respondTo: (
-    format: InterfaceRespondToFormat,
+    formats: InterfaceRespondToFormat,
     statusCode?: number,
     options?: InterfaceResponseOptions,
   ) => void
