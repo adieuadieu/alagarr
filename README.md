@@ -1,3 +1,5 @@
+![](docs/title.png)
+
 # Alagarr
 
 Alagarr is an **A**WS **L**ambda/**A**PI **Ga**teway **R**equest-**R**esponse helper utility. It

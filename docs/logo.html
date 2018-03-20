@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdn.rawgit.com/tonsky/FiraCode/master/distr/fira_code.css">
+
+  <style>
+    @font-face {
+      font-family: 'Fira Code';
+      src: url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/eot/FiraCode-Light.eot');
+      src: url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/eot/FiraCode-Light.eot') format('embedded-opentype'),
+      url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/woff2/FiraCode-Light.woff2') format('woff2'),
+      url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/woff/FiraCode-Light.woff') format('woff'),
+      url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/ttf/FiraCode-Light.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Fira Code';
+      src: url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/eot/FiraCode-Regular.eot');
+      src: url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/eot/FiraCode-Regular.eot') format('embedded-opentype'),
+      url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/woff2/FiraCode-Regular.woff2') format('woff2'),
+      url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/woff/FiraCode-Regular.woff') format('woff'),
+      url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/ttf/FiraCode-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Fira Code';
+      src: url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/eot/FiraCode-Medium.eot');
+      src: url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/eot/FiraCode-Medium.eot') format('embedded-opentype'),
+      url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/woff2/FiraCode-Medium.woff2') format('woff2'),
+      url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/woff/FiraCode-Medium.woff') format('woff'),
+      url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/ttf/FiraCode-Medium.ttf') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Fira Code';
+      src: url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/eot/FiraCode-Bold.eot');
+      src: url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/eot/FiraCode-Bold.eot') format('embedded-opentype'),
+      url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/woff2/FiraCode-Bold.woff2') format('woff2'),
+      url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/woff/FiraCode-Bold.woff') format('woff'),
+      url('https://cdn.rawgit.com/tonsky/FiraCode/master/distr/ttf/FiraCode-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Fira Sans';
+      src: url('https://cdn.rawgit.com/bBoxType/FiraSans/master/Fira_Sans_4_3/Fonts/Fira_Sans_WEB_4300/Normal/Roman/FiraSans-Regular.woff2') format('woff2'),
+      url('https://cdn.rawgit.com/bBoxType/FiraSans/master/Fira_Sans_4_3/Fonts/Fira_Sans_WEB_4300/Normal/Roman/FiraSans-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    :root {
+      --primary-color-1: rgb(255, 76, 127);
+      --primary-color-2: rgb(255, 244, 102);
+      --primary-color-3: rgb(45, 147, 178);
+      --text-color: #222;
+      counter-reset: counter;
+    }
+
+    .primary-color-1 {
+      color: var(--primary-color-1);
+    }
+
+    .primary-color-2 {
+      color: var(--primary-color-2);
+    }
+
+    .primary-color-3 {
+      color: var(--primary-color-3);
+    }
+
+    body {
+      font: 14px/1.5em "Fira Code";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      color: var(--text-color)
+    }
+
+    .code {
+      font-feature-settings: "calt" 1;
+      /* Enable ligatures for IE 10+, Edge */
+      text-rendering: optimizeLegibility;
+      /* Force ligatures for Webkit, Blink, Gecko */
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .light {
+      font-weight: 300;
+    }
+
+    .regular {
+      font-weight: 400;
+    }
+
+    .medium {
+      font-weight: 500;
+    }
+
+    .bold {
+      font-weight: 700;
+    }
+
+    .main {
+      min-width: 51%;
+      margin: 40vh 4em;
+      /* 1750x878 https://raw.githubusercontent.com/apex/up/master/assets/title.png */
+    }
+
+    .main.flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .logo {
+      display: flex;
+    }
+
+    .logo div {
+      width: 20px;
+      height: 72px;
+      margin: 5px;
+      box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo div:nth-child(3) {
+      background: var(--primary-color-1);
+    }
+
+    .logo div:nth-child(2) {
+      background: var(--primary-color-2);
+    }
+
+    .logo div:nth-child(1) {
+      background: var(--primary-color-3);
+    }
+
+    h1 {
+      margin: 0;
+      padding: 0;
+      margin-left: 29px;
+      color: var(--text-color);
+      font-size: 60px;
+      line-height: 0;
+    }
+
+    .font-fira-code {
+      font-family: "Fira Code";
+    }
+
+    .font-fira-sans {
+      font-family: "Fira Sans";
+    }
+
+    .deg-30 div {
+      transform: rotate(30deg);
+    }
+
+    .deg-35 div {
+      transform: rotate(35deg);
+    }
+
+    .deg-40 div {
+      transform: rotate(40deg);
+    }
+
+    .grayscale {
+      filter: grayscale(100)
+    }
+
+    section.main::before {
+      counter-increment: counter +1;
+      content: counter(counter);
+      position: absolute;
+      left: 4em;
+      color: #ccc;
+    }
+
+    div.vr {
+      width: 8px;
+      height: 60px;
+      margin: 5px;
+      box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+      background: #ddd;
+      margin: 0 2.5em;
+    }
+
+    h2 {
+      margin: 0;
+      padding: 0;
+      color: var(--text-color);
+      font-size: 36px;
+      line-height: 0;
+    }
+
+    .fs-24 {
+      font-size: 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="main flex">
+
+    <div class="logo">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-code code">alagarr() => {}</h1>
+  </section>
+
+  <section class="main flex">
+
+    <div class="logo deg-30">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-code">alagarr()</h1>
+  </section>
+
+  <section class="main flex">
+    <div class="logo">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-code">Alagarr</h1>
+  </section>
+
+
+  <section class="main flex">
+    <div class="logo">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-sans">alagarr</h1>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-30">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-sans">alagarr</h1>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-35">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-sans">alagarr</h1>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-40">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-sans">alagarr</h1>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-35 grayscale">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-sans flex">a
+      <span class="primary-color-1">l</span>aga
+      <span class="primary-color-2">r</span>
+      <span class="primary-color-3">r</span>
+    </h1>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-35 grayscale">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-sans flex">a
+      <span class="primary-color-1">l</span>aga
+      <span class="primary-color-1">r</span>
+      <span class="primary-color-1">r</span>
+    </h1>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-35 grayscale">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-sans flex">
+      <span class="primary-color-1">a</span>l
+      <span class="primary-color-1">a</span>g
+      <span class="primary-color-1">a</span>rr
+    </h1>
+  </section>
+
+  <section class="main flex">
+    <h1 class="font-fira-sans flex">
+      <span class="primary-color-1">a</span>l
+      <span class="primary-color-1">a</span>g
+      <span class="primary-color-1">a</span>rr
+    </h1>
+
+    <div class="vr"></div>
+
+    <h2 class="font-fira-sans">Serverless Request-Response</h2>
+  </section>
+
+
+  <section class="main flex">
+    <h1 class="font-fira-sans flex">
+      <span class="primary-color-1">a</span>l
+      <span class="primary-color-1">a</span>g
+      <span class="primary-color-1">a</span>rr
+    </h1>
+
+    <div class="vr"></div>
+
+    <h2 class="font-fira-sans fs-24">Serverless Request-Response</h2>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-35 grayscale" style="transform: scale(0.75);">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-sans flex">
+      <span class="primary-color-1">a</span>l
+      <span class="primary-color-1">a</span>g
+      <span class="primary-color-1">a</span>rr
+    </h1>
+
+    <div class="vr"></div>
+
+    <h2 class="font-fira-sans fs-24">Serverless Request-Response</h2>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-35 grayscale" style="transform: scale(0.75);">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-sans flex">
+      <span class="primary-color-1">a</span>l
+      <span class="primary-color-1">a</span>g
+      <span class="primary-color-1">a</span>rr
+    </h1>
+
+    <div class="vr"></div>
+
+    <h2 class="font-fira-sans fs-24">Request-Response in any Cloud</h2>
+  </section>
+</body>
+
+</html>
