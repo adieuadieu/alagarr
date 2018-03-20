@@ -1,6 +1,4 @@
-![](docs/title.png)
-
-# Alagarr
+![](docs/title2.png)
 
 Alagarr is an **A**WS **L**ambda/**A**PI **Ga**teway **R**equest-**R**esponse helper utility. It
 abstracts the Lambda-handler event-context-callback function signature so that you can spend less
