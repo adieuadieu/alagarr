@@ -77,7 +77,7 @@ export default function alagarr(
           errorHandler.toString(),
         )
 
-        return defaultErrorHandler(request, response, new ServerError())
+        return defaultErrorHandler(request, response, error)
       }
     }
   }
