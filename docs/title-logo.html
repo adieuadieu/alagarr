@@ -77,6 +77,16 @@
       color: var(--primary-color-3);
     }
 
+    body.screenshot {
+      width: 1750px;
+    }
+
+    body.screenshot .main {
+      height: 878px;
+      width: 1750px;
+      margin: 0;
+    }
+
     body {
       font: 14px/1.5em "Fira Code";
       display: flex;
@@ -138,6 +148,26 @@
       box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
     }
 
+    .logo.border-radius div {
+      border-radius: 4px 0;
+    }
+
+    .logo.border-radius-2 div {
+      border-radius: 4px 1px;
+    }
+
+    .logo.border-radius-3 div {
+      border-radius: 3px 1px;
+    }
+
+    .logo.border-radius-40 div {
+      border-radius: 40px 1px;
+    }
+
+    .no-box-shadow div {
+      box-shadow: none;
+    }
+
     .logo div:nth-child(3) {
       background: var(--primary-color-1);
     }
@@ -179,6 +209,14 @@
       transform: rotate(40deg);
     }
 
+    .deg-42 div {
+      transform: rotate(42deg);
+    }
+
+    .deg-47 div {
+      transform: rotate(47deg);
+    }
+
     .grayscale {
       filter: grayscale(100)
     }
@@ -195,9 +233,20 @@
       width: 8px;
       height: 60px;
       margin: 5px;
-      box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+      /*box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);*/
       background: #ddd;
-      margin: 0 2.5em;
+      margin: 0 3em;
+    }
+
+    .vr.vr-2 {
+      width: 6px;
+      height: 70px;
+    }
+
+    .vr.vr-3 {
+      width: 4px;
+      height: 76px;
+      background: #eee;
     }
 
     h2 {
@@ -214,7 +263,7 @@
   </style>
 </head>
 
-<body>
+<body class="screenshot">
   <section class="main flex">
 
     <div class="logo">
@@ -386,9 +435,147 @@
       <span class="primary-color-1">a</span>rr
     </h1>
 
-    <div class="vr"></div>
+    <div class="vr vr-2"></div>
 
     <h2 class="font-fira-sans fs-24">Request-Response in any Cloud</h2>
+  </section>
+
+  <section class="main flex">
+    <h1 class="font-fira-sans flex">
+      <span class="primary-color-1">a</span>l
+      <span class="primary-color-1">a</span>g
+      <span class="primary-color-1">a</span>rr
+    </h1>
+
+    <div class="vr vr-2"></div>
+
+    <h2 class="font-fira-sans fs-24">Request-Response in any Cloud</h2>
+  </section>
+
+  <section class="main flex">
+    <h1 class="font-fira-sans flex">
+      alagarr
+    </h1>
+
+    <div class="vr vr-2"></div>
+
+    <h2 class="font-fira-sans fs-24">Request-Response on any Cloud</h2>
+  </section>
+
+  <!-- miriam's feedback -->
+  <section class="main flex">
+    <div class="logo deg-30">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-code">alagarr()</h1>
+
+    <div class="vr vr-3"></div>
+
+    <h2 class="font-fira-sans fs-24">serverless request response</h2>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-30">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-code">alagarr</h1>
+
+    <div class="vr vr-3"></div>
+
+    <h2 class="font-fira-sans fs-24">serverless request response</h2>
+  </section>
+
+  <!-- daniel+miriam's feedback -->
+
+  <section class="main flex">
+    <div class="logo deg-40 no-box-shadow border-radius">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-code">alagarr</h1>
+
+    <div class="vr vr-3"></div>
+
+    <h2 class="font-fira-sans fs-24">request response on any cloud</h2>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-47 no-box-shadow border-radius">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-code">alagarr</h1>
+
+    <div class="vr vr-3"></div>
+
+    <h2 class="font-fira-sans fs-24">request response on any cloud</h2>
+  </section>
+
+  <!-- michael feedback about border-radius -->
+  <section class="main flex" id="michael-1">
+    <div class="logo deg-47 no-box-shadow border-radius-2">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-code">alagarr</h1>
+
+    <div class="vr vr-3"></div>
+
+    <h2 class="font-fira-sans fs-24">request response on any cloud</h2>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-47 no-box-shadow border-radius-3">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-code">alagarr</h1>
+
+    <div class="vr vr-3"></div>
+
+    <h2 class="font-fira-sans fs-24">request response on any cloud</h2>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-42 no-box-shadow border-radius-3">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-code">alagarr</h1>
+
+    <div class="vr vr-3"></div>
+
+    <h2 class="font-fira-sans fs-24">request response on any cloud</h2>
+  </section>
+
+  <section class="main flex">
+    <div class="logo deg-42 no-box-shadow border-radius-40">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <h1 class="font-fira-code">alagarr</h1>
+
+    <div class="vr vr-3"></div>
+
+    <h2 class="font-fira-sans fs-24">request response on any cloud</h2>
   </section>
 </body>
 
