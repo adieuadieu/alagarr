@@ -99,7 +99,7 @@
     },
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "/src/test/"
+      "/test/"
     ]
   }
 }

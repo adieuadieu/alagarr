@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import * as zlib from 'zlib'
-import { get as getRequestFixture } from '../../test/fixtures/requests'
+import { get as getRequestFixture } from '../../../test/fixtures/requests'
 import compress from './compress'
 
 const testTextBody = [...Array(1000).keys()].join('')

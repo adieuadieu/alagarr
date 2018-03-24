@@ -1,6 +1,9 @@
 // tslint:disable:no-expression-statement
+import {
+  get as getRequestFixture,
+  mockContext,
+} from '../test/fixtures/requests'
 import alagarr from './index'
-import { get as getRequestFixture, mockContext } from './test/fixtures/requests'
 
 const testRequest = {
   ...getRequestFixture,

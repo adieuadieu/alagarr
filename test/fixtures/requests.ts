@@ -1,4 +1,4 @@
-import { InterfaceRequest } from '../../types'
+import { InterfaceRequest } from '../../src/types'
 
 export const mockContext: AWSLambda.Context = {
   awsRequestId: 'foobar',
@@ -34,6 +34,7 @@ export const mockRequestContext: AWSLambda.APIGatewayEventRequestContext = {
     userArn: null,
   },
   requestId: 'foobar',
+  requestTimeEpoch: 0,
   resourceId: 'foobar',
   resourcePath: 'foobar',
   stage: 'foobar',
@@ -42,14 +43,16 @@ export const mockRequestContext: AWSLambda.APIGatewayEventRequestContext = {
 export const get: InterfaceRequest = {
   body: 'foobar',
   context: mockContext,
+  cookies: {},
   headers: {},
   httpMethod: 'GET',
   isBase64Encoded: false,
   path: '/',
   pathParameters: {},
+  provider: 'aws',
+  query: {},
   queryStringParameters: {},
   requestContext: mockRequestContext,
   resource: 'foobar',
   stageVariables: {},
 }
-

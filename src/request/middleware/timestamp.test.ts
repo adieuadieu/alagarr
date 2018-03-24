@@ -1,5 +1,5 @@
 // tslint:disable:no-expression-statement
-import { get as getRequestFixture } from '../../test/fixtures/requests'
+import { get as getRequestFixture } from '../../../test/fixtures/requests'
 import timestamp from './timestamp'
 
 const testRequest = {

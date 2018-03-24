@@ -2,7 +2,7 @@
 import {
   get as getRequestFixture,
   mockContext,
-} from '../test/fixtures/requests'
+} from '../../test/fixtures/requests'
 import parseRequest from './'
 
 const testRequest = {
