@@ -128,6 +128,19 @@ interface InterfaceAlagarrOptions {
 
 ## Request Middleware
 
+Alagarr ships with the following middleware:
+
+| Provider | Name                        | Default                                                                               | Description                                                                                                                     |
+| -------- | --------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| All      | normalize-headers           | built-in                                                                              | Normalizes request headers.                                                                                                     |
+| All      | normalize-programming-model | built-in                                                                              | Normalizes the programming models of different providers.                                                                       |
+| All      | timestamp                   | built-in                                                                              | Adds a request-start timestamp under `request.timestamp` which can be used to determine the ellapsed duration of the invocation |
+| Any      | cookies                     | enabled                                                                               | Parses cookies out of request header and makes them accessible under `request.cookies`                                          |
+| Any      | hostname                    | enabled                                                                               | Sets a convenience `hostname` property on the request object based on the request headers                                       |
+| Any      | json-body                   | Body parser for request bodies with content-type of application/json                  |
+| Any      | url-encoded-body            | Body parser for request bodies with content-type of application/x-www-form-urlencoded |
+| AWS      | decode                      | false                                                                                 | Decodes base64-encoded request bodies when `isBase64Encoded` on the API Gateway request is set                                  |
+
 ## Response Middleware
 
 ## Custom Middleware
