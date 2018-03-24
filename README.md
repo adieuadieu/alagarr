@@ -58,12 +58,13 @@ export default handler(
 1.  [Features](#features)
 1.  [Configuration](#configuration)
     1.  [Options](#configuration-options)
-1.  [Custom Middleware](#custom-middleware)
-1.  [Request Middleware](#request-middleware)
-1.  [Response Middleware](#response-middleware)
+1.  [API](#api)
 1.  [Error Handling](#error-handling)
 1.  [Logging](#logging)
-1.  [API](#api)
+1.  [Middleware](#middleware)
+    1.  [Request Middleware](#request-middleware)
+    1.  [Response Middleware](#response-middleware)
+    1.  [Custom Middleware](#custom-middleware)
 1.  [Contributing](#contributing)
 1.  [Similar Projects](#similar-projects)
 1.  [Related Thingies](#related-thingies)
@@ -126,33 +127,6 @@ interface InterfaceAlagarrOptions {
 }
 ```
 
-## Request Middleware
-
-Alagarr ships with the following middleware:
-
-| Provider | Name                        | Default                                                                               | Description                                                                                                                     |
-| -------- | --------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| All      | normalize-headers           | built-in                                                                              | Normalizes request headers.                                                                                                     |
-| All      | normalize-programming-model | built-in                                                                              | Normalizes the programming models of different providers.                                                                       |
-| All      | timestamp                   | built-in                                                                              | Adds a request-start timestamp under `request.timestamp` which can be used to determine the ellapsed duration of the invocation |
-| Any      | cookies                     | enabled                                                                               | Parses cookies out of request header and makes them accessible under `request.cookies`                                          |
-| Any      | hostname                    | enabled                                                                               | Sets a convenience `hostname` property on the request object based on the request headers                                       |
-| Any      | json-body                   | Body parser for request bodies with content-type of application/json                  |
-| Any      | url-encoded-body            | Body parser for request bodies with content-type of application/x-www-form-urlencoded |
-| AWS      | decode                      | false                                                                                 | Decodes base64-encoded request bodies when `isBase64Encoded` on the API Gateway request is set                                  |
-
-## Response Middleware
-
-## Custom Middleware
-
-Sure thing. Go for it.
-
-## Error Handling
-
-Throw em. Alagarr will catch them.
-
-## Logging
-
 ## API
 
 **Request methods**
@@ -194,6 +168,67 @@ Exposes the underlying `callback` method.
 
 ```js
 response.raw(null, { something: 'custom' })
+```
+
+## Error Handling
+
+Throw em. Alagarr will catch them.
+
+## Logging
+
+## Middleware
+
+Alagarr uses a pipeline of middleware functions to process the incoming request and outgoing response objects. This lets you customize how your requests and responses are handled as well as provide custom middleware in addition to those provided by Alagarr.
+
+### Request Middleware
+
+Alagarr includes the following request middleware:
+
+| Provider | Name                                                                                 | Default  | Description                                                                                                                     |
+| -------- | ------------------------------------------------------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| All      | [normalize-headers](src/request/middleware/normalize-headers.ts)                     | built-in | Normalizes request headers.                                                                                                     |
+| All      | [normalize-programming-model](src/request/middleware/normalize-programming-model.ts) | built-in | Normalizes the programming models of different providers.                                                                       |
+| All      | [timestamp](src/request/middleware/timestamp.ts)                                     | built-in | Adds a request-start timestamp under `request.timestamp` which can be used to determine the ellapsed duration of the invocation |
+| Any      | [cookies](src/request/middleware/cookies.ts)                                         | enabled  | Parses cookies out of request header and makes them accessible under `request.cookies`                                          |
+| Any      | [hostname](src/request/middleware/hostname.ts)                                       | enabled  | Sets a convenience `hostname` property on the request object based on the request headers                                       |
+| Any      | [json-body](src/request/middleware/json-body.ts)                                     | enabled  | Body parser for request bodies with content-type of application/json                                                            |
+| Any      | [url-encoded-body](src/request/middleware/url-encoded-body.ts)                       | enabled  | Body parser for request bodies with content-type of application/x-www-form-urlencoded                                           |
+| AWS      | [base64-body](src/request/middleware/base64-body.ts)                                 | enabled  | Decodes base64-encoded request bodies when `isBase64Encoded` on the API Gateway request is truthy                               |
+
+### Response Middleware
+
+Alagarr includes the following response middleware:
+
+| Provider | Name                                                            | Default  | Description                                                                                                   |
+| -------- | --------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------- |
+| Any      | [enforced-headers](src/response/middleware/enforced-headers.ts) | built-in |                                                                                                               |
+| Any      | [log](src/response/middleware/log.ts)                           | built-in |                                                                                                               |
+| Any      | [compress](src/response/middleware/compress.ts)                 | disabled | Compress response body with deflate or gzip when appropriate                                                  |
+| Any      | [content-length](src/response/middleware/content-length.ts)     | enabled  | Adds a content-lenght header to the response                                                                  |
+| Any      | [csp](src/response/middleware/csp.ts)                           | enabled  | Adds [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) headers to the response |
+| Any      | [etag](src/response/middleware/etag.ts)                         | disabled | Adds an Entity Tag (ETag) header to the response                                                              |
+
+### Custom Middleware
+
+All middleware are functions. Middleware which is included in Alagarr are all pure, but this is not required for custom middleware. Middleware may return Promises which are resolved before the next middleware is called.
+
+Request middleware act on a request object and must always return a new request object. Request middleware have the following function signature:
+
+```typescript
+type requestMiddleware = (
+  request: InterfaceRequest,
+  options: InterfaceAlagarrOptions,
+) => InterfaceRequest
+```
+
+Response middleware act on the response object and must always return a new response object. Response middleware have the following function signature:
+
+```typescript
+type responseMiddleware = (
+  response: InterfaceResponseData,
+  request: InterfaceRequest,
+  options: InterfaceAlagarrOptions,
+) => InterfaceResponseData
 ```
 
 ## Contributing
