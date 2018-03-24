@@ -1,8 +1,8 @@
 import * as AWSLambda from 'aws-lambda' // tslint:disable-line:no-implicit-dependencies
 import { InterfaceAlagarrOptions, InterfaceRequest } from '../types'
 import applyMiddleware from '../utils/apply-middleware'
+import base64Body from './middleware/base64-body'
 import cookies from './middleware/cookies'
-import decode from './middleware/decode'
 import hostname from './middleware/hostname'
 import jsonBody from './middleware/json-body'
 import normalizeHeaders from './middleware/normalize-headers'
@@ -25,7 +25,7 @@ export default async (
       timestamp,
       normalizeProgrammingModel,
       normalizeHeaders,
-      decode,
+      base64Body,
       cookies,
       urlEncodedBody,
       jsonBody,

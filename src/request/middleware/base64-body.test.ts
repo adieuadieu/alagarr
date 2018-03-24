@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import { get as getRequestFixture } from '../../../test/fixtures/requests'
-import decode from './decode'
+import decode from './base64-body'
 
 const testBody = 'foobar test body'
 const testBodyBuffer = Buffer.from(testBody, 'utf8')
