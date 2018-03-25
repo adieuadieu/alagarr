@@ -10,7 +10,6 @@ Alagarr has zero non-development dependencies. The codebase and middleware follo
 
 [![CircleCI](https://img.shields.io/circleci/project/github/adieuadieu/alagarr/master.svg?style=flat-square)](https://circleci.com/gh/adieuadieu/alagarr)
 [![Coveralls](https://img.shields.io/coveralls/adieuadieu/alagarr/master.svg?style=flat-square)](https://coveralls.io/github/adieuadieu/alagarr)
-[![Codacy grade](https://img.shields.io/codacy/grade/cd743cc370104d49a508cc4b7689c1aa.svg?style=flat-square)](https://www.codacy.com/app/adieuadieu/alagarr)
 [![David](https://img.shields.io/david/adieuadieu/alagarr.svg?style=flat-square)]()
 [![David](https://img.shields.io/david/dev/adieuadieu/alagarr.svg?style=flat-square)]()
 
