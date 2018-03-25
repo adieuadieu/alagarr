@@ -289,7 +289,7 @@ export default handler(
       return response.redirect('/login')
     }
 
-    return response.html(`<h1>Welcome back, ${session.username}!</h1>`)
+    return `<h1>Welcome back, ${session.username}!</h1>`
   }
   alagarrConfig,
 )
