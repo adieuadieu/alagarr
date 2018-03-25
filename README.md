@@ -237,10 +237,8 @@ An example of custom middleware might be middleware which handles user sessions.
 
 **Request Middleware**
 
-```typescript
-export async function restoreSession(
-  request: InterfaceRequest,
-): InterfaceRequest & { session: any } {
+```javascript
+module.exports.restoreSession = async function(request) {
   const { cookies: { sessionId } } = request
   const session = (await getSessionFromDatabase(sessionId)) || undefined
 
@@ -253,18 +251,15 @@ export async function restoreSession(
 
 **Response Middleware**
 
-```typescript
-export async function saveSession(
-  responsePayload: InterfaceResponseData,
-  request: InterfaceRequest,
-): InterfaceResponseData {
+```javascript
+module.exports.saveSession = async function(responsePayload, request) {
   const sessionCookie = await saveSessionToDatabase(request.session)
 
   return {
     ...responsePayload,
     headers: {
       ...responsePayload.headers,
-      'Set-Cookie': `session=${sessionCookie}`,
+      'Set-Cookie': `session=${sessionCookie}`, // @TODO: refactor once #5 is closed.
     },
   }
 }
@@ -272,17 +267,16 @@ export async function saveSession(
 
 This custom middleware could then be used with Alagarr in a serverless function handler with:
 
-```typescript
-import handler, { InterfaceRequest, InterfaceResponse } from 'alagarr'
-import { restoreSession, saveSession } from './custom-middleware'
+```javascript
+const handler = require('alagarr')
+const { restoreSession, saveSession } = require('./custom-middleware')
 
 const alagarrConfig = {
   requestMiddleware: ['default', restoreSession],
   responseMiddleware: ['default', saveSession],
 }
 
-export default handler(
-  (request: InterfaceRequest, response: InterfaceResponse) => {
+module.exports.someHandler = handler((request, response) => {
     const session = request.session
 
     if (!session) {
