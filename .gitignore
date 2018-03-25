@@ -1,6 +1,6 @@
 # Project specific
 dist
-.eslintcache
+.DS_Store
 
 # Logs
 logs
