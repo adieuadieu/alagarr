@@ -124,12 +124,13 @@ The available configuration options are outlined here:
 
 **Response methods**
 
-* [`respondTo()`](#api-response-respondTo)
 * [`json()`](#api-response-json)
 * [`html()`](#api-response-html)
+* [`text()`](#api-response-text)
 * [`svg()`](#api-response-svg)
 * [`png()`](#api-response-png)
 * [`jpeg()`](#api-response-jpeg)
+* [`respondTo()`](#api-response-respondTo)
 * [`raw()`](#api-response-raw)
 
 ---
