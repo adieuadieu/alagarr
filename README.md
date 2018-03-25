@@ -1,15 +1,12 @@
 ![](docs/title-logo.png)
 
-Alagarr is an **A**WS **L**ambda/**A**PI **Ga**teway **R**equest-**R**esponse helper utility. It
-abstracts the Lambda-handler event-context-callback function signature so that you can spend less
-time writing boring Lambda/API Gateway-related boilerplate.
+Alagarr is Request-Response helper utility for serverless/faas functions<sup>\*</sup> invoked via HTTP events (e.g. API Gateway). It abstracts the event-context-callback function signatures of various serverless-providers so that you can spend less time writing boring function-as-a-service-related boilerplate.
 
 Alagarr is a higher-order function which abstracts the the programming models of various serverless-cloud providers and adds a standardized request-response model extensible through composable middleware functions. It comes with built-in error handling which makes it trivial to implement error-recovery strategies.
 
-Alagarr has zero non-development dependencies. The codebase and middleware follow declarative, functional programming paradigms.
+Alagarr has zero non-development dependencies. The codebase and middleware follow declarative, functional programming paradigms and is fully tested.
 
-^ rewrite this w/o using fancy pancy words/phrases so it's easier to understand
-@TODO
+<sup>\*</sup> Currently: AWS Lambda/API Gateway. Soon: GCP & Azure
 
 [![CircleCI](https://img.shields.io/circleci/project/github/adieuadieu/alagarr/master.svg?style=flat-square)](https://circleci.com/gh/adieuadieu/alagarr)
 [![Coveralls](https://img.shields.io/coveralls/adieuadieu/alagarr/master.svg?style=flat-square)](https://coveralls.io/github/adieuadieu/alagarr)
@@ -43,6 +40,7 @@ module.exports.myHandler = alagarr(() => ({ foo: 'bar' }))
 ## Contents
 
 1.  [Features](#features)
+1.  [Installation & Usage](#installation-usage)
 1.  [Configuration](#configuration)
     1.  [Options](#configuration-options)
 1.  [API](#api)
@@ -72,6 +70,26 @@ module.exports.myHandler = alagarr(() => ({ foo: 'bar' }))
   response.json()'d
 * support for custom request and response middleware
 
+## Installation & Usage
+
+Install Alagarr with NPM or Yarn:
+
+```bash
+npm install alagarr
+```
+
+Then include it in your serverless function:
+
+```js
+const alagarr = require('alagarr')
+
+module.exports.exampleHandler = alagarr(request => {
+  const { path, provider } = request
+
+  return `You've ended up at ${path} on the ${provider} cloud.`
+})
+```
+
 ## Configuration
 
 Alagarr ships with default configuration that should work for most use-cases. But, it's possible to pass a configuration object as the second parameter to the alagar() function:
@@ -87,47 +105,32 @@ module.exports.handler = alagarr(() => 'Hello world!', {
 
 ### Configuration Options
 
-| Option           | Default | Description                                                                                           |
-| ---------------- | ------- | ----------------------------------------------------------------------------------------------------- |
-| **cspPolicies**  | []      | List of CSP policies to include in the response headers                                               |
-| **errorHandler** |         | Provide a custom error handler. See the section on [Error Handling](#error-handling) for more details |
-| **headers**      | {}      | Headers to include in every response                                                                  |
-| **logger**       |         | Logger to use to log requests. If undefined, Alagarr will use an internal logger.                     |
+The available configuration options are outlined here:
 
-@TODO these:
-
-```typescript
-interface InterfaceAlagarrOptions {
-  readonly cspPolicies?: any // lazy
-  readonly enableCompression?: boolean
-  readonly enableContentLength?: boolean
-  readonly enableCspHeaders?: boolean
-  readonly enableLogger?: boolean
-  readonly enableEnforcedHeaders?: boolean
-  readonly enableETagHeader?: boolean
-  readonly enableStrictTransportSecurity?: boolean
-  readonly errorHandler?: ErrorHandler
-  readonly logger?: Logger
-  readonly headers?: object
-  readonly requestMiddleware?: any // lazy
-  readonly responseMiddleware?: any // lazy
-}
-```
+| Option                 | Default | Description                                                                                                                                                                              |
+| ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **cspPolicies**        | []      | List of CSP policies to include in the response headers                                                                                                                                  |
+| **errorHandler**       |         | Provide a custom error handler. See the section on [Error Handling](#error-handling) for more details                                                                                    |
+| **headers**            | {}      | Headers to include in every response                                                                                                                                                     |
+| **logger**             |         | Logger to use to log requests. If undefined, Alagarr will use an internal logger. Logging can be disabled by setting to `false`. See the section on [Logging](#logging) for more details |
+| **requestMiddleware**  |         | Array of custom request middleware to use. See the section on [Request Middleware](#request-middleware) for more details                                                                 |
+| **responseMiddleware** |         | Array of custom response middleware to use. See the section on [Response Middleware](#request-middleware) for more details                                                               |
 
 ## API
 
 **Request methods**
 
 * [`something(url: string)`](#api-something)
+* @TODO document the request object
 
 **Response methods**
 
 * [`respondTo()`](#api-response-respondTo)
 * [`json()`](#api-response-json)
 * [`html()`](#api-response-html)
-* [`svg()`](#api-response-svg)
-* [`png()`](#api-response-png)
-* [`jpeg()`](#api-response-jpeg)
+* [`svg()`](#api-response-svg) @TODO
+* [`png()`](#api-response-png) @TODO
+* [`jpeg()`](#api-response-jpeg) @TODO
 * [`raw()`](#api-response-raw)
 
 ---
@@ -160,6 +163,8 @@ response.raw(null, { something: 'custom' })
 ## Error Handling
 
 Throw em. Alagarr will catch them.
+
+@TODO
 
 ## Logging
 
@@ -279,9 +284,9 @@ module.exports.userDashboardHandler = handler((request, response) => {
 
 ## Contributing
 
-The codebase _tries_ to follow declarative, functional(ish) programming paradigms. Many functional styles are enforced through TSLint linter utilised by the project. These include immutablity rules (`no-let`, `no-object-mutation`) and rules which prohibit imperative code (`no-expression-statement`, `no-loop-statement`). Disabling the linter for code should be avoided at all cost. Don't cheat. Exceptions are made where satisfying a linting rule is impractical or otherwise untenable. In practice, this tends to be areas where the code touches 3rd party modules and in tests due to Jest's imperative-style.
+The codebase _tries_ to follow declarative, functional(ish) programming paradigms. Many functional styles are enforced through TSLint linter utilised by the project. These include immutablity rules (`no-let`, `no-object-mutation`) and rules which prohibit imperative code (`no-expression-statement`, `no-loop-statement`). Disabling the linter for code should be avoided. Exceptions are made where satisfying a linting rule is impractical or otherwise untenable. In practice, this tends to be areas where the code touches 3rd party modules and in tests due to Jest's imperative-style.
 
-The benefit to following a declarative, functional coding style is that it becomes much easier to write readable, maintainable, and testable code. As a consequence of immutability (read: having no side-effects), a function will always return the the same value given the same inputs (it is pure in when there is no I/O.). This quality of referential transparency is what makes writing tests simpler. In practice, it results in fewer bugs (and happier devs.)
+@TODO
 
 ## Similar Projects
 
