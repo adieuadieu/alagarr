@@ -1,7 +1,7 @@
 import defaultErrorHandler from './error-handler'
 import ClientError from './errors/client-error'
 import ServerError from './errors/server-error'
-import parseRequest from './request'
+import makeRequest from './request'
 import makeResponse from './response'
 import {
   Alagarr,
@@ -55,7 +55,7 @@ export default function alagarr(
       ...options,
     }
 
-    const request = await parseRequest(event, context, mergedOptions)
+    const request = await makeRequest(event, context, mergedOptions)
     const response = await makeResponse(request, callback, mergedOptions)
 
     try {

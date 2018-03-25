@@ -20,6 +20,7 @@ Alagarr has zero non-development dependencies. The codebase and middleware follo
 Turns this:
 
 ```js
+// AWS Lambda / API Gateway
 module.exports.myHandler = function(event, context, callback) {
   callback(null, {
     statusCode: 200,
@@ -34,23 +35,9 @@ module.exports.myHandler = function(event, context, callback) {
 Into this:
 
 ```js
-module.exports.myHandler = require('alagarr')(() => ({ foo: 'bar' }))
-```
+const alagarr = require('alagarr')
 
-Typescript:
-
-```typescript
-FIXTHIS
-APIGatewayEvent
-APIGatewayEventRequestContext
-//github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/aws-lambda/index.d.ts
-
-import handler, { InterfaceRequest, InterfaceResponse } from 'alagarr'
-
-export default handler(
-  (request: InterfaceRequest, response: InterfaceResponse) =>
-    response.html('<html/>'),
-)
+module.exports.myHandler = alagarr(() => ({ foo: 'bar' }))
 ```
 
 ## Contents
@@ -186,6 +173,7 @@ Alagarr includes the following request middleware:
 
 | Provider | Name                                                                                 | Default  | Description                                                                                                                     |
 | -------- | ------------------------------------------------------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| All      | [meta](src/request/middleware/meta.ts)                                               | built-in | Adds meta data about the request including whether the invocation is a coldStart, and invocation count                          |
 | All      | [normalize-headers](src/request/middleware/normalize-headers.ts)                     | built-in | Normalizes request headers.                                                                                                     |
 | All      | [normalize-programming-model](src/request/middleware/normalize-programming-model.ts) | built-in | Normalizes the programming models of different providers.                                                                       |
 | All      | [timestamp](src/request/middleware/timestamp.ts)                                     | built-in | Adds a request-start timestamp under `request.timestamp` which can be used to determine the ellapsed duration of the invocation |
@@ -276,7 +264,7 @@ const alagarrConfig = {
   responseMiddleware: ['default', saveSession],
 }
 
-module.exports.someHandler = handler((request, response) => {
+module.exports.userDashboardHandler = handler((request, response) => {
     const session = request.session
 
     if (!session) {

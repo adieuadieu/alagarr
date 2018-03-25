@@ -5,6 +5,7 @@ import base64Body from './middleware/base64-body'
 import cookies from './middleware/cookies'
 import hostname from './middleware/hostname'
 import jsonBody from './middleware/json-body'
+import meta from './middleware/meta'
 import normalizeHeaders from './middleware/normalize-headers'
 import normalizeProgrammingModel from './middleware/normalize-programming-model'
 import timestamp from './middleware/timestamp'
@@ -30,6 +31,7 @@ export default async (
       urlEncodedBody,
       jsonBody,
       hostname,
+      meta,
       ...(options.requestMiddleware || []),
     ],
     Object.freeze({

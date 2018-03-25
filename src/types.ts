@@ -8,7 +8,7 @@ export type AlagarrHandler = (
   request: any,
   response: any,
   context?: AWSLambda.Context,
-) => void
+) => string | object | void | Promise<string | object | void>
 
 export type Logger = (request: any, response: any) => boolean
 
@@ -52,16 +52,17 @@ export interface InterfaceQueryParameters {
 
 export interface InterfaceRequest extends AWSLambda.APIGatewayEvent {
   readonly body: any
+  readonly context: AWSLambda.Context
   readonly cookies: InterfaceCookie
   readonly headers: InterfaceHeaders
   readonly hostname?: string
   readonly isBase64Encoded: boolean
-  readonly timestamp?: number
-  readonly context: AWSLambda.Context
-  readonly method?: string
+  readonly meta: IndexSignature
+  readonly method: string
   readonly provider: string
   readonly query: InterfaceQueryParameters
-  readonly source?: string
+  readonly source: string
+  readonly timestamp: number
 }
 
 export type RequestMiddleware = (request: InterfaceRequest) => InterfaceRequest
