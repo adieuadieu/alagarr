@@ -255,15 +255,15 @@ export async function restoreSession(
 
 ```typescript
 export async function saveSession(
-  response: InterfaceResponseData,
+  responsePayload: InterfaceResponseData,
   request: InterfaceRequest,
-): InterfaceRequest {
+): InterfaceResponseData {
   const sessionCookie = await saveSessionToDatabase(request.session)
 
   return {
-    ...response,
+    ...responsePayload,
     headers: {
-      ...response.headers,
+      ...responsePayload.headers,
       'Set-Cookie': `session=${sessionCookie}`,
     },
   }
