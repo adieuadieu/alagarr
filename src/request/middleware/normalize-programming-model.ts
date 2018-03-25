@@ -1,18 +1,14 @@
 import { InterfaceRequest } from '../../types'
 
 // Normalize differenecs in service programming models
-export default function normalizeProgrammingModel({
-  httpMethod = '',
-  queryStringParameters = null,
-  ...request
-}: InterfaceRequest): InterfaceRequest {
+export default function normalizeProgrammingModel(
+  request: InterfaceRequest,
+): InterfaceRequest {
   return {
     ...request,
-    httpMethod,
-    method: httpMethod,
+    method: request.httpMethod || '',
     provider: 'aws',
-    query: queryStringParameters || {},
-    queryStringParameters,
+    query: request.queryStringParameters || {},
     source: request.requestContext ? 'api-gateway' : request.source,
   }
 }

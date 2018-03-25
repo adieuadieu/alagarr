@@ -6,7 +6,7 @@ Alagarr is a higher-order function which abstracts the the programming models of
 
 Alagarr has zero non-development dependencies. The codebase and middleware follow declarative, functional programming paradigms and is fully tested.
 
-<sup>\*</sup> Currently: AWS Lambda/API Gateway. Soon: GCP & Azure
+<sup>\*</sup>Currently: AWS Lambda/API Gateway. Soon: GCP & Azure
 
 [![CircleCI](https://img.shields.io/circleci/project/github/adieuadieu/alagarr/master.svg?style=flat-square)](https://circleci.com/gh/adieuadieu/alagarr)
 [![Coveralls](https://img.shields.io/coveralls/adieuadieu/alagarr/master.svg?style=flat-square)](https://coveralls.io/github/adieuadieu/alagarr)

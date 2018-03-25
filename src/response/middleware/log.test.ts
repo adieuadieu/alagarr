@@ -75,7 +75,7 @@ describe('Default logger', () => {
     jest.spyOn(process.stdout, 'write').mockImplementationOnce((_: any) => true)
     expect(
       logger(
-        { ...mockRequest, queryStringParameters: { foo: 'bar', bar: 'foo' } },
+        { ...mockRequest, query: { foo: 'bar', bar: 'foo' } },
         mockResponse,
       ).requestUri,
     ).toBe('/?foo=bar&bar=foo')

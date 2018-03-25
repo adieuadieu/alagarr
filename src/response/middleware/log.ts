@@ -64,9 +64,8 @@ export function logger(
     requestTime: Date.now() - request.timestamp,
     requestUri:
       request.path +
-      (request.queryStringParameters &&
-      Object.keys(request.queryStringParameters).length
-        ? `?${querystring.stringify(request.queryStringParameters)}`
+      (request.query && Object.keys(request.query).length
+        ? `?${querystring.stringify(request.query)}`
         : ''),
     responseContentLength: response.headers['content-length'],
     statusCode: response.statusCode,
