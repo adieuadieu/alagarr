@@ -4,9 +4,9 @@ Alagarr is an **A**WS **L**ambda/**A**PI **Ga**teway **R**equest-**R**esponse he
 abstracts the Lambda-handler event-context-callback function signature so that you can spend less
 time writing boring Lambda/API Gateway-related boilerplate.
 
-Alagarr is a higher-order function which abstracts the the programming models of various serverless-cloud providers and adds a standardized request-response model extensible through composable middleware functions.
+Alagarr is a higher-order function which abstracts the the programming models of various serverless-cloud providers and adds a standardized request-response model extensible through composable middleware functions. It comes with built-in error handling which makes it trivial to implement error-recovery strategies.
 
-Alagarr has zero non-development dependencies. The codebase and middleware follow declarative, functional programming paradigms. Fun fact: you won't find any `if` statements in the codebase.
+Alagarr has zero non-development dependencies. The codebase and middleware follow declarative, functional programming paradigms.
 
 ^ rewrite this w/o using fancy pancy words/phrases so it's easier to understand
 @TODO
@@ -201,16 +201,16 @@ Alagarr includes the following response middleware:
 
 | Provider | Name                                                            | Default  | Description                                                                                                   |
 | -------- | --------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------- |
-| Any      | [enforced-headers](src/response/middleware/enforced-headers.ts) | built-in |                                                                                                               |
-| Any      | [log](src/response/middleware/log.ts)                           | built-in |                                                                                                               |
+| All      | [enforced-headers](src/response/middleware/enforced-headers.ts) | built-in |                                                                                                               |
+| All      | [log](src/response/middleware/log.ts)                           | built-in |                                                                                                               |
 | Any      | [compress](src/response/middleware/compress.ts)                 | disabled | Compress response body with deflate or gzip when appropriate                                                  |
-| Any      | [content-length](src/response/middleware/content-length.ts)     | enabled  | Adds a content-lenght header to the response                                                                  |
+| Any      | [content-length](src/response/middleware/content-length.ts)     | enabled  | Adds a content-length header to the response                                                                  |
 | Any      | [csp](src/response/middleware/csp.ts)                           | enabled  | Adds [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) headers to the response |
 | Any      | [etag](src/response/middleware/etag.ts)                         | disabled | Adds an Entity Tag (ETag) header to the response                                                              |
 
 ### Custom Middleware
 
-All middleware are functions. Middleware which is included in Alagarr are all pure, but this is not required for custom middleware. Middleware may return Promises which are resolved before the next middleware is called.
+All middleware are functions. Middleware which is included in Alagarr are all pure, but this is not required for custom middleware. Middleware may return Promises which are resolved before the next middleware is called. Middleware should not mutate state, but instead return new values—but this is not required in custom middleware. However, everytime middleware mutates state, a cute cuddly koala dies somewhere in Australia. So.. Yea.
 
 Request middleware act on a request object and must always return a new request object. Request middleware have the following function signature:
 
@@ -229,6 +229,69 @@ type responseMiddleware = (
   request: InterfaceRequest,
   options: InterfaceAlagarrOptions,
 ) => InterfaceResponseData
+```
+
+#### Example
+
+An example of custom middleware might be middleware which handles user sessions. The request middleware would restore a session from some data store, while the response middleware might ensure a session is updated and a cookie is set.
+
+**Request Middleware**
+
+```typescript
+export default async function restoreSession(
+  request: InterfaceRequest,
+): InterfaceRequest & { session: any } {
+  const { cookies: { sessionId } } = request
+  const session = (await getSessionFromDatabase(sessionId)) || undefined
+
+  return {
+    ...request,
+    session,
+  }
+}
+```
+
+**Response Middleware**
+
+```typescript
+export default async function saveSession(
+  response: InterfaceResponseData,
+  request: InterfaceRequest,
+): InterfaceRequest {
+  const sessionCookie = await saveSessionToDatabase(request.session)
+
+  return {
+    ...response,
+    headers: {
+      ...response.headers,
+      'Set-Cookie': `session=${sessionCookie}`,
+    },
+  }
+}
+```
+
+This custom middleware could then be used with Alagarr in a serverless function handler with:
+
+```typescript
+import handler, { InterfaceRequest, InterfaceResponse } from 'alagarr'
+
+const alagarrConfig = {
+  requestMiddleware: ['default', restoreSession],
+  responseMiddleware: ['default', saveSession],
+}
+
+export default handler(
+  (request: InterfaceRequest, response: InterfaceResponse) => {
+    const session = request.session
+
+    if (!session) {
+      return response.redirect('/login')
+    }
+
+    return response.html(`<h1>Welcome back, ${session.username}!</h1>`)
+  }
+  alagarrConfig,
+)
 ```
 
 ## Contributing
