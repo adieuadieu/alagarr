@@ -238,7 +238,7 @@ An example of custom middleware might be middleware which handles user sessions.
 **Request Middleware**
 
 ```typescript
-export default async function restoreSession(
+export async function restoreSession(
   request: InterfaceRequest,
 ): InterfaceRequest & { session: any } {
   const { cookies: { sessionId } } = request
@@ -254,7 +254,7 @@ export default async function restoreSession(
 **Response Middleware**
 
 ```typescript
-export default async function saveSession(
+export async function saveSession(
   response: InterfaceResponseData,
   request: InterfaceRequest,
 ): InterfaceRequest {
@@ -274,6 +274,7 @@ This custom middleware could then be used with Alagarr in a serverless function 
 
 ```typescript
 import handler, { InterfaceRequest, InterfaceResponse } from 'alagarr'
+import { restoreSession, saveSession } from './custom-middleware'
 
 const alagarrConfig = {
   requestMiddleware: ['default', restoreSession],
