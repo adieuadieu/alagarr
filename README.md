@@ -128,9 +128,9 @@ The available configuration options are outlined here:
 * [`respondTo()`](#api-response-respondTo)
 * [`json()`](#api-response-json)
 * [`html()`](#api-response-html)
-* [`svg()`](#api-response-svg) @TODO
-* [`png()`](#api-response-png) @TODO
-* [`jpeg()`](#api-response-jpeg) @TODO
+* [`svg()`](#api-response-svg)
+* [`png()`](#api-response-png)
+* [`jpeg()`](#api-response-jpeg)
 * [`raw()`](#api-response-raw)
 
 ---
@@ -285,8 +285,6 @@ module.exports.userDashboardHandler = handler((request, response) => {
 ## Contributing
 
 The codebase _tries_ to follow declarative, functional(ish) programming paradigms. Many functional styles are enforced through TSLint linter utilised by the project. These include immutablity rules (`no-let`, `no-object-mutation`) and rules which prohibit imperative code (`no-expression-statement`, `no-loop-statement`). Disabling the linter for code should be avoided. Exceptions are made where satisfying a linting rule is impractical or otherwise untenable. In practice, this tends to be areas where the code touches 3rd party modules and in tests due to Jest's imperative-style.
-
-@TODO
 
 ## Similar Projects
 
