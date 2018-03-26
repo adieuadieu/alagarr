@@ -1,6 +1,6 @@
 ![](docs/title-logo.png)
 
-Alagarr is a Request-Response helper library for serverless/faas functions<sup>\*</sup> invoked via HTTP events (e.g. via API Gateway). It abstracts the event-context-callback function signatures of various serverless-providers so that you can spend less time writing boring function-as-a-service-related boilerplate.
+Alagarr is a Request-Response helper library for serverless/faas functions<sup>\*</sup> invoked via HTTP events (e.g. via API Gateway). Alagarr makes your code portable: it abstracts the event-context-callback function signatures of various serverless-providers so that you can spend less time writing boring function-as-a-service-related boilerplate.
 
 Alagarr is a higher-order function which abstracts the the programming models of various serverless-cloud providers and adds a standardized request-response model extensible through composable middleware functions. It's API is concise and will be familiar to anyone who's worked with Express.js. It comes with built-in error handling which makes it trivial to implement error-recovery strategies.
 
@@ -71,7 +71,7 @@ module.exports.myHandler = alagarr(() => ({ foo: 'bar' }))
 
 ## Full Example
 
-Alagarr helps you cut out all the boilerplate involved with handling HTTP requests in serverless functions. Albeit somewhat contrived, here is a before-and-after example of common pattern that shows up in AWS Lambda function's:
+Alagarr helps you cut out all the boilerplate involved with handling HTTP requests in serverless functions. Albeit somewhat contrived, here is a before-and-after example of common pattern frequently found in AWS Lambda function's:
 
 #### Without Alagarr 😭
 
@@ -97,7 +97,7 @@ module.exports.handler = function(event, context, callback) {
     .then(response => {
       callback(null, {
         statusCode: 200,
-        body: JSON.stringify(response.body),
+        body: JSON.stringify(response),
         headers: {
           'content-type': 'application/json',
         },
@@ -107,7 +107,7 @@ module.exports.handler = function(event, context, callback) {
       callback(null, {
         statusCode: error.statusCode,
         body: JSON.stringify({
-          error: error.body,
+          error: error.response,
         }),
         headers: {
           'content-type': 'application/json',
@@ -136,7 +136,7 @@ module.exports.handler = alagarr((request, response) => {
 
 Therr are a few things being handled for you in the above Alagarr example:
 
-* The programming model has been normalized. You can run this code without modification on any of the [supported](#supported-providers) cloud/faas/serverless providers.
+* The programming model has been normalized. You can run this code without modification on any of the [supported](#supported-providers) cloud/faas/serverless providers. Not just AWS Lambda. Alagarr makes your code portable.
 * The `callback()` is being handled for you. Alagarr will set the status code, content-type, and body appropriately. More on this behavior [here](#api-alagarr-handlerFunction).
 * Errors are caught for you and turned into something appropriate for the client based on the type of error. If you don't like the default behavior, you can [provide your own](#error-handling) error handler.
 
@@ -190,7 +190,7 @@ The available configuration options are outlined here:
 
 ### Alagarr
 
-* [`alagarr()`](#api-alagarr) higher-order function
+* [`alagarr()`](#api-alagarr)
 
 ### Request methods
 
