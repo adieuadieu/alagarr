@@ -1,6 +1,6 @@
 ![](docs/title-logo.png)
 
-Alagarr is a Request-Response helper library for serverless/faas functions<sup>\*</sup> invoked via HTTP events (e.g. via API Gateway). Alagarr makes your code portable: it abstracts the event-context-callback function signatures of various serverless-providers so that you can spend less time writing boring function-as-a-service-related boilerplate.
+Alagarr is a request-response helper library for serverless/faas functions<sup>\*</sup> invoked via HTTP events (e.g. via API Gateway). Alagarr makes your code portable: it abstracts the event-context-callback function signatures of various serverless-providers so that you can spend less time writing boring function-as-a-service-related boilerplate.
 
 Alagarr is a higher-order function which abstracts the the programming models of various serverless-cloud providers and adds a standardized request-response model extensible through composable middleware functions. It's API is concise and will be familiar to anyone who's worked with Express.js. It comes with built-in error handling which makes it trivial to implement error-recovery strategies.
 
@@ -11,7 +11,7 @@ Alagarr is a higher-order function which abstracts the the programming models of
 [![David](https://img.shields.io/david/adieuadieu/alagarr.svg?style=flat-square)]()
 [![David](https://img.shields.io/david/dev/adieuadieu/alagarr.svg?style=flat-square)]()
 
-Turns this:
+Without Alagarr:
 
 ```js
 // AWS Lambda / API Gateway
@@ -26,7 +26,7 @@ module.exports.myHandler = function(event, context, callback) {
 }
 ```
 
-Into this:
+With Alagarr:
 
 ```js
 const alagarr = require('alagarr')
@@ -228,7 +228,7 @@ The available configuration options are outlined here:
 
 ### alagarr(handlerFunction, configurationOptions?): void
 
-Blah blah
+@TODO
 
 ```javascript
 const alagarr = require('alagarr')
@@ -264,7 +264,7 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### requestMiddleware
 
-Blah blah
+@TODO
 
 ---
 
@@ -272,7 +272,7 @@ Blah blah
 
 ### responseMiddleware
 
-Blah blah
+@TODO
 
 ---
 
@@ -280,7 +280,7 @@ Blah blah
 
 ### ClientError(message, statusCode = 400)
 
-Blah blah
+@TODO
 
 ---
 
@@ -288,7 +288,7 @@ Blah blah
 
 ### ServerError(message, statusCode = 500)
 
-Blah blah
+@TODO
 
 ---
 
@@ -296,7 +296,7 @@ Blah blah
 
 ### request.body
 
-Blah blah
+@TODO
 
 ---
 
@@ -304,7 +304,7 @@ Blah blah
 
 ### request.context
 
-Blah blah
+@TODO
 
 ---
 
@@ -312,7 +312,7 @@ Blah blah
 
 ### request.cookies
 
-Blah blah
+@TODO
 
 ---
 
@@ -320,7 +320,7 @@ Blah blah
 
 ### request.headers
 
-Blah blah
+@TODO
 
 ---
 
@@ -328,7 +328,7 @@ Blah blah
 
 ### request.hostname
 
-Blah blah
+@TODO
 
 ---
 
@@ -336,7 +336,7 @@ Blah blah
 
 ### request.meta
 
-Blah blah
+@TODO
 
 ---
 
@@ -344,7 +344,7 @@ Blah blah
 
 ### request.method
 
-Blah blah
+@TODO
 
 ---
 
@@ -352,7 +352,7 @@ Blah blah
 
 ### request.path
 
-Blah blah
+@TODO
 
 ---
 
@@ -360,7 +360,7 @@ Blah blah
 
 ### request.provider
 
-Blah blah
+@TODO
 
 ---
 
@@ -368,7 +368,7 @@ Blah blah
 
 ### request.query
 
-Blah blah
+@TODO
 
 ---
 
@@ -376,7 +376,7 @@ Blah blah
 
 ### request.source
 
-Blah blah
+@TODO
 
 ---
 
@@ -384,7 +384,7 @@ Blah blah
 
 ### request.timestamp
 
-Blah blah
+@TODO
 
 ---
 
