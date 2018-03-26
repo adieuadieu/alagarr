@@ -1,12 +1,10 @@
 ![](docs/title-logo.png)
 
-Alagarr is Request-Response helper utility for serverless/faas functions<sup>\*</sup> invoked via HTTP events (e.g. API Gateway). It abstracts the event-context-callback function signatures of various serverless-providers so that you can spend less time writing boring function-as-a-service-related boilerplate.
+Alagarr is a Request-Response helper library for serverless/faas functions<sup>\*</sup> invoked via HTTP events (e.g. via API Gateway). It abstracts the event-context-callback function signatures of various serverless-providers so that you can spend less time writing boring function-as-a-service-related boilerplate.
 
 Alagarr is a higher-order function which abstracts the the programming models of various serverless-cloud providers and adds a standardized request-response model extensible through composable middleware functions. It's API is concise and will be familiar to anyone who's worked with Express.js. It comes with built-in error handling which makes it trivial to implement error-recovery strategies.
 
-Alagarr has zero non-development dependencies. The codebase and middleware follow declarative, functional programming paradigms and is fully tested.
-
-<sup>\*</sup>Currently: AWS Lambda/API Gateway. Soon: GCP & Azure
+<sup>\*</sup>Currently: AWS Lambda/API Gateway. Next: GCP & Azure
 
 [![CircleCI](https://img.shields.io/circleci/project/github/adieuadieu/alagarr/master.svg?style=flat-square)](https://circleci.com/gh/adieuadieu/alagarr)
 [![Coveralls](https://img.shields.io/coveralls/adieuadieu/alagarr/master.svg?style=flat-square)](https://coveralls.io/github/adieuadieu/alagarr)
@@ -56,18 +54,19 @@ module.exports.myHandler = alagarr(() => ({ foo: 'bar' }))
 
 ## Features
 
-* catches thrown errors and handles callback(error, {}) correctly
-* catches errors and responds with a pretty error.
-* request logging
-* request cookie parsing
-* normalize request headers
-* parse json request body
-* response csp headers
-* response gzipping (deprecate)
-* easily respond with images/binary data (some API Gateway setup required..)
-* throwable errors like throw ClientError, ServerError which get caught and pretty
-  response.json()'d
-* support for custom request and response middleware
+* Concise & familiar API
+* Zero dependencies
+* Fully tested
+* Built-in error handling makes catching and throwing errors a breeze
+* Kibana-ready request logging
+* Included middleware for common tasks
+* Request cookie parsing
+* Normalized request headers
+* Includes request body parsers
+* Response CSP headers
+* Response gzipping/deflate
+* Easily respond with images/binary data
+* Support for custom middleware
 
 ## Installation & Usage
 
