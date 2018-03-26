@@ -9,7 +9,7 @@ jobs:
   # This job builds the base project directory (e.g. ~/package.json)
   build:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:6
     steps:
       - checkout
       - restore_cache:
@@ -23,7 +23,7 @@ jobs:
   # This job runs the lint tool on the whole repository
   lint:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:6
     steps:
       - checkout
       - restore_cache:
@@ -35,15 +35,16 @@ jobs:
   # runs the unit tests
   unit-test:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:6
     steps:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run: 
           name: Unit tests
-          command: npm run test
-
+          command: |
+            npm run test &&
+            ./node_modules/.bin/nyc report --temp-directory=coverage --reporter=text-lcov | ./node_modules/.bin/coveralls
 #
 # Workflows
 #
