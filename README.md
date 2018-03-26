@@ -390,7 +390,7 @@ Blah blah
 
 <a name="api-response-respondTo" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
+### response.respondTo(formats, statusCode = 200, options = {}): void
 
 Respond according to request's Accept header with formats provided in `formats` map. Kind of like a Ruby on Rails `respond_to do |format|` [block](http://api.rubyonrails.org/classes/ActionController/MimeResponds.html#method-i-respond_to).
 
@@ -405,7 +405,7 @@ response.respondTo({
 
 <a name="api-response-raw" />
 
-### raw(error: Error | null, result?: object | boolean | number | string): void
+### response.raw(error: Error | null, result?: object | boolean | number | string): void
 
 Exposes the underlying `callback` method.
 
@@ -420,6 +420,10 @@ Throw em. Alagarr will catch them.
 @TODO
 
 ## Logging
+
+Yes.
+
+@TODO
 
 ## Middleware
 
