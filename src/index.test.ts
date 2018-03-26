@@ -34,9 +34,10 @@ describe('Alagarr NPM Package', () => {
 
 describe('Alagarr', () => {
   test('can respond with JSON', async () => {
-    const handler = alagarr((_, response) => {
-      response.json({ foo: 'bar' }, 201)
-    }, {})
+    const handler = alagarr(
+      (_, response) => response.json({ foo: 'bar' }, 201),
+      {},
+    )
 
     const result = await handlerPromise(handler)
 

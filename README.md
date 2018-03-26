@@ -59,7 +59,7 @@ module.exports.myHandler = alagarr(() => ({ foo: 'bar' }))
 * Fully tested
 * Built-in error handling makes catching and throwing errors a breeze
 * Kibana-ready request logging
-* Included middleware for common tasks
+* Middleware for common tasks included
 * Request cookie parsing
 * Normalized request headers
 * Includes request body parsers
@@ -67,6 +67,56 @@ module.exports.myHandler = alagarr(() => ({ foo: 'bar' }))
 * Response gzipping/deflate
 * Easily respond with images/binary data
 * Support for custom middleware
+
+## Full Example
+
+Alagarr helps you cut out all the boilerplate involved with handling HTTP requests in serverless functions. Albeit somewhat contrived, here is a before-and-after example of common pattern that shows up in AWS Lambda function's:
+
+#### Without Alagarr 😭
+
+```javascript
+const got = require('got')
+
+module.exports.handler = function(event, context, callback) {
+  const { queryStringParameters: { currency = 'bitcoin' } } = event
+
+  got(`https://api.coinmarketcap.com/v1/ticker/${currency}`)
+    .then(response => {
+      callback(null, {
+        statusCode: 200,
+        body: JSON.stringify(response.body),
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
+    })
+    .catch(error => {
+      callback(null, {
+        statusCode: error.statusCode,
+        body: JSON.stringify({
+          message: `Couldn't fetch ticker data.`,
+          error: error.body,
+        }),
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
+    })
+}
+```
+
+#### With Alagarr 😁
+
+```javascript
+const alagarr = require('alagarr')
+const got = require('got')
+
+module.exports.handler = alagarr((request, response) => {
+  const { query: { currency = 'bitcoin' } } = request
+
+  return got(`https://api.coinmarketcap.com/v1/ticker/${currency}`)
+})
+```
 
 ## Installation & Usage
 
@@ -116,21 +166,309 @@ The available configuration options are outlined here:
 
 ## API
 
-**Request methods**
+### Alagarr
 
-* [`something(url: string)`](#api-something)
-* @TODO document the request object
+* [`alagarr()`](#api-alagarr) higher-order function
 
-**Response methods**
+### Request methods
 
-* [`json()`](#api-response-json)
-* [`html()`](#api-response-html)
-* [`text()`](#api-response-text)
-* [`svg()`](#api-response-svg)
-* [`png()`](#api-response-png)
-* [`jpeg()`](#api-response-jpeg)
-* [`respondTo()`](#api-response-respondTo)
-* [`raw()`](#api-response-raw)
+* [`request.body`](#api-request-body)
+* [`request.context`](#api-request-context)
+* [`request.cookies`](#api-request-cookies)
+* [`request.headers`](#api-request-headers)
+* [`request.hostname`](#api-request-hostname)
+* [`request.meta`](#api-request-meta)
+* [`request.method`](#api-request-method)
+* [`request.path`](#api-request-path)
+* [`request.provider`](#api-request-provider)
+* [`request.query`](#api-request-query)
+* [`request.source`](#api-request-source)
+* [`request.timestamp`](#api-request-timestamp)
+
+### Response methods
+
+* [`response.json()`](#api-response-json)
+* [`response.html()`](#api-response-html)
+* [`response.text()`](#api-response-text)
+* [`response.svg()`](#api-response-svg)
+* [`response.png()`](#api-response-png)
+* [`response.jpeg()`](#api-response-jpeg)
+* [`response.respondTo()`](#api-response-respondTo)
+* [`response.raw()`](#api-response-raw)
+
+---
+
+<a name="api-alagarr" />
+
+### alagarr(handlerFunction, configurationOptions?): void
+
+Blah blah
+
+```javascript
+const alagarr = require('alagarr')
+
+const configurationOptions = {
+  logger: false,
+}
+
+const handlerFunction = function(request, response) {
+  const { query: { name } } = request
+  return response.html(`Hello ${name}.`)
+}
+
+module.exports.handler = alagar(handlerFunction, configurationOptions)
+```
+
+The `handlerFunction` has a function signature of:
+
+```typescript
+export type HandlerFunction = (
+  request: any,
+  response: any,
+) => string | object | void | Promise<string | object | void>
+```
+
+If your `handlerFunction` returns falsey, then it's your responsibility to call the appropriate response method to end the invocation (e.g. `response.json()`). For convenience, if the `handlerFunction` returns a string, the result will be passed to `response.html()` or `response.text()` for you. Alternatively, if the handler returns an object, it will be passed to `response.json()`. You may also return a Promise (or make your handler `async`).
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
+
+---
+
+<a name="api-response-respondTo" />
+
+### respondTo(formats, statusCode = 200, options = {}): void
+
+Blah blah
 
 ---
 

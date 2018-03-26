@@ -5,7 +5,7 @@ import makeRequest from './request'
 import makeResponse from './response'
 import {
   Alagarr,
-  AlagarrHandler,
+  HandlerFunction,
   InterfaceAlagarrOptions,
   InterfaceRequest,
   InterfaceResponse,
@@ -33,7 +33,7 @@ const noopHandler = (_: void, _1: InterfaceResponse) => {
 
 export {
   Alagarr,
-  AlagarrHandler,
+  HandlerFunction,
   InterfaceAlagarrOptions,
   InterfaceRequest,
   InterfaceResponse,
@@ -42,7 +42,7 @@ export {
 }
 
 export default function alagarr(
-  handler: AlagarrHandler = noopHandler,
+  handler: HandlerFunction = noopHandler,
   options: InterfaceAlagarrOptions = DEFAULT_OPTIONS,
 ): Alagarr {
   return async function handlerWrapper(
@@ -59,6 +59,13 @@ export default function alagarr(
     const response = await makeResponse(request, callback, mergedOptions)
 
     try {
+      // @TODO: given truthy result:
+      // request.source is http-event-ish?
+      // --> result is string, starts with html? response.html()
+      // --> result is string? response.text()
+      // --> result is object? response.json()
+      // response.raw()
+
       return await handler(request, response, context)
     } catch (error) {
       const errorHandler =
