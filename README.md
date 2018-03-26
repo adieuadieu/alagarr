@@ -38,7 +38,7 @@ module.exports.myHandler = alagarr(() => ({ foo: 'bar' }))
 
 1.  [Features](#features)
 1.  [Full Example](#full-example)
-1.  [Installation & Usage](#installation-usage)
+1.  [Installation & Usage](#installation--usage)
 1.  [Configuration](#configuration)
     1.  [Options](#configuration-options)
 1.  [API](#api)
@@ -380,7 +380,7 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ---
 
-<a name="api-reqest-timestamp" />
+<a name="api-request-timestamp" />
 
 ### request.timestamp
 
