@@ -37,6 +37,7 @@ module.exports.myHandler = alagarr(() => ({ foo: 'bar' }))
 ## Contents
 
 1.  [Features](#features)
+1.  [Full Example](#full-example)
 1.  [Installation & Usage](#installation-usage)
 1.  [Configuration](#configuration)
     1.  [Options](#configuration-options)
@@ -78,7 +79,19 @@ Alagarr helps you cut out all the boilerplate involved with handling HTTP reques
 const got = require('got')
 
 module.exports.handler = function(event, context, callback) {
-  const { queryStringParameters: { currency = 'bitcoin' } } = event
+  const { queryStringParameters: { currency } } = event
+
+  if (!currency) {
+    callback(null, {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: 'Please provide the "currency" query parameter.',
+      }),
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+  }
 
   got(`https://api.coinmarketcap.com/v1/ticker/${currency}`)
     .then(response => {
@@ -94,7 +107,6 @@ module.exports.handler = function(event, context, callback) {
       callback(null, {
         statusCode: error.statusCode,
         body: JSON.stringify({
-          message: `Couldn't fetch ticker data.`,
           error: error.body,
         }),
         headers: {
@@ -108,15 +120,25 @@ module.exports.handler = function(event, context, callback) {
 #### With Alagarr 😁
 
 ```javascript
-const alagarr = require('alagarr')
+const { alagarr, ClientError } = require('alagarr') // @TODO: this require is wrong
 const got = require('got')
 
 module.exports.handler = alagarr((request, response) => {
-  const { query: { currency = 'bitcoin' } } = request
+  const { query: { currency } } = request
+
+  if (!currency) {
+    throw new ClientError('Please provide the "currency" query parameter.')
+  }
 
   return got(`https://api.coinmarketcap.com/v1/ticker/${currency}`)
 })
 ```
+
+Therr are a few things being handled for you in the above Alagarr example:
+
+* The programming model has been normalized. You can run this code without modification on any of the [supported](#supported-providers) cloud/faas/serverless providers.
+* The `callback()` is being handled for you. Alagarr will set the status code, content-type, and body appropriately. More on this behavior [here](#api-alagarr-handlerFunction).
+* Errors are caught for you and turned into something appropriate for the client based on the type of error. If you don't like the default behavior, you can [provide your own](#error-handling) error handler.
 
 ## Installation & Usage
 
@@ -218,6 +240,8 @@ const handlerFunction = function(request, response) {
 
 module.exports.handler = alagar(handlerFunction, configurationOptions)
 ```
+
+<a name="api-alagarr-handlerFunction" />
 
 The `handlerFunction` has a function signature of:
 
