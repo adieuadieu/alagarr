@@ -188,9 +188,13 @@ The available configuration options are outlined here:
 
 ## API
 
-### Alagarr
+### Alagarr module
 
-* [`alagarr()`](#api-alagarr)
+* [`alagarr()`](#api-alagarr-module-default)
+* [`requestMiddleware`](#api-alagarr-module-request-middleware)
+* [`responseMiddleware`](#api-alagarr-module-response-middleware)
+* [`ClientError()`](#api-alagarr-module-client-error)
+* [`ServerError()`](#api-alagarr-module-server-error)
 
 ### Request methods
 
@@ -220,7 +224,7 @@ The available configuration options are outlined here:
 
 ---
 
-<a name="api-alagarr" />
+<a name="api-alagarr-module-default" />
 
 ### alagarr(handlerFunction, configurationOptions?): void
 
@@ -256,241 +260,129 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-alagarr-module-request-middleware" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### requestMiddleware
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-alagarr-module-response-middleware" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### responseMiddleware
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-alagarr-module-client-error" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### ClientError(message, statusCode = 400)
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-alagarr-module-server-error" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### ServerError(message, statusCode = 500)
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-request-body" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### request.body
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-request-context" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### request.context
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-request-cookies" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### request.cookies
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-request-headers" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### request.headers
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-request-hostname" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### request.hostname
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-request-meta" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### request.meta
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-request-method" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### request.method
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-request-path" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### request.path
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-request-provider" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### request.provider
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-request-query" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
-
-Blah blah
-
----
-
-<a name="api-response-respondTo" />
-
-### respondTo(formats, statusCode = 200, options = {}): void
+### request.query
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-request-source" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
+### request.source
 
 Blah blah
 
 ---
 
-<a name="api-response-respondTo" />
+<a name="api-reqest-timestamp" />
 
-### respondTo(formats, statusCode = 200, options = {}): void
+### request.timestamp
 
 Blah blah
 
