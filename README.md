@@ -71,7 +71,7 @@ module.exports.myHandler = alagarr(() => ({ foo: 'bar' }))
 
 ## Full Example
 
-Alagarr helps you cut out all the boilerplate involved with handling HTTP requests in serverless functions. Albeit somewhat contrived, here is a before-and-after example of common pattern frequently found in AWS Lambda function's:
+Alagarr helps you cut out all the boilerplate involved with handling HTTP requests in serverless functions. Albeit somewhat contrived, here is a before-and-after example of a common pattern frequently found in AWS Lambda function's:
 
 #### Without Alagarr 😭
 
@@ -134,7 +134,7 @@ module.exports.handler = alagarr((request, response) => {
 })
 ```
 
-Therr are a few things being handled for you in the above Alagarr example:
+There are a few things being handled for you in the above Alagarr example:
 
 * The programming model has been normalized. You can run this code without modification on any of the [supported](#supported-providers) cloud/faas/serverless providers. Not just AWS Lambda. Alagarr makes your code portable.
 * The `callback()` is being handled for you. Alagarr will set the status code, content-type, and body appropriately. More on this behavior [here](#api-alagarr-handlerFunction).

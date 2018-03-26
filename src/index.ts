@@ -74,9 +74,10 @@ export default function alagarr(
           : defaultErrorHandler
 
       try {
-        return errorHandler(request, response, error)
+        return await errorHandler(request, response, error)
       } catch (error) {
         // There was an error.. in the error handler. ErrorInception.
+
         // tslint:disable-next-line:no-console no-expression-statement
         console.error(
           'There was an error in the error handler provided to Alagaar',
