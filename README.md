@@ -296,7 +296,11 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### request.body
 
-@TODO
+The request body, if any. If using default request middleware, or another body parser, this value will contain the parsed contents of the request body.
+
+```typescript
+readonly body: string | object
+```
 
 ---
 
@@ -304,7 +308,13 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### request.context
 
-@TODO
+The provider context object.
+
+On AWS Lambda this is the second parameter passed to a Lambda function's handler.
+
+```typescript
+readonly context: object
+```
 
 ---
 
@@ -312,7 +322,13 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### request.cookies
 
-@TODO
+An object containing the cookies included with the request.
+
+```typescript
+cookies: {
+  readonly [name: string]: string
+}
+```
 
 ---
 
@@ -320,7 +336,13 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### request.headers
 
-@TODO
+An object containing all of the headers included in the request.
+
+```typescript
+headers: {
+  readonly [name: string]: string
+}
+```
 
 ---
 
@@ -328,7 +350,11 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### request.hostname
 
-@TODO
+The request's hostname. Derived from the request's `Host` header.
+
+```typescript
+hostname: string
+```
 
 ---
 
@@ -336,7 +362,14 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### request.meta
 
-@TODO
+An object containing some meta data about the invocation. It includes:
+
+```typescript
+meta: {
+  readonly coldStart: boolean, // was this a cold start?
+  readonly invocationCount: number, // number of times this container has been invoked
+}
+```
 
 ---
 
@@ -344,7 +377,16 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### request.method
 
-@TODO
+The request HTTP method. E.g `GET` or `POST`.
+
+```typescript
+method: enum {
+  'GET',
+  'POST',
+  'PATCH',
+  'DELETE',
+}
+```
 
 ---
 
@@ -352,7 +394,11 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### request.path
 
-@TODO
+The request path.
+
+```typescript
+path: string
+```
 
 ---
 
@@ -360,7 +406,13 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### request.provider
 
-@TODO
+The name of the current request's provider. Possible values include: `aws`
+
+```typescript
+provider: enum {
+  'aws'
+}
+```
 
 ---
 
@@ -368,7 +420,28 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### request.query
 
-@TODO
+An object of query parameters included in the request.
+
+Given a request:
+
+```
+GET http://example.com?foo=1&bar=2
+```
+
+`request.query` will contain:
+
+```javascript
+{
+  foo: '1',
+  bar: '2',
+}
+```
+
+```typescript
+query: {
+  readonly [name: string]: string
+}
+```
 
 ---
 
@@ -376,7 +449,13 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### request.source
 
-@TODO
+The name of the current request's invocation source. Possible values include: `api-gateway`
+
+```typescript
+source: enum {
+  'api-gateway'
+}
+```
 
 ---
 
@@ -384,7 +463,11 @@ If your `handlerFunction` returns falsey, then it's your responsibility to call 
 
 ### request.timestamp
 
-@TODO
+Timestamp at the time of the first middleware's execution.
+
+```typescript
+timestamp: number
+```
 
 ---
 
