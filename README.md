@@ -325,7 +325,7 @@ readonly context: object
 An object containing the cookies included with the request.
 
 ```typescript
-cookies: {
+readonly cookies: {
   readonly [name: string]: string
 }
 ```
@@ -339,7 +339,7 @@ cookies: {
 An object containing all of the headers included in the request.
 
 ```typescript
-headers: {
+readonly headers: {
   readonly [name: string]: string
 }
 ```
@@ -353,7 +353,7 @@ headers: {
 The request's hostname. Derived from the request's `Host` header.
 
 ```typescript
-hostname: string
+readonly hostname: string
 ```
 
 ---
@@ -365,7 +365,7 @@ hostname: string
 An object containing some meta data about the invocation. It includes:
 
 ```typescript
-meta: {
+readonly meta: {
   readonly coldStart: boolean, // was this a cold start?
   readonly invocationCount: number, // number of times this container has been invoked
 }
@@ -380,7 +380,7 @@ meta: {
 The request HTTP method. E.g `GET` or `POST`.
 
 ```typescript
-method: enum {
+readonly method: enum {
   'GET',
   'POST',
   'PATCH',
@@ -397,7 +397,7 @@ method: enum {
 The request path.
 
 ```typescript
-path: string
+readonly path: string
 ```
 
 ---
@@ -409,7 +409,7 @@ path: string
 The name of the current request's provider. Possible values include: `aws`
 
 ```typescript
-provider: enum {
+readonly provider: enum {
   'aws'
 }
 ```
@@ -438,7 +438,7 @@ GET http://example.com?foo=1&bar=2
 ```
 
 ```typescript
-query: {
+readonly query: {
   readonly [name: string]: string
 }
 ```
@@ -452,7 +452,7 @@ query: {
 The name of the current request's invocation source. Possible values include: `api-gateway`
 
 ```typescript
-source: enum {
+readonly source: enum {
   'api-gateway'
 }
 ```
@@ -466,7 +466,7 @@ source: enum {
 Timestamp at the time of the first middleware's execution.
 
 ```typescript
-timestamp: number
+readonly timestamp: number
 ```
 
 ---
