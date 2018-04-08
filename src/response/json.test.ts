@@ -1,5 +1,6 @@
 // tslint:disable:no-expression-statement
 import makeResponse from './'
+import json from './json'
 
 const testRequest = { headers: {} } as any
 const testJsonBody = { foo: 'bar' }
@@ -19,4 +20,11 @@ it('Content-Type is JSON', async () => {
   )
 
   response.json(testJsonBody, testStatusCode)
+})
+
+it('should not stringify when body is already stringified JSON', async () => {
+  expect(json({} as any, 'foobar').body).toEqual('"foobar"')
+  expect(json({} as any, JSON.stringify(testJsonBody)).body).toEqual(
+    JSON.stringify(testJsonBody),
+  )
 })
