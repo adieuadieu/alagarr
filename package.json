@@ -1,6 +1,6 @@
 {
   "name": "alagarr",
-  "version": "1.0.0-24",
+  "version": "0.0.0",
   "description": "Alagarr is a request-response helper library that removes the boilerplate from your Node.js serverless functions and helps make your code portable.",
   "author": "Marco Lüthy <marco.luethy@gmail.com> (https://github.com/adieuadieu)",
   "maintainers": [],
@@ -51,14 +51,18 @@
     "prebuild": "npm run clean",
     "build": "tsc -d",
     "dev": "tsc -w",
-    "_@TODO_prepublishOnly": "npm run lint && npm test && npm run security-check && npm run build",
+    "prepublishOnly": "npm run lint && npm test && npm run security-check && npm run build",
     "precommit": "lint-staged",
     "prettier": "prettier --write",
     "security-check": "nsp",
-    "upgrade-dependencies": "yarn upgrade-interactive --latest --exact"
+    "upgrade-dependencies": "yarn upgrade-interactive --latest --exact",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {},
   "devDependencies": {
+    "@commitlint/cli": "6.1.3",
+    "@commitlint/config-conventional": "6.1.3",
     "@types/aws-lambda": "0.0.35",
     "@types/jest": "22.2.2",
     "@types/node": "9.6.2",
@@ -70,6 +74,7 @@
     "nyc": "11.6.0",
     "prettier": "1.11.1",
     "rimraf": "2.6.2",
+    "semantic-release": "15.1.5",
     "ts-jest": "22.4.2",
     "tslint": "5.9.1",
     "tslint-functional-preset": "1.0.2",
@@ -81,6 +86,11 @@
     "singleQuote": true,
     "trailingComma": "all",
     "useTabs": false
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -103,6 +113,7 @@
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
+    "testEnvironment": "node",
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [
       "ts",

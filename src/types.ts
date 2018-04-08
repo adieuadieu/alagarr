@@ -91,6 +91,9 @@ export interface InterfaceResponseOptions {
 }
 
 export interface InterfaceResponse {
+  /**
+   * Redirect to a new location.
+   */
   readonly redirect: (
     location: string,
     statusCode?: number,

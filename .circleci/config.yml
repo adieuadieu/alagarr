@@ -45,6 +45,16 @@ jobs:
           command: |
             npm run test &&
             ./node_modules/.bin/nyc report --temp-directory=coverage --reporter=text-lcov | ./node_modules/.bin/coveralls
+
+  release:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run: npm run semantic-release -- -d # DRY RUN!
+
 #
 # Workflows
 #
@@ -52,13 +62,19 @@ jobs:
 workflows:
   version: 2
 
-  build_lint_test:
+  build_test_release:
     jobs:
       - build     
-
       - lint:     
           requires:
             - build
       - unit-test:     
           requires:
             - build
+      - release:
+          requires:
+            - lint
+            - unit-test
+          filters:
+            branches:
+              only: master
