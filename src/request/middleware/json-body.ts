@@ -16,7 +16,8 @@ export default function parseJsonBody(
 ): InterfaceRequest {
   const { headers, body } = request
 
-  return headers['content-type'] === 'application/json' &&
+  return headers['content-type'] &&
+    headers['content-type'].split(';').shift() === 'application/json' &&
     typeof body === 'string'
     ? { ...request, body: parseJson(body) }
     : request
