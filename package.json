@@ -72,7 +72,7 @@
     "lint-staged": "7.0.4",
     "nsp": "3.2.1",
     "nyc": "11.6.0",
-    "prettier": "1.11.1",
+    "prettier": "1.12.0",
     "rimraf": "2.6.2",
     "semantic-release": "15.1.6",
     "ts-jest": "22.4.2",
