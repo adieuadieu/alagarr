@@ -9,7 +9,7 @@ jobs:
   # This job builds the base project directory (e.g. ~/package.json)
   build:
     docker:
-      - image: circleci/node:6@sha256:0b3a12a1ae81c239372fe9f863203d80525da8235cb6b87be9bdbf1450d64af8
+      - image: circleci/node:6@sha256:38c60c8da69359906ec3bbe925ecf762ea58fb5280bb0f876784cb29f19ef59f
     steps:
       - checkout
       - restore_cache:
@@ -23,7 +23,7 @@ jobs:
   # This job runs the lint tool on the whole repository
   lint:
     docker:
-      - image: circleci/node:6@sha256:0b3a12a1ae81c239372fe9f863203d80525da8235cb6b87be9bdbf1450d64af8
+      - image: circleci/node:6@sha256:38c60c8da69359906ec3bbe925ecf762ea58fb5280bb0f876784cb29f19ef59f
     steps:
       - checkout
       - restore_cache:
@@ -35,7 +35,7 @@ jobs:
   # runs the unit tests
   unit-test:
     docker:
-      - image: circleci/node:6@sha256:0b3a12a1ae81c239372fe9f863203d80525da8235cb6b87be9bdbf1450d64af8
+      - image: circleci/node:6@sha256:38c60c8da69359906ec3bbe925ecf762ea58fb5280bb0f876784cb29f19ef59f
     steps:
       - checkout
       - restore_cache:
