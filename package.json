@@ -74,7 +74,7 @@
     "nyc": "11.8.0",
     "prettier": "1.12.1",
     "rimraf": "2.6.2",
-    "semantic-release": "15.4.1",
+    "semantic-release": "15.5.0",
     "ts-jest": "22.4.6",
     "tslint": "5.10.0",
     "tslint-functional-preset": "1.0.2",
