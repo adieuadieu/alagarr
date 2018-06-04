@@ -61,8 +61,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@commitlint/cli": "6.2.0",
-    "@commitlint/config-conventional": "6.1.3",
+    "@commitlint/cli": "7.0.0",
+    "@commitlint/config-conventional": "7.0.1",
     "@types/aws-lambda": "8.10.6",
     "@types/jest": "22.2.3",
     "@types/node": "9.6.20",
