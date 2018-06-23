@@ -63,7 +63,7 @@
   "devDependencies": {
     "@commitlint/cli": "7.0.0",
     "@commitlint/config-conventional": "7.0.1",
-    "@types/aws-lambda": "8.10.6",
+    "@types/aws-lambda": "8.10.7",
     "@types/jest": "23.1.1",
     "@types/node": "9.6.22",
     "coveralls": "3.0.1",
