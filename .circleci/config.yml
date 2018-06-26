@@ -48,7 +48,7 @@ jobs:
 
   release:
     docker:
-      - image: circleci/node:8@sha256:126c0e45cefb24c8c75650a0e7ca08b4f4be288e4c643608487e8abfb0578175
+      - image: circleci/node:8@sha256:ae38dddb3b442bc1c867fc0bdfaff2eb242dff95e13f8f3202a934e0e5132fbf
     steps:
       - checkout
       - restore_cache:
