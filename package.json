@@ -75,7 +75,7 @@
     "prettier": "1.13.7",
     "rimraf": "2.6.2",
     "semantic-release": "15.6.3",
-    "ts-jest": "22.4.6",
+    "ts-jest": "23.0.0",
     "tslint": "5.10.0",
     "tslint-functional-preset": "1.1.0",
     "typescript": "2.9.2"
