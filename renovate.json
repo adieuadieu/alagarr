@@ -1,6 +1,7 @@
 {
   "extends": ["config:base"],
   "automerge": true,
+  "commitMessagePrefix": "⬆️ ",
   "major": {
     "automerge": false
   }
