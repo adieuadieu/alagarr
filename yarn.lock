@@ -5346,16 +5346,16 @@ tslint-config-prettier@1.13.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/tslint-config-prettier/-/tslint-config-prettier-1.13.0.tgz#189e821931ad89e0364e4e292d5c44a14e90ecd6"
 
-tslint-functional-preset@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/tslint-functional-preset/-/tslint-functional-preset-1.1.0.tgz#6e3e9c84d43a462b6efd8bf4fd265c31c1a9fe38"
+tslint-functional-preset@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/tslint-functional-preset/-/tslint-functional-preset-1.4.0.tgz#c6df68b4e09e7c6ef84f2352ea4e3066f9503500"
   dependencies:
     tslint-config-prettier "1.13.0"
-    tslint-immutable "4.5.4"
+    tslint-immutable "4.6.0"
 
-tslint-immutable@4.5.4:
-  version "4.5.4"
-  resolved "https://registry.yarnpkg.com/tslint-immutable/-/tslint-immutable-4.5.4.tgz#17b0d825c1067fa6d125a8010d9b22feb12e5d32"
+tslint-immutable@4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/tslint-immutable/-/tslint-immutable-4.6.0.tgz#b93f50961c499e331d919084140f5034b84e80af"
 
 tslint@5.11.0:
   version "5.11.0"
