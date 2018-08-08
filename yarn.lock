@@ -322,9 +322,9 @@
     into-stream "^3.1.0"
     lodash "^4.17.4"
 
-"@types/aws-lambda@8.10.10":
-  version "8.10.10"
-  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.10.tgz#f0f902698a5f39b353d2d0648be63cb666406f7e"
+"@types/aws-lambda@8.10.11":
+  version "8.10.11"
+  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.11.tgz#2c51a7dacb1abf880d35778aca68ed1075d0b300"
 
 "@types/jest@23.3.1":
   version "23.3.1"
