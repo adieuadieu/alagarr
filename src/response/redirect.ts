@@ -5,9 +5,11 @@ const redirect: ResponseHelper = (
   _,
   location,
   statusCode = 302,
+  options,
 ): InterfaceResponseData =>
   makeResponseObject('', statusCode, {
     headers: {
+      ...options,
       location,
     },
   })
