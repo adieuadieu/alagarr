@@ -1,9 +1,9 @@
-import { InterfaceResponseData } from '../types'
+import { InterfaceResponseData, InterfaceResponseOptions } from '../types'
 
 export default function makeResponseObject(
   body: string,
-  statusCode: number = 200,
-  { headers = {}, ...options } = {},
+  statusCode = 200,
+  { headers = {}, ...options }: InterfaceResponseOptions = {},
   contentType?: string,
 ): InterfaceResponseData {
   return Object.freeze({
