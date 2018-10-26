@@ -64,7 +64,7 @@
     "@commitlint/cli": "7.1.2",
     "@commitlint/config-conventional": "7.1.2",
     "@types/aws-lambda": "8.10.13",
-    "@types/jest": "23.3.2",
+    "@types/jest": "23.3.7",
     "@types/node": "9.6.32",
     "coveralls": "3.0.2",
     "husky": "0.14.3",
