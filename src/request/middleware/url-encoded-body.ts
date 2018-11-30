@@ -10,6 +10,7 @@ export default function parseUrlEncodedBody(
   const { headers, body } = request
 
   return headers['content-type'] &&
+    // tslint:disable-next-line no-array-mutation
     headers['content-type'].split(';').shift() ===
       'application/x-www-form-urlencoded' &&
     typeof body === 'string'

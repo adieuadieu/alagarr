@@ -22,6 +22,7 @@ function getBestMatchedFormat(
       .split(',')
       .map(type => {
         const mimeParts = type.split('/')
+
         return mimeParts[mimeParts.length - 1]
       })
 
@@ -62,7 +63,9 @@ export default function respondTo(
   statusCode?: number,
   options?: InterfaceResponseOptions,
 ): InterfaceResponseData {
-  const { headers: { accept } } = request
+  const {
+    headers: { accept },
+  } = request
 
   const format = getBestMatchedFormat(formats, accept)
   const responseHelper = getBestMatchedResponseHelper(format)

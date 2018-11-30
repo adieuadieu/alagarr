@@ -49,7 +49,7 @@ export default function alagarr(
     event,
     context,
     callback,
-  ): Promise<void> {
+  ): Promise<string | void | object> {
     const mergedOptions: InterfaceAlagarrOptions = {
       ...DEFAULT_OPTIONS,
       ...options,

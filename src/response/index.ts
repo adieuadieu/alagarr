@@ -46,8 +46,8 @@ export default async (
           await applyMiddleware(
             [...Object.keys(middlewareMap)].reduce(
               (middlewareList, middleware) =>
-                options[middleware]
-                  ? [...middlewareList, middlewareMap[middleware]]
+                (options as any)[middleware]
+                  ? [...middlewareList, (middlewareMap as any)[middleware]]
                   : middlewareList,
               [
                 ...(options.responseMiddleware || []),
