@@ -123,9 +123,11 @@ export interface InterfaceResponse {
     error?: Error | null,
     result?: object | boolean | number | string,
   ) => void
+  readonly setHeader: (key: string, value: string) => InterfaceResponse
 }
 
 export type ResponseHelper = (
+  responseData: InterfaceResponseData,
   request: InterfaceRequest,
   body: any,
   statusCode?: number,

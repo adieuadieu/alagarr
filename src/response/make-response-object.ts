@@ -1,14 +1,17 @@
 import { InterfaceResponseData, InterfaceResponseOptions } from '../types'
 
 export default function makeResponseObject(
-  body: string,
+  responseData?: InterfaceResponseData,
+  body = '',
   statusCode = 200,
   { headers = {}, ...options }: InterfaceResponseOptions = {},
   contentType?: string,
 ): InterfaceResponseData {
   return Object.freeze({
-    body,
+    ...(responseData || {}),
+    body: body || '',
     headers: {
+      ...((responseData && responseData.headers) || {}),
       'content-type': contentType,
       ...headers,
     },

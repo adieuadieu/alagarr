@@ -1,13 +1,18 @@
-import { InterfaceResponseData, InterfaceResponseOptions, ResponseHelper } from '../types'
+import {
+  InterfaceResponseData,
+  InterfaceResponseOptions,
+  ResponseHelper,
+} from '../types'
 import makeResponseObject from './make-response-object'
 
 const redirect: ResponseHelper = (
+  responseData: InterfaceResponseData,
   _,
   location,
   statusCode = 302,
   options: InterfaceResponseOptions = {},
 ): InterfaceResponseData =>
-  makeResponseObject('', statusCode, {
+  makeResponseObject(responseData, '', statusCode, {
     ...options,
     headers: {
       ...options.headers,

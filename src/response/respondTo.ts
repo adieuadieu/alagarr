@@ -60,6 +60,7 @@ function getBestMatchedFormatBody(
 }
 
 export default function respondTo(
+  responseData: InterfaceResponseData,
   request: InterfaceRequest,
   formats: InterfaceRespondToFormat,
   statusCode?: number,
@@ -73,5 +74,5 @@ export default function respondTo(
   const responseHelper = getBestMatchedResponseHelper(format)
   const body = getBestMatchedFormatBody(formats, format)
 
-  return responseHelper(request, body, statusCode, options)
+  return responseHelper(responseData, request, body, statusCode, options)
 }
