@@ -40,6 +40,7 @@ function getBestMatchedResponseHelper(format: string): ResponseHelper {
       return json
   }
 
+  // istanbul ignore next line
   throw new TypeError(`"${format}" is not a valid Alagarr respondTo() format.`)
 }
 
@@ -54,6 +55,7 @@ function getBestMatchedFormatBody(
       return formats.json
   }
 
+  // istanbul ignore next line
   throw new TypeError(`"${format}" is not a valid Alagarr respondTo() format.`)
 }
 
