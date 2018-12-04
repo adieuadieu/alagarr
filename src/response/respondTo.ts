@@ -22,6 +22,7 @@ function getBestMatchedFormat(
       .split(',')
       .map(type => {
         const mimeParts = type.split('/')
+
         return mimeParts[mimeParts.length - 1]
       })
 
@@ -39,6 +40,7 @@ function getBestMatchedResponseHelper(format: string): ResponseHelper {
       return json
   }
 
+  // istanbul ignore next line
   throw new TypeError(`"${format}" is not a valid Alagarr respondTo() format.`)
 }
 
@@ -53,20 +55,24 @@ function getBestMatchedFormatBody(
       return formats.json
   }
 
+  // istanbul ignore next line
   throw new TypeError(`"${format}" is not a valid Alagarr respondTo() format.`)
 }
 
 export default function respondTo(
+  responseData: InterfaceResponseData,
   request: InterfaceRequest,
   formats: InterfaceRespondToFormat,
   statusCode?: number,
   options?: InterfaceResponseOptions,
 ): InterfaceResponseData {
-  const { headers: { accept } } = request
+  const {
+    headers: { accept },
+  } = request
 
   const format = getBestMatchedFormat(formats, accept)
   const responseHelper = getBestMatchedResponseHelper(format)
   const body = getBestMatchedFormatBody(formats, format)
 
-  return responseHelper(request, body, statusCode, options)
+  return responseHelper(responseData, request, body, statusCode, options)
 }

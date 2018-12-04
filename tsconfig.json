@@ -3,7 +3,7 @@
     "allowJs": false,
     "allowSyntheticDefaultImports": false,
     "declaration": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["es2015", "esnext"],
     "module": "es2015",

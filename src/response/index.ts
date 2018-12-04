@@ -5,6 +5,7 @@ import {
   InterfaceResponseData,
 } from '../types'
 import applyMiddleware from '../utils/apply-middleware'
+import makeResponseObject from './make-response-object'
 import compress from './middleware/compress'
 import contentLength from './middleware/content-length'
 import csp from './middleware/csp'
@@ -18,6 +19,8 @@ import redirect from './redirect'
 import respondTo from './respondTo'
 import text from './text'
 
+import setHeader from './helpers/setHeader'
+
 const middlewareMap = {
   enableCompression: compress,
   enableContentLength: contentLength,
@@ -30,8 +33,16 @@ export default async (
   request: InterfaceRequest,
   callback: AWSLambda.Callback,
   options: InterfaceAlagarrOptions,
-): Promise<InterfaceResponse> =>
-  [text, html, json, redirect, respondTo].reduce(
+): Promise<InterfaceResponse> => {
+  const responseData = makeResponseObject()
+
+  const responseWithHelpers: InterfaceResponse = [
+    text,
+    html,
+    json,
+    redirect,
+    respondTo,
+  ].reduce(
     (
       methods: InterfaceResponse,
       // tslint:disable-next-line readonly-array
@@ -46,15 +57,15 @@ export default async (
           await applyMiddleware(
             [...Object.keys(middlewareMap)].reduce(
               (middlewareList, middleware) =>
-                options[middleware]
-                  ? [...middlewareList, middlewareMap[middleware]]
+                (options as any)[middleware]
+                  ? [...middlewareList, (middlewareMap as any)[middleware]]
                   : middlewareList,
               [
                 ...(options.responseMiddleware || []),
                 ...(options.enableLogger ? [log] : []), // needs to come last
               ],
             ),
-            method(request, ...args),
+            method(responseData, request, ...args),
             request,
             options,
           ),
@@ -62,3 +73,18 @@ export default async (
     }),
     { raw: callback } as any,
   )
+
+  const response = [setHeader]
+  .reduce(
+    // tslint:disable-next-line readonly-array
+      (responseMethods, method: (...args: any[]) => any) => ({
+        ...responseMethods,
+        // tslint:disable-next-line readonly-array
+        [method.name]: (...args: any[]) =>
+          method(response, responseData, ...args),
+      }),
+      responseWithHelpers,
+    )
+
+  return response
+}

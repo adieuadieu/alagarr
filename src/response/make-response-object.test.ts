@@ -4,13 +4,14 @@ import makeResponseObject from './make-response-object'
 const testStatusCode = 123
 
 it('default statusCode is 200', () => {
-  const response = makeResponseObject('foobar')
+  const response = makeResponseObject(undefined, 'foobar')
 
   expect(response.statusCode).toBe(200)
 })
 
 it('can correctly set parameters', () => {
   const { body, statusCode, headers, ...options } = makeResponseObject(
+    undefined,
     'foobar',
     testStatusCode,
     {

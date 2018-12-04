@@ -19,7 +19,7 @@ function entitytag(entity: string | Buffer): string {
       ? Buffer.byteLength(entity, 'utf8')
       : entity.length
 
-  return '"' + length.toString(16) + '-' + hash + '"'
+  return `"${length.toString(16)}-${hash}"`
 }
 
 function etag(entity: string | Buffer): string {

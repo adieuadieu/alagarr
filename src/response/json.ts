@@ -13,12 +13,14 @@ function stringifyIfNotStringifiedJson(data: any): string {
 }
 
 const json: ResponseHelper = (
+  responseData: InterfaceResponseData,
   _,
   body,
   statusCode,
   options,
 ): InterfaceResponseData =>
   makeResponseObject(
+    responseData,
     stringifyIfNotStringifiedJson(body),
     statusCode,
     options,

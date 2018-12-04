@@ -9,7 +9,7 @@ const mockRequest = {
 const mockOptions = {
   cspPolicies: {
     foo: 'bar',
-    'frame-ancestors': `'none'`,
+    'frame-ancestors': "'none'",
   },
 }
 

@@ -23,8 +23,8 @@ it('Content-Type is JSON', async () => {
 })
 
 it('should not stringify when body is already stringified JSON', async () => {
-  expect(json({} as any, 'foobar').body).toEqual('"foobar"')
-  expect(json({} as any, JSON.stringify(testJsonBody)).body).toEqual(
+  expect(json({} as any, {} as any, 'foobar').body).toEqual('"foobar"')
+  expect(json({} as any, {} as any, JSON.stringify(testJsonBody)).body).toEqual(
     JSON.stringify(testJsonBody),
   )
 })
