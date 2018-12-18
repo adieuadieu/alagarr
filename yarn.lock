@@ -6457,9 +6457,9 @@ tslint-immutable@4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/tslint-immutable/-/tslint-immutable-4.6.0.tgz#b93f50961c499e331d919084140f5034b84e80af"
 
-tslint@5.11.0:
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/tslint/-/tslint-5.11.0.tgz#98f30c02eae3cde7006201e4c33cb08b48581eed"
+tslint@5.12.0:
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/tslint/-/tslint-5.12.0.tgz#47f2dba291ed3d580752d109866fb640768fca36"
   dependencies:
     babel-code-frame "^6.22.0"
     builtin-modules "^1.1.1"
