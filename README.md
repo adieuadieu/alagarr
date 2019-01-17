@@ -2,7 +2,7 @@
 
 Alagarr is a request-response helper library for serverless/faas functions<sup>\*</sup> invoked via HTTP events (e.g. via API Gateway). Alagarr makes your code portable: it abstracts the event-context-callback function signatures of various serverless-providers so that you can spend less time writing boring function-as-a-service-related boilerplate.
 
-Alagarr is a higher-order function which abstracts the the programming models of various serverless-cloud providers and adds a standardized request-response model extensible through composable middleware functions. It's API is concise and will be familiar to anyone who's worked with Express.js. It comes with built-in error handling which makes it trivial to implement error-recovery strategies.
+Alagarr is a higher-order function which abstracts the programming models of various serverless-cloud providers and adds a standardized request-response model extensible through composable middleware functions. It's API is concise and will be familiar to anyone who's worked with Express.js. It comes with built-in error handling which makes it trivial to implement error-recovery strategies.
 
 <sup>\*</sup>Currently: AWS Lambda/API Gateway. Next: GCP & Azure
 
