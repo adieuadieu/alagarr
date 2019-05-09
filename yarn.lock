@@ -102,13 +102,13 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
-"@commitlint/cli@7.6.0":
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-7.6.0.tgz#4f046342149ca7c5819d6f799509f77ab824e02e"
+"@commitlint/cli@7.6.1":
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-7.6.1.tgz#a93cf995082831999937f6d5ec1a582c8fc0393a"
   dependencies:
-    "@commitlint/format" "^7.6.0"
+    "@commitlint/format" "^7.6.1"
     "@commitlint/lint" "^7.6.0"
-    "@commitlint/load" "^7.6.0"
+    "@commitlint/load" "^7.6.1"
     "@commitlint/read" "^7.6.0"
     babel-polyfill "6.26.0"
     chalk "2.3.1"
@@ -134,9 +134,9 @@
   dependencies:
     babel-runtime "6.26.0"
 
-"@commitlint/format@^7.6.0":
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/@commitlint/format/-/format-7.6.0.tgz#f954cd9a8658d0ac3eba1bba6a131f57e3f2b570"
+"@commitlint/format@^7.6.1":
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/@commitlint/format/-/format-7.6.1.tgz#106750de50fab7d153eed80e7577c768bb9a3a1b"
   dependencies:
     babel-runtime "^6.23.0"
     chalk "^2.0.1"
@@ -157,9 +157,9 @@
     babel-runtime "^6.23.0"
     lodash "4.17.11"
 
-"@commitlint/load@^7.6.0":
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/@commitlint/load/-/load-7.6.0.tgz#c1eccbc0b8714a0c7dc26dacbc49bbc73abc0d27"
+"@commitlint/load@^7.6.1":
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/@commitlint/load/-/load-7.6.1.tgz#f4bb72accb649d4cdca134c427d318a5ffd503e2"
   dependencies:
     "@commitlint/execute-rule" "^7.6.0"
     "@commitlint/resolve-extends" "^7.6.0"
