@@ -27,4 +27,7 @@ it('should not stringify when body is already stringified JSON', async () => {
   expect(json({} as any, {} as any, JSON.stringify(testJsonBody)).body).toEqual(
     JSON.stringify(testJsonBody),
   )
+  expect(json({} as any, {} as any, `    ${JSON.stringify(testJsonBody)}\n`).body).toEqual(
+    JSON.stringify(testJsonBody),
+  )
 })
