@@ -344,9 +344,9 @@
   version "23.3.13"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.13.tgz#c81484b6f4ca007bb09887ed15ecb3286d58f928"
 
-"@types/node@9.6.53":
-  version "9.6.53"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.53.tgz#dce152f939cc626dca9248ae8a84b93139a73183"
+"@types/node@9.6.55":
+  version "9.6.55"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.55.tgz#7cc1358c9c18e71f6c020e410962971863232cf5"
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
