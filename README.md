@@ -605,8 +605,8 @@ const handler = require('alagarr')
 const { restoreSession, saveSession } = require('./custom-middleware')
 
 const alagarrConfig = {
-  requestMiddleware: ['default', restoreSession],
-  responseMiddleware: ['default', saveSession],
+  requestMiddleware: [restoreSession],
+  responseMiddleware: [saveSession],
 }
 
 module.exports.userDashboardHandler = handler((request, response) => {
