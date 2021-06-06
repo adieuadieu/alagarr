@@ -342,9 +342,10 @@
     into-stream "^4.0.0"
     lodash "^4.17.4"
 
-"@types/aws-lambda@8.10.14":
-  version "8.10.14"
-  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.14.tgz#979eaa4abafff8de93854fe5cc1ae6e0bb888913"
+"@types/aws-lambda@8.10.77":
+  version "8.10.77"
+  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.77.tgz#04c4e3a06ab5552f2fa80816f8adca54b6bb9671"
+  integrity sha512-n0EMFJU/7u3KvHrR83l/zrKOVURXl5pUJPNED/Bzjah89QKCHwCiKCBoVUXRwTGRfCYGIDdinJaAlKDHZdp/Ng==
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
